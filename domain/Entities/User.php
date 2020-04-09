@@ -121,14 +121,4 @@ class User
     {
         $this->isActive = $isActive;
     }
-
-    public function getRoles(): array
-    {
-        return $this->roles;
-    }
-
-    public function setRole($role): void
-    {
-
-    }
 }
