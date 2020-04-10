@@ -16,6 +16,6 @@ $builder->addField('domain', Type::STRING);
 
 $builder->addField('organization_name', Type::STRING);
 
-$builder->createOneToOne('user_id', User::class)
-    ->cascadePersist()
-    ->build();
+//$builder->createOneToOne('user_id', User::class)
+//    ->cascadePersist()
+//    ->build();

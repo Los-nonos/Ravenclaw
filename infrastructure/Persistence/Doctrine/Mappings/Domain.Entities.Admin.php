@@ -15,6 +15,6 @@ $builder->createField('id', Type::INTEGER)
 
 $builder->addField('role', Type::STRING);
 
-$builder->createOneToOne('companyAdmin', User::class)
-    ->cascadePersist()
-    ->build();
+//$builder->createOneToOne('companyAdmin', User::class)
+//    ->cascadePersist()
+//    ->build();
