@@ -5,18 +5,24 @@ namespace Application\Results\Customers;
 
 
 use Domain\Entities\Customer;
+use Domain\Entities\User;
 
 class CreateCustomerResult
 {
-    private Customer $customer;
+    private User $user;
 
-    public function __construct(Customer $customer)
+    public function __construct(User $user)
     {
-        $this->customer = $customer;
+        $this->user = $user;
     }
 
     public function getCustomer(): Customer
     {
-        return $this->customer;
+        return $this->user->getCustomer();
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
     }
 }

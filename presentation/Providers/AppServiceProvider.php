@@ -2,15 +2,17 @@
 
 namespace Presentation\Providers;
 
+use Domain\Interfaces\Repositories\CustomerRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
+use Domain\CommandBus\CommandBusInterface;
+use Infrastructure\CommandBus\CommandBus;
+use Infrastructure\Persistence\Doctrine\Repositories\CustomerRepository;
 use Presentation\Http\Validators\Customers\CreateCustomerValidator;
 use Presentation\Http\Validators\Customers\CreateCustomerValidatorInterface;
 
-use Application\Results\Customers\CreateCustomerResult;
-use Application\Results\Customers\CreateCustomerResultInterface;
-
-use Presentation\Http\Adapters\Customers\CreateCustomerAdapter;
+use Application\Services\UserService;
+use Application\Services\UserServiceInterface;
 
 use Presentation\Http\Presenters\Customers\CreateCustomerPresenter;
 use Presentation\Interfaces\Customers\CreateCustomerPresenterInterface;
@@ -31,7 +33,13 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->bind(UserServiceInterface::class, UserService::class);
+
+        $this->app->bind(CommandBusInterface::class, CommandBus::class);
+
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+
+        $this->app->bind(CustomerRepositoryInterface::class, CustomerRepository::class);
 
         $this->app->bind(CreateCustomerPresenterInterface::class, CreateCustomerPresenter::class);
 

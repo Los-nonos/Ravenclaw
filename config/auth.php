@@ -42,8 +42,8 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'Doctrine',
+            'driver' => 'jwt',
+            'provider' => 'users',
             'hash' => false,
         ],
     ],
@@ -66,15 +66,15 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => Domain\Entities\User::class,
-        ],
+        //'users' => [
+        //    'driver' => 'doctrine',
+        //    'model' => Domain\Entities\User::class,
+        //],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'users' => [
+             'driver' => 'database',
+             'table' => 'users',
+         ],
     ],
 
     /*

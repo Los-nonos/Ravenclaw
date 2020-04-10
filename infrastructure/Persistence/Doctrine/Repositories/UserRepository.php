@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Domain\Entities\User;
-use Domain\Interfaces\UserRepositoryInterface;
+use Domain\Interfaces\Repositories\UserRepositoryInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Exception;
 
@@ -116,7 +116,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
      * @return User|null
      * @throws ORMException
      */
-    public function getByUsername(string $username): ?User
+    public function getByUsername(string $username): User
     {
         $user = $this->findOneBy(['username'=> $username]);
 

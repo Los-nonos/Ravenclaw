@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Entities;
 
+use Application\Exceptions\SettingRoleUserNotPermittedException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Exception;
@@ -18,7 +19,8 @@ class User
     private string $email;
     private string $password;
     private bool $isActive;
-    private $roles;
+    private Customer $customer;
+    private Admin $admin;
 
     /**
      * Activity constructor.
@@ -120,5 +122,53 @@ class User
     public function setIsActive(bool $isActive): void
     {
         $this->isActive = $isActive;
+    }
+
+    /**
+     * @param Customer $customer
+     * @throws SettingRoleUserNotPermittedException
+     */
+    public function setCustomer(Customer $customer): void
+    {
+        if($this->isAdmin())
+        {
+            throw new SettingRoleUserNotPermittedException('you cannot set a user as admin and as customer');
+        }
+
+        $this->customer = $customer;
+    }
+
+    public function isCustomer(): bool
+    {
+        return $this->customer !== null;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param Admin $admin
+     * @throws SettingRoleUserNotPermittedException
+     */
+    public function setAdmin(Admin $admin): void
+    {
+        if($this->isCustomer())
+        {
+            throw new SettingRoleUserNotPermittedException('you cannot set a user as admin and as customer');
+        }
+
+        $this->admin = $admin;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->admin !== null;
+    }
+
+    public function getAdmin(): ?Admin
+    {
+        return $this->admin;
     }
 }

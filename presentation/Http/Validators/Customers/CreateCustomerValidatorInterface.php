@@ -4,7 +4,7 @@
 namespace Presentation\Http\Validators\Customers;
 
 
-class CreateCustomerValidatorInterface
+interface CreateCustomerValidatorInterface
 {
-
+    public function validate($all, array $rules, array $messages): void;
 }

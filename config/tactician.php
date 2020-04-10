@@ -12,11 +12,11 @@ return [
                 // ...
             ],
 
-            'commmands' => [
+            'commands' => [
                 /*User*/
-                'CreateUser' => [
-                    'command' => 'Application\Commands\User\CreateUserCommand',
-                    'handler' => 'Application\Handlers\User\CreateUserHandler'
+                'CreateCustomer' => [
+                    'command' => 'Application\Commands\Customers\CreateCustomerCommand',
+                    'handler' => 'Application\Handlers\Customers\CreateCustomerHandler'
                 ],
                 'EditUser' => [
                     'command' => 'Application\Commands\User\EditUserCommand',

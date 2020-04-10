@@ -6,12 +6,12 @@ namespace Application\Commands\Customers;
 
 class CreateCustomerCommand
 {
-    private string $name;
-    private string $surname;
-    private string $email;
-    private string $password;
-    private string $domain;
-    private string $organizationName;
+    private $name;
+    private $surname;
+    private $email;
+    private $password;
+    private $domain;
+    private $organizationName;
 
     public function __construct($name, $surname, $email, $password, $domain, $organizationName)
     {
@@ -23,12 +23,12 @@ class CreateCustomerCommand
         $this->organizationName = $organizationName;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getSurname(): string
+    public function getSurname(): ?string
     {
         return $this->surname;
     }
@@ -43,12 +43,12 @@ class CreateCustomerCommand
         return $this->password;
     }
 
-    public function getDomain(): string
+    public function getDomain(): ?string
     {
         return $this->domain;
     }
 
-    public function getOrganizationName(): string
+    public function getOrganizationName(): ?string
     {
         return $this->organizationName;
     }
