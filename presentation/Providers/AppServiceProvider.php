@@ -2,6 +2,9 @@
 
 namespace Presentation\Providers;
 
+use Application\Results\Customers\CreateCustomerResult;
+use Application\Results\Customers\CreateCustomerResultInterface;
+
 use Domain\Interfaces\Repositories\CustomerRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
@@ -42,6 +45,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CustomerRepositoryInterface::class, CustomerRepository::class);
 
         $this->app->bind(CreateCustomerPresenterInterface::class, CreateCustomerPresenter::class);
+
+        $this->app->bind(CreateCustomerResultInterface::class, CreateCustomerResult::class);
 
         $this->app->bind(
             CreateCustomerValidatorInterface::class,

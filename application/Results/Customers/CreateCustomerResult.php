@@ -7,14 +7,9 @@ namespace Application\Results\Customers;
 use Domain\Entities\Customer;
 use Domain\Entities\User;
 
-class CreateCustomerResult
+class CreateCustomerResult implements CreateCustomerResultInterface
 {
     private User $user;
-
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
 
     public function getCustomer(): Customer
     {
@@ -24,5 +19,10 @@ class CreateCustomerResult
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
     }
 }
