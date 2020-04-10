@@ -1,9 +1,10 @@
 <?php
 
-namespace Presentation\Http\Controllers;
+namespace Presentation\Http\Actions;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Presentation\Http\Actions\Controller;
 
 class HomeController extends Controller
 {

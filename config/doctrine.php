@@ -25,9 +25,9 @@ return [
             'dev'           => env('APP_DEBUG', false),
             'meta'          => env('DOCTRINE_METADATA', 'annotations'),
             'connection'    => env('DB_CONNECTION', 'mysql'),
-            'namespaces'    => [],
+            'namespaces'    => ['Domain\\Entities'],
             'paths'         => [
-                base_path('Domain/Entities')
+                base_path('infrastructure/Persistence/Doctrine/Mappings')
             ],
             'repository'    => Doctrine\ORM\EntityRepository::class,
             'proxies'       => [
