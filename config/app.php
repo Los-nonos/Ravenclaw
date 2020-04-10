@@ -171,7 +171,6 @@ return [
          */
         Presentation\Providers\AppServiceProvider::class,
         Presentation\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
         Presentation\Providers\EventServiceProvider::class,
         Presentation\Providers\RouteServiceProvider::class,
         Presentation\Providers\TacticianProvider::class,
@@ -226,8 +225,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
     ],
     /*
         |--------------------------------------------------------------------------

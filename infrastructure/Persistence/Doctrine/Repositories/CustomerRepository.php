@@ -7,6 +7,8 @@ namespace Infrastructure\Persistence\Doctrine\Repositories;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Domain\Entities\Customer;
 use Domain\Interfaces\Repositories\CustomerRepositoryInterface;
 
@@ -24,8 +26,8 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
 
     /**
      * @param Customer $customer
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function save(Customer $customer): void
     {

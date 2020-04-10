@@ -33,7 +33,7 @@ return [
             'proxies'       => [
                 'namespace'     => false,
                 'path'          => storage_path('proxies'),
-                'auto_generate' => env('DOCTRINE_PROXY_AUTOGENERATE', false)
+                'auto_generate' => env('DOCTRINE_PROXY_AUTOGENERATE', true)
             ],
             /*
             |--------------------------------------------------------------------------
@@ -164,7 +164,7 @@ return [
         'default'          => env('DOCTRINE_CACHE', 'array'),
         'namespace'        => null,
         'metadata'         => [
-            'driver'       => env('DOCTRINE_METADATA_CACHE', env('DOCTRINE_CACHE', 'array')),
+            'driver'       => env('DOCTRINE_METADATA_CACHE', env('DOCTRINE_CACHE', 'file')),
             'namespace'    => null,
         ],
         'query'            => [
