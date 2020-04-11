@@ -3,9 +3,19 @@
 
 namespace Domain\Entities;
 
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class Admin
+ * @package Domain\Entities
+ * @ORM\Entity
+ * @ORM\Table(name="admins")
+ */
 class Admin
 {
+    /**
+     * @var string
+     */
     private string $role;
 
     public function __construct($function)

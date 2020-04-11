@@ -2,12 +2,13 @@
 
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Domain\Entities\User;
 use Persistence\Doctrine\CurrentTimestampBuilder;
 
 
-$builder = new ClassMetadataBuilder($metadata);
-$builder->setTable('users');
+$builder = new ClassMetadataBuilder(new ClassMetadataInfo('admin'));
+$builder->setTable('admins');
 $builder->createField('id', Type::INTEGER)
     ->makePrimaryKey()
     ->generatedValue()

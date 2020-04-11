@@ -2,19 +2,20 @@
 
 namespace Presentation\Http\Enums;
 
-const HTTP_CODES = [
-    'OK' => '200',
-    'CREATED' => '201',
-    'ASYNC' => '202',
-    'NO_CONTENT' => '204',
-    'BAD_REQUEST' => '400',
-    'UNAUTHORIZED' => '401',
-    'FORBIDDEN' => '403',
-    'NOT_FOUND' => '404',
-    'METHOD_NOT_ALLOWED' => '405',
-    'CONFLICT' => '409',
-    'GONE' => '410',
-    'UNPROCESSABLE_ENTITY' => '422',
-    'INTERNAL_ERROR' => '500',
-    'UNAVAILABLE' => '503'
-];
+class HttpCodes
+{
+    public const OK = 200;
+    public const CREATED = 201;
+    public const ASYNC = 202;
+    public const NO_CONTENT = 204;
+    public const BAD_REQUEST = 400;
+    public const UNAUTHORIZED = 401;
+    public const FORBIDDEN = 403;
+    public const NOT_FOUND = 404;
+    public const METHOD_NOT_ALLOWED = 405;
+    public const CONFLICT = 409;
+    public const GONE = 410;
+    public const UNPROCESSABLE_ENTITY = 422;
+    public const INTERNAL_ERROR = 500;
+    public  const UNAVAILABLE = 503;
+}

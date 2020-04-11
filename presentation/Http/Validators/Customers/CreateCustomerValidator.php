@@ -10,9 +10,9 @@ class CreateCustomerValidator implements CreateCustomerValidatorInterface
 {
     private ValidatorServiceInterface $validator;
 
-    public function __construct()
+    public function __construct(ValidatorServiceInterface $validator)
     {
-        //$this->validator = $validator;
+        $this->validator = $validator;
     }
 
     /**
@@ -23,8 +23,6 @@ class CreateCustomerValidator implements CreateCustomerValidatorInterface
      */
     public function validate($all, array $rules, array $messages): void
     {
-        return;
-
         $this->validator->make($all, $rules);
 
         if(!$this->validator->isValid())

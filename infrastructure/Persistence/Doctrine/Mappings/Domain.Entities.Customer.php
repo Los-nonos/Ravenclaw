@@ -2,10 +2,11 @@
 
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Mapping\Builder\ClassMetadataBuilder;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Domain\Entities\User;
 
 
-$builder = new ClassMetadataBuilder($metadata);
+$builder = new ClassMetadataBuilder(new ClassMetadataInfo('customer'));
 $builder->setTable('customers');
 $builder->createField('id', Type::INTEGER)
     ->makePrimaryKey()

@@ -26,6 +26,8 @@ class CreateCustomerHandler
 
     public function handle(CreateCustomerCommand $command): CreateCustomerResultInterface
     {
+        var_dump($command);
+        echo $command;
         $customer = new Customer($command->getDomain(), $command->getOrganizationName());
         $userCommand = $this->createUserCommandFromCustomerCommand($command);
         $user = $this->userService->CreateUserByCommand($userCommand);
@@ -46,6 +48,6 @@ class CreateCustomerHandler
 
     private function createUserCommandFromCustomerCommand(CreateCustomerCommand $command): CreateUserCommand
     {
-        return new CreateUserCommand($command->getName(), $command->getSurname(), $command->getEmail(), $command->getPassword());
+        return new CreateUserCommand($command->getName(), $command->getSurname(), $command->getUsername(), $command->getEmail(), $command->getPassword());
     }
 }

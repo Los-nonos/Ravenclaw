@@ -7,20 +7,64 @@ namespace Domain\Entities;
 use Application\Exceptions\SettingRoleUserNotPermittedException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Exception;
 use function Sodium\add;
 
+/**
+ * Class User
+ * @package Domain\Entities
+ * @ORM\Entity
+ * @ORM\Table(name="users")
+ */
 class User
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
     private int $id;
+    /**
+     * @var string
+     * @ORM\Column(name="name")
+     */
     private string $name;
-    private string $surname;
-    private string $username;
+    /**
+     * @var string|null
+     * * @ORM\Column(name="surname")
+     */
+    private ?string $surname;
+    /**
+     * @var string|null
+     * @ORM\Column(name="username")
+     */
+    private ?string $username;
+    /**
+     * @var string
+     * @ORM\Column(name="email")
+     */
     private string $email;
+    /**
+     * @var string
+     * @ORM\Column(name="password")
+     */
     private string $password;
+    /**
+     * @var bool
+     * @ORM\Column(name="is_active")
+     */
     private bool $isActive;
-    private Customer $customer;
-    private Admin $admin;
+    /**
+     * @var Customer|null
+     * @ORM\Column(name="customer_id")
+     */
+    private ?Customer $customer;
+    /**
+     * @var Admin|null
+     * @ORM\Column(name="admin_id")
+     */
+    private ?Admin $admin;
 
     /**
      * Activity constructor.
@@ -30,6 +74,8 @@ class User
     public function __construct()
     {
         $this->isActive = true;
+        $this->admin = null;
+        $this->customer = null;
     }
 
     /**
@@ -56,12 +102,12 @@ class User
         $this->name = $name;
     }
 
-    public function setSurname(string $surname): void
+    public function setSurname(?string $surname): void
     {
         $this->surname = $surname;
     }
 
-    public function getSurname(): string
+    public function getSurname(): ?string
     {
         return $this->surname;
     }
@@ -82,12 +128,12 @@ class User
         $this->email = $email;
     }
 
-    public function setUsername(string $username): void
+    public function setUsername(?string $username): void
     {
         $this->username = $username;
     }
 
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }

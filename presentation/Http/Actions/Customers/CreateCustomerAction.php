@@ -19,13 +19,16 @@ class CreateCustomerAction
         $this->commandBus = $commandBus;
     }
 
-
+    /**
+     * @param Request $request
+     * @return array
+     */
     public function execute(Request $request)
     {
         $command = $this->adapter->from($request);
 
         $result = $this->commandBus->handle($command);
 
-        return ['result' => $result];
+        return ['result' => $result->getUser()];
     }
 }

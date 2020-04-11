@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Presentation\Exceptions;
 
-use const Presentation\Http\Enums\HTTP_CODES;
+use  Presentation\Http\Enums\HttpCodes;
 
 class InvalidBodyException extends BasePresentationException
 {
     public function __construct(string $responseMessage)
     {
-        parent::__construct($responseMessage, HTTP_CODES['UNPROCESSABLE_ENTITY']);
+        parent::__construct($responseMessage, HttpCodes::UNPROCESSABLE_ENTITY);
     }
 }

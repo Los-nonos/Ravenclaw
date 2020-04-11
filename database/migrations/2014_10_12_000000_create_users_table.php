@@ -21,20 +21,22 @@ class CreateUsersTable extends Migration
 
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('organization_name');
-            $table->string('domain');
+            $table->string('organization_name')->nullable();
+            $table->string('domain')->nullable();
             $table->timestamps();
         });
 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('surname')->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->unsignedBigInteger('admin_id');
-            $table->unsignedBigInteger('customer_id');
+            $table->string('username')->nullable();
+            $table->string('password')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->unsignedBigInteger('customer_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

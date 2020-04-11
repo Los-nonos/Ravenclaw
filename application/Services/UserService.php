@@ -26,8 +26,7 @@ class UserService implements UserServiceInterface
         $user->setSurname($command->getSurname());
         $user->setEmail($command->getEmail());
         $user->setPassword($command->getPassword());
-
-        $this->repository->save($user);
+        $user->setUsername($command->getUsername());
 
         return $user;
     }
@@ -35,6 +34,5 @@ class UserService implements UserServiceInterface
     public function Persist(User $user): void
     {
         $this->repository->save($user);
-        $this->repository->update();
     }
 }

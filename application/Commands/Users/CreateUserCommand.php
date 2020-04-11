@@ -8,13 +8,15 @@ class CreateUserCommand
 {
     private string $name;
     private string $surname;
+    private string $username;
     private string $email;
     private string $password;
 
-    public function __construct($name, $surname, $email, $password)
+    public function __construct($name, $surname, $username, $email, $password)
     {
         $this->name = $name;
         $this->surname = $surname;
+        $this->username = $username;
         $this->email = $email;
         $this->password = $password;
     }
@@ -24,7 +26,7 @@ class CreateUserCommand
         return $this->name;
     }
 
-    public function getSurname(): string
+    public function getSurname(): ?string
     {
         return $this->surname;
     }
@@ -32,6 +34,11 @@ class CreateUserCommand
     public function getEmail(): string
     {
         return $this->email;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->username;
     }
 
     public function getPassword(): string

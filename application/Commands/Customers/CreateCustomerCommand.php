@@ -9,26 +9,28 @@ class CreateCustomerCommand
     private $name;
     private $surname;
     private $email;
+    private $username;
     private $password;
     private $domain;
     private $organizationName;
 
-    public function __construct($name, $surname, $email, $password, $domain, $organizationName)
+    public function __construct($name, $surname, $username, $email, $password, $domain, $organizationName)
     {
         $this->name = $name;
         $this->surname = $surname;
         $this->email = $email;
+        $this->username = $username;
         $this->password = $password;
         $this->domain = $domain;
         $this->organizationName = $organizationName;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function getSurname(): ?string
+    public function getSurname(): string
     {
         return $this->surname;
     }
@@ -38,18 +40,27 @@ class CreateCustomerCommand
         return $this->email;
     }
 
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
     public function getPassword(): string
     {
         return $this->password;
     }
 
-    public function getDomain(): ?string
+    public function getDomain(): string
     {
         return $this->domain;
     }
 
-    public function getOrganizationName(): ?string
+    public function getOrganizationName(): string
     {
         return $this->organizationName;
+    }
+
+    public function __toString(){
+        return $this->name . $this->surname . $this->email;
     }
 }
