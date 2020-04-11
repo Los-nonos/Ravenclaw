@@ -35,4 +35,9 @@ class UserService implements UserServiceInterface
     {
         $this->repository->save($user);
     }
+
+    public function FindUserById(int $id): ?User
+    {
+        return $this->repository->getById($id);
+    }
 }

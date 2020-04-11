@@ -11,4 +11,5 @@ interface UserServiceInterface
 {
     public function CreateUserByCommand(CreateUserCommand $command): User;
     public function Persist(User $user): void;
+    public function FindUserById(int $id): ?User;
 }

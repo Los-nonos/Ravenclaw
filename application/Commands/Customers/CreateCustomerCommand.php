@@ -59,8 +59,4 @@ class CreateCustomerCommand
     {
         return $this->organizationName;
     }
-
-    public function __toString(){
-        return $this->name . $this->surname . $this->email;
-    }
 }

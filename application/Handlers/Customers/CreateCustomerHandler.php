@@ -26,8 +26,6 @@ class CreateCustomerHandler
 
     public function handle(CreateCustomerCommand $command): CreateCustomerResultInterface
     {
-        var_dump($command);
-        echo $command;
         $customer = new Customer($command->getDomain(), $command->getOrganizationName());
         $userCommand = $this->createUserCommandFromCustomerCommand($command);
         $user = $this->userService->CreateUserByCommand($userCommand);

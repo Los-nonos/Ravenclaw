@@ -1,17 +1,17 @@
 <?php
 
 
-namespace Presentation\Http\Presenters\Customers;
+namespace Presentation\Http\Presenters\Users;
 
 
-use Application\Results\Customers\CreateCustomerResultInterface;
-use Presentation\Interfaces\Customers\CreateCustomerPresenterInterface;
+use Application\Results\Users\UpdateUserResultInterface;
+use Presentation\Interfaces\Users\UpdateUserPresenterInterface;
 
-class CreateCustomerPresenter implements CreateCustomerPresenterInterface
+class UpdateUserPresenter implements UpdateUserPresenterInterface
 {
-    private CreateCustomerResultInterface $result;
+    private UpdateUserResultInterface $result;
 
-    public function fromResult(CreateCustomerResultInterface $result): CreateCustomerPresenter
+    public function fromResult(UpdateUserResultInterface $result): UpdateUserPresenter
     {
         $this->result = $result;
         return $this;
@@ -31,7 +31,7 @@ class CreateCustomerPresenter implements CreateCustomerPresenterInterface
                 'domain' => $user->getCustomer()->getDomain(),
                 'organization_name' => $user->getCustomer()->getOrganizationName(),
             ],
-            'message' => 'Customer has been created successfully'
+            'message' => 'User has been updated successfully'
         ];
     }
 }

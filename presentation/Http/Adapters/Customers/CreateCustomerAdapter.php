@@ -12,11 +12,14 @@ class CreateCustomerAdapter
     private CreateCustomerValidatorInterface $validator;
 
     private $messages = [
-        'id.integer' => 'The id must be an integer',
         'name.required' => 'The name is required',
         'name.alpha' => 'The name cannot contain numbers or symbols',
+        'surname.required' => 'The surname is required',
+        'surname.alpha' => 'The surname cannot contain numbers or symbols',
         'email.required' => 'The email is required',
         'email.email' => 'The email is not correct',
+        'username.required' => 'The username is required',
+        'username.alpha' => 'The username cannot contain numbers or symbols',
         'password.required' => 'The password is required',
         'password.min' => 'The password is too short',
         'password.max' => 'The password is too long'
