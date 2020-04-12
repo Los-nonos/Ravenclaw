@@ -14,6 +14,10 @@ class Payment
 
     private string $type;
 
+    private string $paymentId;
+
+    private string $payerId;
+
     public function __construct($authorization, int $amount, int $customer_id, string $type)
     {
         $this->authorization = $authorization;
@@ -40,5 +44,25 @@ class Payment
     public function getType(): string
     {
         return $this->type;
+    }
+
+    public function setPaymentId(string $paymentId): void
+    {
+        $this->paymentId = $paymentId;
+    }
+
+    public function getPaymentId(): string
+    {
+        return $this->paymentId;
+    }
+
+    public function setPayerId(string $payerId): void
+    {
+        $this->payerId = $payerId;
+    }
+
+    public function getPayerId(): string
+    {
+        return $this->payerId;
     }
 }

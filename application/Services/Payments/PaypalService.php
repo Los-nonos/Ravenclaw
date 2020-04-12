@@ -4,6 +4,7 @@
 namespace Application\Services;
 
 
+use Application\Exceptions\FailedPaymentException;
 use Application\Exceptions\InvalidServicePaymentException;
 use Domain\Entities\Customer;
 use Domain\Entities\Order;
@@ -16,7 +17,7 @@ use Paypal\v1\Payments\PaymentExecuteRequest;
 use Paypal\Core\SandboxEnvironment;
 use Paypal\Core\ProductionEnvironment;
 
-class PaypalService implements PaymentGateway, PaymentGatewayAuthorization
+class PaypalService implements PaymentGatewayInterface, PaymentGatewayAuthorizationInterface
 {
     private PaypalHttpClient $client;
     private SandboxEnvironment $enviroment;
@@ -33,17 +34,31 @@ class PaypalService implements PaymentGateway, PaymentGatewayAuthorization
 
     /**
      * @param Payment $payment
-     * @param Order $order
      * @throws InvalidServicePaymentException
+     * @throws FailedPaymentException
      */
-    public function execute(Payment $payment, Order $order)
+    public function execute(Payment $payment)
     {
         if(!$payment->getType() == 'paypal')
         {
             throw new InvalidServicePaymentException();
         }
 
-        $this->client->execute($payment->getAuthorization());
+        $paymentExecute = new PaymentExecuteRequest($payment->getPaymentId());
+
+        $paymentExecute->body = [
+            'payer_id' => $payment->getPayerId(),
+        ];
+
+        $response = $this->client->execute($paymentExecute);
+
+        if($response->statusCode == 200)
+        {
+            //create new order and return
+        }
+        else{
+            throw new FailedPaymentException();
+        }
     }
 
     public function Authorization(Customer $customer, int $amount): Payment
@@ -72,6 +87,14 @@ class PaypalService implements PaymentGateway, PaymentGatewayAuthorization
             ]
         ];
 
-        return new Payment($request, $amount, $customer->getId(), 'paypal');
+        $response = $this->client->execute($request);
+
+        $redirectLinks = array_filter($response->result->links, function ($link){
+            return $link->method == 'REDIRECT';
+        });
+
+        $redirectLinks = array_values($redirectLinks);
+
+        return new Payment($redirectLinks[0]->href, $amount, $customer->getId(), 'paypal');
     }
 }

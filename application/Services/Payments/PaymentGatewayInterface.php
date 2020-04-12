@@ -6,7 +6,7 @@ namespace Application\Services;
 use Domain\Entities\Order;
 use Domain\Entities\Payment;
 
-interface PaymentGateway
+interface PaymentGatewayInterface
 {
-    public function execute(Payment $payment, Order $order);
+    public function execute(Payment $payment);
 }
