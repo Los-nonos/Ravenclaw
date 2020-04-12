@@ -34,6 +34,7 @@ class CreateAdminHandler
 
         try {
             $user->setAdmin($admin);
+            $this->repository->Persist($admin);
         } catch (SettingRoleUserNotPermittedException $e) {
 
         }

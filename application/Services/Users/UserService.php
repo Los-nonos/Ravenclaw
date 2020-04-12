@@ -7,6 +7,7 @@ namespace Application\Services;
 use Application\Commands\Users\CreateUserCommand;
 use Domain\Entities\User;
 use Domain\Interfaces\Repositories\UserRepositoryInterface;
+use Illuminate\Support\Facades\Hash;
 
 class UserService implements UserServiceInterface
 {
@@ -25,7 +26,7 @@ class UserService implements UserServiceInterface
         $user->setName($command->getName());
         $user->setSurname($command->getSurname());
         $user->setEmail($command->getEmail());
-        $user->setPassword($command->getPassword());
+        $user->setPassword(Hash::make($command->getPassword()));
         $user->setUsername($command->getUsername());
 
         return $user;
