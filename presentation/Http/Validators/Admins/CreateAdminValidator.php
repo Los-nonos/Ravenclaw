@@ -1,13 +1,14 @@
 <?php
 
 
-namespace Presentation\Http\Validators\Customers;
+namespace Presentation\Http\Validators\Admins;
 
 
 use Presentation\Exceptions\InvalidBodyException;
+use Presentation\Http\Validators\Customers\CreateCustomerValidatorInterface;
 use Presentation\Interfaces\ValidatorServiceInterface;
 
-class UpdateCustomerValidator implements UpdateCustomerValidatorInterface
+class CreateAdminValidator implements CreateCustomerValidatorInterface
 {
     private ValidatorServiceInterface $validatorService;
 
