@@ -3,7 +3,7 @@
 
 namespace Presentation\Http\Actions\Customers;
 
-use Application\Services\Customer\CustomerService;
+use Application\Services\CustomerService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Presentation\Http\Adapters\Customers\IndexCustomerAdapter;

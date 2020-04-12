@@ -5,6 +5,7 @@ namespace Infrastructure\Persistence\Doctrine\Repositories;
 
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\OptimisticLockException;
@@ -40,8 +41,25 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
         // TODO: Implement update() method.
     }
 
-    public function getById(): Customer
+    /**
+     * @param $id
+     * @return Customer
+     * @throws EntityNotFoundException
+     */
+    public function getById($id): Customer
     {
-        // TODO: Implement getById() method.
+        $customer = $this->findOneBy(['id' => $id]);
+
+        if(!$customer)
+        {
+            throw new EntityNotFoundException("customer with id $id not found");
+        }
+
+        return $customer;
+    }
+
+    public function indexPaginated($page,$size, array $values): array
+    {
+        return $this->findBy($values, null, $size, $page);
     }
 }

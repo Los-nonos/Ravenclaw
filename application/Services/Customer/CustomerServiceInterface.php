@@ -1,10 +1,13 @@
 <?php
 
 
-namespace Application\Services\Customer;
+namespace Application\Services;
 
+
+use Application\Commands\Customers\IndexCustomerCommand;
+use Application\Results\Customers\IndexCustomerResultInterface;
 
 interface CustomerServiceInterface
 {
-    public function indexCustomers($command): array;
+    public function indexCustomers(IndexCustomerCommand $command): IndexCustomerResultInterface;
 }
