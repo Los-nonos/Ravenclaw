@@ -3,11 +3,10 @@
 
 namespace Application\Services;
 
-
-use Domain\Entities\Customer;
 use Domain\Entities\Order;
+use Domain\Entities\Payment;
 
 interface PaymentGateway
 {
-    public function execute(Customer $customer, Order $order);
+    public function execute(Payment $payment, Order $order);
 }

@@ -5,9 +5,9 @@ namespace Application\Services;
 
 
 use Domain\Entities\Customer;
-use Domain\Entities\Order;
+use Domain\Entities\Payment;
 
 interface PaymentGatewayAuthorization
 {
-    public function Authorization(Customer $customer, int $amount): Order;
+    public function Authorization(Customer $customer, int $amount): Payment;
 }

@@ -29,8 +29,7 @@ class CreateAdminHandler
     {
         $user = $this->userService->CreateUserByCommand($this->createUserCommand($command));
 
-        $admin = new Admin();
-        $admin->setMaintainer();
+        $admin = new Admin($command->getRole());
 
         try {
             $user->setAdmin($admin);

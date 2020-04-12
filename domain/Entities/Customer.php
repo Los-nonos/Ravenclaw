@@ -38,6 +38,11 @@ class Customer
         $this->domain = $domain;
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function getDomain(): string
     {
         return $this->domain;
