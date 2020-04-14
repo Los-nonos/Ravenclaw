@@ -1,7 +1,6 @@
-# ZeepCommerce API + Microservice
+# Zeep API + Microservice Payments
 
-Sistema API de ZeepCommerce para la venta / visualización de artículos varios.
-Será una API desacoplada del frontend `FrontApp` realizado en ReactJS.
+Sistema API de Zeep para los pagos y guardado de las órdenes de pago de los clientes + web de Zeep.
 
 # Instrucciones de Instalación
 
