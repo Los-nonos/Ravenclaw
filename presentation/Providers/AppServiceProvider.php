@@ -11,8 +11,8 @@ use Application\Results\Customers\IndexCustomerResult;
 use Application\Results\Customers\IndexCustomerResultInterface;
 use Application\Results\Users\UpdateUserResult;
 use Application\Results\Users\UpdateUserResultInterface;
-use Application\Services\CustomerService;
-use Application\Services\CustomerServiceInterface;
+use Application\Services\Customers\CustomerService;
+use Application\Services\Customers\CustomerServiceInterface;
 use Domain\Interfaces\Repositories\AdminRepositoryInterface;
 use Domain\Interfaces\Repositories\CustomerRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -29,8 +29,8 @@ use Presentation\Http\Validators\Admins\CreateAdminValidatorInterface;
 use Presentation\Http\Validators\Customers\CreateCustomerValidator;
 use Presentation\Http\Validators\Customers\CreateCustomerValidatorInterface;
 
-use Application\Services\UserService;
-use Application\Services\UserServiceInterface;
+use Application\Services\Users\UserService;
+use Application\Services\Users\UserServiceInterface;
 
 use Presentation\Http\Presenters\Customers\CreateCustomerPresenter;
 use Presentation\Http\Validators\Customers\IndexCustomerValidator;

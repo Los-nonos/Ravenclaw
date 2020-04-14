@@ -3,7 +3,7 @@
 
 namespace Presentation\Http\Actions\Customers;
 
-use Application\Services\CustomerService;
+use Application\Services\CustomerServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Presentation\Http\Adapters\Customers\IndexCustomerAdapter;
@@ -13,10 +13,10 @@ use Presentation\Interfaces\Customers\IndexCustomerPresenterInterface;
 class IndexCustomerAction
 {
     private IndexCustomerAdapter $adapter;
-    private CustomerService $service;
+    private CustomerServiceInterface $service;
     private IndexCustomerPresenterInterface $presenter;
 
-    public function __construct(IndexCustomerAdapter $adapter, CustomerService $service, IndexCustomerPresenterInterface $presenter)
+    public function __construct(IndexCustomerAdapter $adapter, CustomerServiceInterface $service, IndexCustomerPresenterInterface $presenter)
     {
         $this->service = $service;
         $this->adapter = $adapter;

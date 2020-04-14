@@ -1,10 +1,11 @@
 <?php
 
 
-namespace Application\Services;
+namespace Application\Services\Customers;
 
 use Application\Commands\Customers\IndexCustomerCommand;
 use Application\Results\Customers\IndexCustomerResultInterface;
+use Domain\Entities\Customer;
 use Domain\Interfaces\Repositories\CustomerRepositoryInterface;
 
 class CustomerService implements CustomerServiceInterface
@@ -65,5 +66,10 @@ class CustomerService implements CustomerServiceInterface
         $this->result->setCustomers($customers);
 
         return $this->result;
+    }
+
+    public function findCustomerById($id): Customer
+    {
+        // TODO: Implement findCustomerById() method.
     }
 }

@@ -8,5 +8,5 @@ use Domain\Entities\Payment;
 
 interface PaymentGatewayInterface
 {
-    public function execute(Payment $payment);
+    public function execute(Payment $payment): Order;
 }

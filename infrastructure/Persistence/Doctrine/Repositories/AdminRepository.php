@@ -7,6 +7,7 @@ namespace Infrastructure\Persistence\Doctrine\Repositories;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\ORMException;
 use Domain\Entities\Admin;
 use Domain\Interfaces\Repositories\AdminRepositoryInterface;
 
@@ -23,7 +24,7 @@ class AdminRepository extends EntityRepository implements AdminRepositoryInterfa
 
     /**
      * @param Admin $admin
-     * @throws \Doctrine\ORM\ORMException
+     * @throws ORMException
      */
     public function Persist(Admin $admin): void
     {

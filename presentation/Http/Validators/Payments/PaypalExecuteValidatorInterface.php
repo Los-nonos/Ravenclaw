@@ -4,7 +4,7 @@
 namespace Presentation\Http\Validators\Payments;
 
 
-interface PaymentAuthorizationValidatorInterface
+interface PaypalExecuteValidatorInterface
 {
     public function Validate($all, array $rules, array $messages);
 }

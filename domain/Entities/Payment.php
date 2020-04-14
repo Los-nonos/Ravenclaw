@@ -18,7 +18,7 @@ class Payment
 
     private string $payerId;
 
-    public function __construct($authorization, int $amount, int $customer_id, string $type)
+    public function __construct($authorization = "", int $amount = 0, int $customer_id = 0, string $type = "")
     {
         $this->authorization = $authorization;
         $this->amount = $amount;

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Application\Services;
+namespace Application\Services\Users;
 
 
 use Application\Commands\Users\CreateUserCommand;

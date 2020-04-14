@@ -6,6 +6,7 @@ namespace Application\Services;
 
 use Application\Exceptions\FailedPaymentException;
 use Application\Exceptions\InvalidServicePaymentException;
+use Application\Services\Payments\PayPalServiceInterface;
 use Domain\Entities\Customer;
 use Domain\Entities\Order;
 
@@ -17,7 +18,7 @@ use Paypal\v1\Payments\PaymentExecuteRequest;
 use Paypal\Core\SandboxEnvironment;
 use Paypal\Core\ProductionEnvironment;
 
-class PaypalService implements PaymentGatewayInterface, PaymentGatewayAuthorizationInterface
+class PaypalService implements PaymentGatewayInterface, PaymentGatewayAuthorizationInterface, PayPalServiceInterface
 {
     private PaypalHttpClient $client;
     private SandboxEnvironment $enviroment;
@@ -36,8 +37,9 @@ class PaypalService implements PaymentGatewayInterface, PaymentGatewayAuthorizat
      * @param Payment $payment
      * @throws InvalidServicePaymentException
      * @throws FailedPaymentException
+     * @return Order
      */
-    public function execute(Payment $payment)
+    public function execute(Payment $payment): Order
     {
         if(!$payment->getType() == 'paypal')
         {
@@ -54,6 +56,7 @@ class PaypalService implements PaymentGatewayInterface, PaymentGatewayAuthorizat
 
         if($response->statusCode == 200)
         {
+            return new Order();
             //create new order and return
         }
         else{

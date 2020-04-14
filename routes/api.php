@@ -19,3 +19,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/customers', 'Customers\CreateCustomerAction@execute')->name('createCustomer');
+
+Route::put('/users', 'Users\UpdateUserAction@execute')->name('updateUser');
+
+Route::get('/customers', 'Customers\IndexCustomerAction@execute')->name('indexCustomers');
+
+Route::post('/admins', 'Admins\CreateAdminAction@execute')->name('createAdmin');
+
+Route::group(['prefix' => 'payments'], function () {
+    Route::post('/paypal/authorization', 'Payments\PaypalAuthorizationAction@execute')->name('paypalAuthorization');
+
+    Route::post('/paypal/pay', 'Payments\PaypalExecuteAction@execute')->name('paypalPay');
+
+    Route::post('/mercadopago/pay', 'Payments\MercadoPagoExecuteAction@execute')->name('mercadoPagoPay');
+});

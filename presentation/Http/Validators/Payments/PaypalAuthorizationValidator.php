@@ -7,7 +7,7 @@ namespace Presentation\Http\Validators\Payments;
 use Presentation\Exceptions\InvalidBodyException;
 use Presentation\Interfaces\ValidatorServiceInterface;
 
-class PaymentAuthorizationValidator
+class PaypalAuthorizationValidator
 {
     private ValidatorServiceInterface $validatorService;
 
