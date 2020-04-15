@@ -19,10 +19,11 @@ class CreateCustomerHandler
     private CreateCustomerResultInterface $result;
     private NotifiableService $notifiableService;
 
-    public function __construct(UserServiceInterface $userService,
-                                CustomerRepositoryInterface $customerRepository,
-                                NotifiableService $notifiableService,
-                                CreateCustomerResultInterface $result)
+    public function __construct(
+        UserServiceInterface $userService,
+        CustomerRepositoryInterface $customerRepository,
+        NotifiableService $notifiableService,
+        CreateCustomerResultInterface $result)
     {
         $this->userService = $userService;
         $this->customerRepository = $customerRepository;
@@ -30,6 +31,11 @@ class CreateCustomerHandler
         $this->result = $result;
     }
 
+    /**
+     * @param CreateCustomerCommand $command
+     * @return CreateCustomerResultInterface
+     * @throws SettingRoleUserNotPermittedException
+     */
     public function handle(CreateCustomerCommand $command): CreateCustomerResultInterface
     {
         $customer = new Customer($command->getDomain(), $command->getOrganizationName());
@@ -38,11 +44,8 @@ class CreateCustomerHandler
 
         $this->customerRepository->save($customer);
 
-        try {
-            $user->setCustomer($customer);
-        } catch (SettingRoleUserNotPermittedException $e) {
 
-        }
+        $user->setCustomer($customer);
 
         $this->userService->Persist($user);
         $this->result->setUser($user);
