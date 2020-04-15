@@ -13,7 +13,8 @@ class PaypalExecuteAdapter
     private PaypalExecuteValidatorInterface $validator;
 
     private array $rules = [
-
+        'paymentId' => 'bail|required|alpha',
+        'payerId' => 'bail|required|alpha'
     ];
 
     private array $messages = [

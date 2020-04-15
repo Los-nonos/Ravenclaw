@@ -2,6 +2,7 @@
 
 namespace Presentation\Providers;
 
+use Application\EventData\SendGridNotificationEventData;
 use Application\Results\Admins\CreateAdminResult;
 use Application\Results\Admins\CreateAdminResultInterface;
 use Application\Results\Customers\CreateCustomerResult;
@@ -13,8 +14,13 @@ use Application\Results\Users\UpdateUserResult;
 use Application\Results\Users\UpdateUserResultInterface;
 use Application\Services\Customers\CustomerService;
 use Application\Services\Customers\CustomerServiceInterface;
+use Application\Services\Notifiable\NotifiableService;
+use Application\Services\Notifiable\NotifiableServiceInterface;
 use Domain\Interfaces\Repositories\AdminRepositoryInterface;
 use Domain\Interfaces\Repositories\CustomerRepositoryInterface;
+use Domain\Interfaces\Services\Notifications\MailableInterface;
+use Domain\Interfaces\Services\Notifications\NotifiableInterface;
+use Domain\ValueObjects\Email;
 use Illuminate\Support\ServiceProvider;
 
 use Domain\CommandBus\CommandBusInterface;
@@ -115,6 +121,13 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CreateAdminValidatorInterface::class, CreateAdminValidator::class);
 
         $this->app->bind(ValidatorServiceInterface::class, ValidatorService::class);
+
+        /**
+         * Mailing
+         */
+        $this->app->bind(NotifiableServiceInterface::class, NotifiableService::class);
+        $this->app->bind(NotifiableInterface::class, Email::class);
+        $this->app->bind(MailableInterface::class, SendGridNotificationEventData::class);
     }
 
     /**

@@ -18,7 +18,8 @@ class PaypalAuthorizationAdapter
     }
 
     private array $rules = [
-
+        'customer_id' => 'bail|required|min:0|integer',
+        'amount' => 'bail|required|min:0'
     ];
 
     private array $messages = [

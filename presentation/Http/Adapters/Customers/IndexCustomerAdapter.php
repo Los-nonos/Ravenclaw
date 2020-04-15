@@ -3,7 +3,6 @@
 
 namespace Presentation\Http\Adapters\Customers;
 
-
 use Application\Commands\Customers\IndexCustomerCommand;
 use Illuminate\Http\Request;
 use Presentation\Http\Validators\Customers\IndexCustomerValidatorInterface;
@@ -13,7 +12,14 @@ class IndexCustomerAdapter
     private IndexCustomerValidatorInterface $validator;
 
     private array $rules = [
-
+        'page' => 'bail|integer|min:0',
+        'size' => 'bail|integer|min:0',
+        'name' => 'bail|alpha',
+        'surname' => 'bail|alpha',
+        'username' => 'bail',
+        'email' => 'bail|email',
+        'organization_name' => 'bail|alpha',
+        'domain' => 'bail',
     ];
 
     private array $messages = [
