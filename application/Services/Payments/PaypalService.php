@@ -18,20 +18,9 @@ use Paypal\v1\Payments\PaymentExecuteRequest;
 use Paypal\Core\SandboxEnvironment;
 use Paypal\Core\ProductionEnvironment;
 
-class PaypalService implements PaymentGatewayInterface, PaymentGatewayAuthorizationInterface, PayPalServiceInterface
+class PaypalService implements PayPalServiceInterface
 {
     private PaypalHttpClient $client;
-    private SandboxEnvironment $enviroment;
-
-    public function __construct()
-    {
-        $clientId = Config::get('services.paypal.clientId');
-        $secret = Config::get('services.paypal.secret');
-
-        $this->enviroment = new SandboxEnvironment($clientId, $secret);
-
-        $this->client = new PaypalHttpClient($this->enviroment);
-    }
 
     /**
      * @param Payment $payment
@@ -41,6 +30,11 @@ class PaypalService implements PaymentGatewayInterface, PaymentGatewayAuthorizat
      */
     public function execute(Payment $payment): Order
     {
+        if($this->client == null)
+        {
+            throw new FailedPaymentException('¡client not generated!');
+        }
+
         if(!$payment->getType() == 'paypal')
         {
             throw new InvalidServicePaymentException();
@@ -64,8 +58,19 @@ class PaypalService implements PaymentGatewayInterface, PaymentGatewayAuthorizat
         }
     }
 
+    /**
+     * @param Customer $customer
+     * @param int $amount
+     * @return Payment
+     * @throws FailedPaymentException
+     */
     public function Authorization(Customer $customer, int $amount): Payment
     {
+        if($this->client == null)
+        {
+            throw new FailedPaymentException('¡client not generated!');
+        }
+
         $request = new PaymentCreateRequest();
 
         $request->body = [
@@ -74,7 +79,7 @@ class PaypalService implements PaymentGatewayInterface, PaymentGatewayAuthorizat
                 [
                     'amount' => [
                         'total' => $amount,
-                        'currency' => 'USD'
+                        'currency' => 'ARS'
                     ]
                 ]
             ],
@@ -99,5 +104,12 @@ class PaypalService implements PaymentGatewayInterface, PaymentGatewayAuthorizat
         $redirectLinks = array_values($redirectLinks);
 
         return new Payment($redirectLinks[0]->href, $amount, $customer->getId(), 'paypal');
+    }
+
+    public function CreateClient(string $clientId, string $access_token): void
+    {
+        $enviroment = new SandboxEnvironment($clientId, $access_token);
+
+        $this->client = new PaypalHttpClient($enviroment);
     }
 }

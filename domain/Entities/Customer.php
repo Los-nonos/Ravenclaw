@@ -32,6 +32,12 @@ class Customer
      */
     private ?string $organization_name;
 
+    /**
+     * @var string|null
+     * @ORM\Column(name="paypal_client_id")
+     */
+    private ?string $paypalClient;
+
     public function __construct(?string $domain, ?string $organization_name)
     {
         $this->organization_name = $organization_name;
@@ -65,5 +71,15 @@ class Customer
     public function __toString()
     {
        return "$this->id";
+    }
+
+    public function getClientTokenPaypal()
+    {
+        return $this->paypalClient;
+    }
+
+    public function setClientTokenPaypal(string $token)
+    {
+        $this->paypalClient = $token;
     }
 }

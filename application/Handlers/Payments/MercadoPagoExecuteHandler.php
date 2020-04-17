@@ -6,6 +6,7 @@ namespace Application\Handlers\Payments;
 
 use Application\Commands\Payments\MercadoPagoExecuteCommand;
 use Application\Services\Orders\OrderServiceInterface;
+use Application\Services\Payments\MercadoPagoServiceInterface;
 
 class MercadoPagoExecuteHandler
 {
@@ -28,6 +29,19 @@ class MercadoPagoExecuteHandler
 
     public function handle(MercadoPagoExecuteCommand $command)
     {
+        $this->mercadoPagoService->CreateClient($command->getAccessToken());
 
+        $payment = $this->mercadoPagoService->GeneratePayment(
+                                                $command->getCartToken(),
+                                                $command->getAmount());
+        $payment->setPayerId($command->getEmailPayer());
+        $payment->setPaymentId($command->getPaymentMethod());
+
+        $order = $this->mercadoPagoService->Execute($payment);
+
+        $this->orderService->Persist($order);
+
+        $this->result->setOrder($order);
+        return $this->result;
     }
 }
