@@ -14,20 +14,20 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('admins', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('role');
             $table->timestamps();
         });
 
         Schema::create('customers', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('organization_name')->nullable();
             $table->string('domain')->nullable();
             $table->timestamps();
         });
 
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('name')->nullable();
             $table->string('surname')->nullable();
             $table->string('email')->nullable();
