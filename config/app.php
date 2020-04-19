@@ -168,11 +168,11 @@ return [
         /*
          * Application Service Providers...
          */
-        Presentation\Providers\AppServiceProvider::class,
-        Presentation\Providers\AuthServiceProvider::class,
-        Presentation\Providers\EventServiceProvider::class,
-        Presentation\Providers\RouteServiceProvider::class,
-        Presentation\Providers\TacticianProvider::class,
+        Infrastructure\Providers\AppServiceProvider::class,
+        Infrastructure\Providers\AuthServiceProvider::class,
+        Infrastructure\Providers\EventServiceProvider::class,
+        Infrastructure\Providers\RouteServiceProvider::class,
+        Infrastructure\Providers\TacticianProvider::class,
     ],
 
     /*
@@ -236,7 +236,7 @@ return [
         */
 
     'command_bus' => [
-        'commands_namespace' => 'Application\\Commands',
+        'commands_namespace' => 'Application\\Command',
         'handlers_namespace' => 'Application\\Handlers',
     ],
 ];
