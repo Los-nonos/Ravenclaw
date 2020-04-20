@@ -1,0 +1,9 @@
+<?php
+declare(strict_types=1);
+
+namespace Application\Results{{grouping}};
+
+final class {{action}}Result
+{
+
+}

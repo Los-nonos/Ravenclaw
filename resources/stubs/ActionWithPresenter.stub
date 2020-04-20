@@ -1,0 +1,41 @@
+<?php
+declare(strict_types=1);
+
+namespace Presentation\Http\Actions{{grouping}};
+
+use Infrastructure\CommandBus\CommandBusInterface;
+use Presentation\Http\Adapters{{grouping}}\{{action}}Adapter;
+use Presentation\Http\Presenters{{grouping}}\{{action}}Presenter;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+
+final class {{action}}Action
+{
+    private CommandBusInterface $commandBus;
+    private {{action}}Adapter $adapter;
+    private {{action}}Presenter $presenter;
+
+    public function __construct(
+        CommandBusInterface $commandBus,
+        {{action}}Adapter $adapter,
+        {{action}}Presenter $presenter
+    ) {
+        $this->commandBus = $commandBus;
+        $this->adapter = $adapter;
+        $this->presenter = $presenter;
+    }
+
+    /**
+     * Execute the concrete action
+     */
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
+    {
+        $command = $this->adapter->adapt($request);
+
+        $result = $this->commandBus->handle($command);
+
+        $data = $this->presenter->fromResult($result)->getData();
+
+        // TODO: code your response logic
+    }
+}

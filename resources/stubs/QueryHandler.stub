@@ -1,0 +1,22 @@
+<?php
+declare(strict_types=1);
+
+namespace Application\Queries\Handler{{grouping}};
+
+use Application\Queries\Query{{grouping}}\{{action}}Query;
+use Application\Queries\Result{{grouping}}\{{action}}Result;
+use Infrastructure\QueryBus\Handler\HandlerInterface;
+
+final class {{action}}Handler implements HandlerInterface
+{
+    /**
+     * Execute the given query and return a result
+     *
+     * @param {{action}}Query $query
+     * @return {{action}}Result
+     */
+    public function handle({{action}}Query $query): {{action}}Result
+    {
+        return new {{action}}Result();
+    }
+}
