@@ -26,6 +26,8 @@ final class CommandBus implements CommandBusInterface
 
     /**
      * Execute the given command
+     * @param CommandInterface $command
+     * @throws InvalidHandlerException
      */
     public function handle(CommandInterface $command): void
     {

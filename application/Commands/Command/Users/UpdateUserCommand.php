@@ -4,7 +4,7 @@
 namespace Application\Commands\Command\Users;
 
 
-use Domain\CommandBus\CommandInterface;
+use Infrastructure\CommandBus\Command\CommandInterface;
 
 class UpdateUserCommand implements CommandInterface
 {

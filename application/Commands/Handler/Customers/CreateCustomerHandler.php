@@ -6,13 +6,14 @@ namespace Application\Commands\Handler\Customers;
 use Application\Commands\Command\Customers\CreateCustomerCommand;
 use Application\Commands\Command\Users\CreateUserCommand;
 use Application\Exceptions\SettingRoleUserNotPermittedException;
-use Application\Results\Customers\CreateCustomerResultInterface;
+use Application\Commands\Results\Customers\CreateCustomerResultInterface;
 use Application\Services\Notifiable\NotifiableService;
 use Application\Services\Users\UserServiceInterface;
 use Domain\Entities\Customer;
 use Domain\Interfaces\Repositories\CustomerRepositoryInterface;
+use Infrastructure\CommandBus\Handler\HandlerInterface;
 
-class CreateCustomerHandler
+class CreateCustomerHandler implements HandlerInterface
 {
     private UserServiceInterface $userService;
     private CustomerRepositoryInterface $customerRepository;

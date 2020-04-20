@@ -7,8 +7,9 @@ namespace Application\Commands\Handler\Payments;
 use Application\Commands\Command\Payments\MercadoPagoExecuteCommand;
 use Application\Services\Orders\OrderServiceInterface;
 use Application\Services\Payments\MercadoPagoServiceInterface;
+use Infrastructure\CommandBus\Handler\HandlerInterface;
 
-class MercadoPagoExecuteHandler
+class MercadoPagoExecuteHandler implements HandlerInterface
 {
     private MercadoPagoServiceInterface $mercadoPagoService;
 

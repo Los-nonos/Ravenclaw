@@ -4,7 +4,7 @@
 namespace Presentation\Http\Adapters\Users;
 
 use Illuminate\Http\Request;
-use Application\Commands\Users\UpdateUserCommand;
+use Application\Commands\Command\Users\UpdateUserCommand;
 use Presentation\Http\Validators\Users\UpdateUserValidatorInterface;
 
 class UpdateUserAdapter

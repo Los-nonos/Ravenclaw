@@ -4,14 +4,13 @@
 namespace Presentation\Http\Presenters\Admins;
 
 
-use Application\Results\Admins\CreateAdminResultInterface;
-use Presentation\Interfaces\Admins\CreateAdminPresenterInterface;
+use Application\Commands\Results\Admins\CreateAdminResultInterface;
 
-class CreateAdminPresenter implements CreateAdminPresenterInterface
+class CreateAdminPresenter
 {
     private CreateAdminResultInterface $result;
 
-    public function fromResult(CreateAdminResultInterface $result): CreateAdminPresenterInterface
+    public function fromResult(CreateAdminResultInterface $result): CreateAdminPresenter
     {
         $this->result = $result;
         return $this;
@@ -20,7 +19,7 @@ class CreateAdminPresenter implements CreateAdminPresenterInterface
     public function getData(): array
     {
         $user = $this->result->getUser();
-        
+
         return [
             'user' => [
                 'id' => $user->getId(),

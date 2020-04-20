@@ -4,7 +4,6 @@
 namespace Presentation\Http\Validators\Utils;
 
 use Illuminate\Validation\Factory;
-use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
 
 class ValidatorService implements ValidatorServiceInterface
 {

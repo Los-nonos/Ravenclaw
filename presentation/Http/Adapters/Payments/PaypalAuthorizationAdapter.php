@@ -4,7 +4,7 @@
 namespace Presentation\Http\Adapters\Payments;
 
 
-use Application\Commands\Payments\PayPalAuthorizationCommand;
+use Application\Commands\Command\Payments\PayPalAuthorizationCommand;
 use Illuminate\Http\Request;
 use Presentation\Http\Validators\Payments\PaypalAuthorizationValidatorInterface;
 

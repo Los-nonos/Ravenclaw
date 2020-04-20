@@ -4,13 +4,14 @@
 namespace Application\Commands\Handler\Payments;
 
 use Application\Commands\Command\Payments\PaypalExecuteCommand;
-use Application\Results\Payments\PaypalExecuteResultInterface;
+use Application\Commands\Results\Payments\PaypalExecuteResultInterface;
 use Application\Services\Customers\CustomerServiceInterface;
 use Application\Services\Orders\OrderServiceInterface;
 use Application\Services\Payments\PaypalServiceInterface;
 use Domain\Entities\Payment;
+use Infrastructure\CommandBus\Handler\HandlerInterface;
 
-class PaypalExecuteHandler
+class PaypalExecuteHandler implements HandlerInterface
 {
     private PaypalExecuteResultInterface $result;
 

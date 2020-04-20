@@ -4,7 +4,7 @@
 namespace Application\Commands\Command\Payments;
 
 
-use Domain\CommandBus\CommandInterface;
+use Infrastructure\CommandBus\Command\CommandInterface;
 
 class PaypalExecuteCommand implements CommandInterface
 {

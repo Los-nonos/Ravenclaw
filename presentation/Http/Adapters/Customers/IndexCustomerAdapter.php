@@ -3,7 +3,7 @@
 
 namespace Presentation\Http\Adapters\Customers;
 
-use Application\Commands\Customers\IndexCustomerCommand;
+use Application\Queries\Query\Customers\IndexCustomerQuery;
 use Illuminate\Http\Request;
 use Presentation\Http\Validators\Customers\IndexCustomerValidatorInterface;
 
@@ -35,7 +35,7 @@ class IndexCustomerAdapter
     {
         $this->validator->validate($request->all(), $this->rules, $this->messages);
 
-        return new IndexCustomerCommand(
+        return new IndexCustomerQuery(
             $request->get('page'),
             $request->get('size'),
             $request->get('name'),

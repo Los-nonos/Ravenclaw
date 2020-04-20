@@ -4,7 +4,9 @@
 namespace Application\Queries\Query\Customers;
 
 
-class IndexCustomerQuery
+use Infrastructure\QueryBus\Query\QueryInterface;
+
+class IndexCustomerQuery implements QueryInterface
 {
     private $page;
     private $size;

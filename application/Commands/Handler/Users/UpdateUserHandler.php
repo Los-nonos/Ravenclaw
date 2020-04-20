@@ -4,10 +4,11 @@
 namespace Application\Commands\Handler\Users;
 
 use Application\Commands\Command\Users\UpdateUserCommand;
-use Application\Results\Users\UpdateUserResultInterface;
+use Application\Commands\Results\Users\UpdateUserResultInterface;
 use Application\Services\Users\UserServiceInterface;
+use Infrastructure\CommandBus\Handler\HandlerInterface;
 
-class UpdateUserHandler
+class UpdateUserHandler implements HandlerInterface
 {
     private UserServiceInterface $userService;
     private UpdateUserResultInterface $result;

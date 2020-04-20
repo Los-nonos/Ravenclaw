@@ -7,12 +7,13 @@ namespace Application\Commands\Handler\Admins;
 use Application\Commands\Command\Admins\CreateAdminCommand;
 use Application\Commands\Command\Users\CreateUserCommand;
 use Application\Exceptions\SettingRoleUserNotPermittedException;
-use Application\Results\Admins\CreateAdminResultInterface;
+use Application\Commands\Results\Admins\CreateAdminResultInterface;
 use Application\Services\Users\UserServiceInterface;
 use Domain\Entities\Admin;
 use Domain\Interfaces\Repositories\AdminRepositoryInterface;
+use Infrastructure\CommandBus\Handler\HandlerInterface;
 
-class CreateAdminHandler
+class CreateAdminHandler implements HandlerInterface
 {
     private UserServiceInterface $userService;
     private CreateAdminResultInterface $result;

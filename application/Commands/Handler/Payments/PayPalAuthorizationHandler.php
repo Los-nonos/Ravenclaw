@@ -5,12 +5,13 @@ namespace Application\Commands\Handler\Payments;
 
 
 use Application\Commands\Command\Payments\PayPalAuthorizationCommand;
-use Application\Results\Payments\PaypalAuthorizationResult;
-use Application\Results\Payments\PaypalAuthorizationResultInterface;
+use Application\Commands\Results\Payments\PaypalAuthorizationResult;
+use Application\Commands\Results\Payments\PaypalAuthorizationResultInterface;
 use Application\Services\Customers\CustomerServiceInterface;
 use Application\Services\PaypalService;
+use Infrastructure\CommandBus\Handler\HandlerInterface;
 
-class PayPalAuthorizationHandler
+class PayPalAuthorizationHandler implements HandlerInterface
 {
     private PaypalService $service;
     private PaypalAuthorizationResult $result;

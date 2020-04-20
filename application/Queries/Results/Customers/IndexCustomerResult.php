@@ -4,7 +4,9 @@
 namespace Application\Queries\Results\Customers;
 
 
-class IndexCustomerResult implements IndexCustomerResultInterface
+use Infrastructure\QueryBus\Result\ResultInterface;
+
+class IndexCustomerResult implements ResultInterface
 {
     private array $customers;
 

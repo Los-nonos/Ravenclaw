@@ -4,6 +4,7 @@
 namespace Application\Commands\Command\Users;
 
 
+
 class CreateUserCommand
 {
     private string $name;

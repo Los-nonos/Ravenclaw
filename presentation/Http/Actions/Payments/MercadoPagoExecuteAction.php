@@ -4,7 +4,7 @@
 namespace Presentation\Http\Actions\Payments;
 
 
-use Domain\CommandBus\CommandBusInterface;
+use Infrastructure\CommandBus\CommandBusInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Presentation\Http\Adapters\Payments\MercadoPagoExecuteAdapter;

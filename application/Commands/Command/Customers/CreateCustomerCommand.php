@@ -4,7 +4,7 @@
 namespace Application\Commands\Command\Customers;
 
 
-use Domain\CommandBus\CommandInterface;
+use Infrastructure\CommandBus\Command\CommandInterface;
 
 class CreateCustomerCommand implements CommandInterface
 {

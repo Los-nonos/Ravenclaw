@@ -4,14 +4,13 @@
 namespace Presentation\Http\Presenters\Payments;
 
 
-use Application\Results\Payments\PaypalAuthorizationResultInterface;
-use Presentation\Interfaces\Payments\PaypalAuthorizationPresenterInterface;
+use Application\Commands\Results\Payments\PaypalAuthorizationResultInterface;
 
-class PaypalAuthorizationPresenter implements PaypalAuthorizationPresenterInterface
+class PaypalAuthorizationPresenter
 {
     private PaypalAuthorizationResultInterface $result;
 
-    public function fromResult(PaypalAuthorizationResultInterface $result): PaypalAuthorizationPresenterInterface
+    public function fromResult(PaypalAuthorizationResultInterface $result): PaypalAuthorizationPresenter
     {
         $this->result = $result;
         return $this;

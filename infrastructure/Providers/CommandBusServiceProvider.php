@@ -5,8 +5,8 @@ namespace Infrastructure\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Application;
-use Domain\CommandBus\CommandBusInterface;
 use Infrastructure\CommandBus\CommandBus;
+use Infrastructure\CommandBus\CommandBusInterface;
 use Infrastructure\CommandBus\CommandNameExtractor\CommandNameExtractor;
 use Infrastructure\CommandBus\Handler\Locator\HandlerInstanceResolver;
 use Infrastructure\CommandBus\Handler\Locator\InferableLocator;

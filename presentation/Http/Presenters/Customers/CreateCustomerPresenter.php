@@ -4,10 +4,9 @@
 namespace Presentation\Http\Presenters\Customers;
 
 
-use Application\Results\Customers\CreateCustomerResultInterface;
-use Presentation\Interfaces\Customers\CreateCustomerPresenterInterface;
+use Application\Commands\Results\Customers\CreateCustomerResultInterface;
 
-class CreateCustomerPresenter implements CreateCustomerPresenterInterface
+class CreateCustomerPresenter
 {
     private CreateCustomerResultInterface $result;
 

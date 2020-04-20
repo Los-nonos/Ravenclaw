@@ -4,20 +4,20 @@
 namespace Presentation\Http\Actions\Admins;
 
 
-use Domain\CommandBus\CommandBusInterface;
+use Infrastructure\CommandBus\CommandBusInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Presentation\Http\Adapters\Admins\CreateAdminAdapter;
 use Presentation\Http\Enums\HttpCodes;
-use Presentation\Interfaces\Admins\CreateAdminPresenterInterface;
+use Presentation\Http\Presenters\Admins\CreateAdminPresenter;
 
 class CreateAdminAction
 {
     private CreateAdminAdapter $adapter;
     private CommandBusInterface $commandBus;
-    private CreateAdminPresenterInterface $presenter;
+    private CreateAdminPresenter $presenter;
 
-    public function __construct(CreateAdminAdapter $adapter, CommandBusInterface $commandBus, CreateAdminPresenterInterface $presenter)
+    public function __construct(CreateAdminAdapter $adapter, CommandBusInterface $commandBus, CreateAdminPresenter $presenter)
     {
         $this->adapter = $adapter;
         $this->commandBus = $commandBus;

@@ -5,18 +5,18 @@ namespace Presentation\Http\Actions\Users;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Domain\CommandBus\CommandBusInterface;
+use Infrastructure\CommandBus\CommandBusInterface;
 use Presentation\Http\Adapters\Users\UpdateUserAdapter;
 use Presentation\Http\Enums\HttpCodes;
-use Presentation\Interfaces\Users\UpdateUserPresenterInterface;
+use Presentation\Http\Presenters\Users\UpdateUserPresenter;
 
 class UpdateUserAction
 {
     private UpdateUserAdapter $adapter;
     private CommandBusInterface $commandBus;
-    private UpdateUserPresenterInterface $presenter;
+    private UpdateUserPresenter $presenter;
 
-    public function __construct(UpdateUserAdapter $adapter, CommandBusInterface $commandBus, UpdateUserPresenterInterface $presenter)
+    public function __construct(UpdateUserAdapter $adapter, CommandBusInterface $commandBus, UpdateUserPresenter $presenter)
     {
         $this->adapter = $adapter;
         $this->commandBus = $commandBus;

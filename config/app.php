@@ -164,7 +164,7 @@ return [
         /*
          * Package Service Providers...
          */
-        LaravelDoctrine\ORM\DoctrineServiceProvider::class,
+        //LaravelDoctrine\ORM\DoctrineServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -172,7 +172,9 @@ return [
         Infrastructure\Providers\AuthServiceProvider::class,
         Infrastructure\Providers\EventServiceProvider::class,
         Infrastructure\Providers\RouteServiceProvider::class,
-        Infrastructure\Providers\TacticianProvider::class,
+        Infrastructure\Providers\DoctrineRepositoriesServiceProvider::class,
+        Infrastructure\Providers\CommandBusServiceProvider::class,
+        Infrastructure\Providers\QueryBusServiceProvider::class
     ],
 
     /*
