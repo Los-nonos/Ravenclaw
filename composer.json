@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
-        "ext-redis": "*",
         "darkaonline/l5-swagger": "5.8.*",
         "fideloper/proxy": "^4.0",
         "firebase/php-jwt": "^5.1",
