@@ -1,0 +1,19 @@
+<?php
+declare(strict_types=1);
+
+namespace Presentation\Http\Adapters{{grouping}};
+
+use Application\Commands\Command{{grouping}}\{{action}}Command;
+use Infrastructure\CommandBus\Adapter\HttpAdapterInterface;
+use Psr\Http\Message\ServerRequestInterface;
+
+final class {{action}}Adapter implements HttpAdapterInterface
+{
+    /**
+     * Adapt a http request to an application's layer input
+     */
+    public function adapt(ServerRequestInterface $request): {{action}}Command
+    {
+        return new {{action}}Command();
+    }
+}

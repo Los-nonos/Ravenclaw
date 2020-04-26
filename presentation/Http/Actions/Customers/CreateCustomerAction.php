@@ -3,12 +3,12 @@
 
 namespace Presentation\Http\Actions\Customers;
 
-use Domain\CommandBus\CommandBusInterface;
+use Infrastructure\CommandBus\CommandBusInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Presentation\Http\Adapters\Customers\CreateCustomerAdapter;
 use Presentation\Http\Enums\HttpCodes;
-use Presentation\Interfaces\Customers\CreateCustomerPresenterInterface;
+use Presentation\Http\Presenters\Customers\CreateCustomerPresenter;
 
 class CreateCustomerAction
 {
@@ -16,9 +16,9 @@ class CreateCustomerAction
 
     private CommandBusInterface $commandBus;
 
-    private CreateCustomerPresenterInterface $presenter;
+    private CreateCustomerPresenter $presenter;
 
-    public function __construct(CreateCustomerAdapter $adapter, CommandBusInterface $commandBus, CreateCustomerPresenterInterface $presenter)
+    public function __construct(CreateCustomerAdapter $adapter, CommandBusInterface $commandBus, CreateCustomerPresenter $presenter)
     {
         $this->adapter = $adapter;
         $this->commandBus = $commandBus;

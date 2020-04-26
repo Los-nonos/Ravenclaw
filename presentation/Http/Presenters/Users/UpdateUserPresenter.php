@@ -4,10 +4,9 @@
 namespace Presentation\Http\Presenters\Users;
 
 
-use Application\Results\Users\UpdateUserResultInterface;
-use Presentation\Interfaces\Users\UpdateUserPresenterInterface;
+use Application\Commands\Results\Users\UpdateUserResultInterface;
 
-class UpdateUserPresenter implements UpdateUserPresenterInterface
+class UpdateUserPresenter
 {
     private UpdateUserResultInterface $result;
 

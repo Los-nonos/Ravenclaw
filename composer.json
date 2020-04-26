@@ -19,10 +19,13 @@
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.0",
         "league/tactician": "^1.0",
+        "league/fractal": "^0.19.2",
         "mercadopago/dx-php": "^2.0",
         "paypal/rest-api-sdk-php": "dev-2.0-beta",
         "pda/pheanstalk": "4.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "psr/cache": "1.0.0",
+        "symfony/psr-http-message-bridge": "^1.2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -48,7 +51,9 @@
             "Presentation\\": "presentation/",
             "Application\\": "application/",
             "Infrastructure\\": "infrastructure/",
-            "Domain\\": "domain/"
+            "Domain\\": "domain/",
+            "Console\\": "console/",
+            "App\\": "app/"
         },
         "classmap": [
             "database/seeds",

@@ -4,14 +4,13 @@
 namespace Presentation\Http\Presenters\Payments;
 
 
-use Application\Results\Payments\PaypalExecuteResultInterface;
-use Presentation\Interfaces\Payments\PaypalExecutePresenterInterface;
+use Application\Commands\Results\Payments\PaypalExecuteResultInterface;
 
-class PaypalExecutePresenter implements PaypalExecutePresenterInterface
+class PaypalExecutePresenter
 {
     private PaypalExecuteResultInterface $result;
 
-    public function fromResult(PaypalExecuteResultInterface $result): PaypalExecutePresenterInterface
+    public function fromResult(PaypalExecuteResultInterface $result): PaypalExecutePresenter
     {
         $this->result = $result;
         return $this;

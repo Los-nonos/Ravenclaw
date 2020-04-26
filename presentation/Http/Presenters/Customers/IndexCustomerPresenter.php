@@ -4,14 +4,14 @@
 namespace Presentation\Http\Presenters\Customers;
 
 
-use Application\Results\Customers\IndexCustomerResultInterface;
-use Presentation\Interfaces\Customers\IndexCustomerPresenterInterface;
+use Application\Queries\Results\Customers\IndexCustomerResult;
+use Infrastructure\QueryBus\Result\ResultInterface;
 
-class IndexCustomerPresenter implements IndexCustomerPresenterInterface
+class IndexCustomerPresenter
 {
-    private IndexCustomerResultInterface $result;
+    private ResultInterface $result;
 
-    public function fromResult(IndexCustomerResultInterface $result): IndexCustomerPresenterInterface
+    public function fromResult(IndexCustomerResult $result): IndexCustomerPresenter
     {
         $this->result = $result;
         return $this;

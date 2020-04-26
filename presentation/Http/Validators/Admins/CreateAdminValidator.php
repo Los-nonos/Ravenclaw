@@ -4,9 +4,9 @@
 namespace Presentation\Http\Validators\Admins;
 
 
-use Presentation\Exceptions\InvalidBodyException;
+use App\Exceptions\InvalidBodyException;
 use Presentation\Http\Validators\Customers\CreateCustomerValidatorInterface;
-use Presentation\Interfaces\ValidatorServiceInterface;
+use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
 
 class CreateAdminValidator implements CreateCustomerValidatorInterface
 {

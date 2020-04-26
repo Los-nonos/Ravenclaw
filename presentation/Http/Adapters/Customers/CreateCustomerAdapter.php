@@ -5,7 +5,7 @@ namespace Presentation\Http\Adapters\Customers;
 
 use Illuminate\Http\Request;
 use Presentation\Http\Validators\Customers\CreateCustomerValidatorInterface;
-use Application\Commands\Customers\CreateCustomerCommand;
+use Application\Commands\Command\Customers\CreateCustomerCommand;
 
 class CreateCustomerAdapter
 {

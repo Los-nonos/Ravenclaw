@@ -3,8 +3,8 @@
 
 namespace Presentation\Http\Validators\Users;
 
-use Presentation\Exceptions\InvalidBodyException;
-use Presentation\Interfaces\ValidatorServiceInterface;
+use App\Exceptions\InvalidBodyException;
+use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
 
 class UpdateUserValidator implements UpdateUserValidatorInterface
 {

@@ -5,12 +5,12 @@ namespace Presentation\Http\Actions\Payments;
 
 
 use Application\Exceptions\InvalidServicePaymentException;
-use Domain\CommandBus\CommandBusInterface;
+use Infrastructure\CommandBus\CommandBusInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Presentation\Http\Adapters\Payments\PaypalAuthorizationAdapter;
 use Presentation\Http\Enums\HttpCodes;
-use Presentation\Interfaces\Payments\PaypalAuthorizationPresenterInterface;
+use Presentation\Http\Presenters\Payments\PaypalAuthorizationPresenter;
 
 class PaypalAuthorizationAction
 {
@@ -18,9 +18,9 @@ class PaypalAuthorizationAction
 
     private CommandBusInterface $commandBus;
 
-    private PaypalAuthorizationPresenterInterface $presenter;
+    private PaypalAuthorizationPresenter $presenter;
 
-    public function __construct(PaypalAuthorizationAdapter $adapter, CommandBusInterface $commandBus, PaypalAuthorizationPresenterInterface $presenter)
+    public function __construct(PaypalAuthorizationAdapter $adapter, CommandBusInterface $commandBus, PaypalAuthorizationPresenter $presenter)
     {
         $this->presenter = $presenter;
         $this->adapter = $adapter;
