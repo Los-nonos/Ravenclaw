@@ -40,7 +40,7 @@ class ShowCustomerByIdAdapter
         }
 
         return new ShowCustomerByIdQuery(
-            $request->get('id')
+            $request->query('id')
         );
     }
 }
