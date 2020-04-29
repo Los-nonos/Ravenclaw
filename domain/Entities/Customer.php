@@ -82,4 +82,12 @@ class Customer
     {
         $this->paypalClient = $token;
     }
+
+    public function __serialize(): array
+    {
+        return [
+            'domain' => $this->domain,
+            'organization_name' => $this->organization_name
+        ];
+    }
 }

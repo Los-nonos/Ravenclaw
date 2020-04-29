@@ -2,6 +2,7 @@
 
 namespace Infrastructure\Providers;
 
+use Illuminate\Foundation\Application;
 use Application\EventData\SendGridNotificationEventData;
 use Application\Services\Customers\CustomerService;
 use Application\Services\Customers\CustomerServiceInterface;
@@ -14,8 +15,11 @@ use Domain\Interfaces\Services\Notifications\NotifiableInterface;
 use Domain\ValueObjects\Email;
 use Illuminate\Support\ServiceProvider;
 
+use Infrastructure\Cache\Provider\Redis\RedisProvider;
 use Infrastructure\CommandBus\CommandBusInterface;
 use Infrastructure\CommandBus\CommandBus;
+use Infrastructure\Hash\HashManager;
+use Infrastructure\Hash\HashManagerInterface;
 use Infrastructure\Persistence\Repositories\AdminRepository;
 use Infrastructure\Persistence\Repositories\CustomerRepository;
 use Presentation\Http\Validators\Admins\CreateAdminValidator;
@@ -36,6 +40,8 @@ use Infrastructure\Persistence\Repositories\UserRepository;
 
 use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
 use Presentation\Http\Validators\Utils\ValidatorService;
+use Psr\Cache\CacheItemPoolInterface;
+use Redis;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -46,6 +52,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(HashManagerInterface::class, HashManager::class);
+
+        $this->app->singleton(Redis::class, function (Application $application) {
+            $client = new Redis();
+
+            $config = $application->make('config')->get('database.redis.cache');
+
+            if (! $client->connect($config['host'], (int) $config['port'])) {
+                throw new \Exception("Could not connect to Redis at {$config['host']}:{$config['port']}");
+            }
+
+            return $client;
+        });
+        $this->app->bind(CacheItemPoolInterface::class, RedisProvider::class);
+
         /**
          *  Services
          */

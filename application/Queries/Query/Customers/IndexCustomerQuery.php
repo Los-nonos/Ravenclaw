@@ -8,19 +8,43 @@ use Infrastructure\QueryBus\Query\QueryInterface;
 
 class IndexCustomerQuery implements QueryInterface
 {
-    private $page;
-    private $size;
-    private $name;
-    private $surname;
-    private $username;
-    private $email;
-    private $organizationName;
-    private $domain;
+    /**
+     * @var int
+     */
+    private int $page;
+    /**
+     * @var int
+     */
+    private int $size;
+    /**
+     * @var string|null
+     */
+    private ?string $name;
+    /**
+     * @var string|null
+     */
+    private ?string $surname;
+    /**
+     * @var string|null
+     */
+    private ?string $username;
+    /**
+     * @var string|null
+     */
+    private ?string $email;
+    /**
+     * @var string|null
+     */
+    private ?string $organizationName;
+    /**
+     * @var string|null
+     */
+    private ?string $domain;
 
     public function __construct($page, $size, $name, $surname, $username, $email, $organizationName, $domain)
     {
-        $this->page = $page;
-        $this->size = $size;
+        $this->page = $page ? $page : 1;
+        $this->size = $size ? $size : env('PAGINATED_SIZE', 10);
         $this->name = $name;
         $this->surname = $surname;
         $this->username = $username;

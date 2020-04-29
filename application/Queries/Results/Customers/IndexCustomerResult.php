@@ -10,7 +10,6 @@ class IndexCustomerResult implements ResultInterface
 {
     private array $customers;
 
-
     public function setCustomers(array $customers): void
     {
         $this->customers = $customers;

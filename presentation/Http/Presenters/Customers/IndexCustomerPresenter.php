@@ -21,7 +21,7 @@ class IndexCustomerPresenter
     {
         $customers = $this->result->getCustomers();
         return [
-            'customers' => $customers,
+            'customers' => serialize($customers),
             'message' => 'customers has been found successfully',
         ];
     }

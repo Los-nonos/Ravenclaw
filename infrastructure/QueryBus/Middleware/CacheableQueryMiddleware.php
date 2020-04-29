@@ -8,6 +8,7 @@ use Infrastructure\QueryBus\Query\CacheableQueryInterface;
 use Infrastructure\QueryBus\Query\QueryInterface;
 use League\Tactician\Middleware;
 use Psr\Cache\CacheItemPoolInterface;
+use Psr\Cache\InvalidArgumentException;
 
 final class CacheableQueryMiddleware implements Middleware
 {
@@ -23,6 +24,7 @@ final class CacheableQueryMiddleware implements Middleware
      * @param callable $next
      * @return mixed
      * @throws InvalidQueryException
+     * @throws InvalidArgumentException
      */
     public function execute($query, callable $next)
     {
