@@ -3,37 +3,36 @@
 
 namespace Presentation\Http\Adapters\Customers;
 
+use App\Exceptions\InvalidBodyException;
 use Application\Queries\Query\Customers\IndexCustomerQuery;
 use Illuminate\Http\Request;
-use Presentation\Http\Validators\Customers\IndexCustomerValidatorInterface;
+use Presentation\Http\Validators\Schemas\Customer\IndexCustomerSchema;
+use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
 
 class IndexCustomerAdapter
 {
-    private IndexCustomerValidatorInterface $validator;
+    private ValidatorServiceInterface $validator;
 
-    private array $rules = [
-        'page' => 'bail|integer|min:0',
-        'size' => 'bail|integer|min:0',
-        'name' => 'bail|alpha',
-        'surname' => 'bail|alpha',
-        'username' => 'bail',
-        'email' => 'bail|email',
-        'organization_name' => 'bail|alpha',
-        'domain' => 'bail',
-    ];
+    private IndexCustomerSchema $indexCustomerSchema;
 
-    private array $messages = [
-
-    ];
-
-    public function __construct(IndexCustomerValidatorInterface $validator)
+    public function __construct(ValidatorServiceInterface $validator, IndexCustomerSchema $indexCustomerSchema)
     {
         $this->validator = $validator;
+        $this->indexCustomerSchema = $indexCustomerSchema;
     }
 
+    /**
+     * @param Request $request
+     * @return IndexCustomerQuery
+     * @throws InvalidBodyException
+     */
     public function from(Request $request)
     {
-        $this->validator->validate($request->all(), $this->rules, $this->messages);
+        $this->validator->make($request->all(), $this->indexCustomerSchema->getRules());
+
+        if(!$this->validator->isValid()) {
+            throw new InvalidBodyException($this->validator->getErrors());
+        }
 
         return new IndexCustomerQuery(
             $request->get('page'),

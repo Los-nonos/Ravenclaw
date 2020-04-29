@@ -6,30 +6,29 @@ namespace Application\Commands\Handler\Payments;
 
 use Application\Commands\Command\Payments\PayPalAuthorizationCommand;
 use Application\Commands\Results\Payments\PaypalAuthorizationResult;
-use Application\Commands\Results\Payments\PaypalAuthorizationResultInterface;
-use Application\Services\Customers\CustomerServiceInterface;
-use Application\Services\PaypalService;
+use Application\Services\Customer\CustomerServiceInterface;
+use Application\Services\Payments\PaypalServiceInterface;
 use Infrastructure\CommandBus\Handler\HandlerInterface;
 
 class PayPalAuthorizationHandler implements HandlerInterface
 {
-    private PaypalService $service;
+    private PaypalServiceInterface $service;
     private PaypalAuthorizationResult $result;
     private CustomerServiceInterface $customerService;
 
-    public function __construct(PaypalService $paypalService, CustomerServiceInterface $customerService, PaypalAuthorizationResult $result)
+    public function __construct(PaypalServiceInterface $paypalService, CustomerServiceInterface $customerService, PaypalAuthorizationResult $result)
     {
         $this->service = $paypalService;
         $this->customerService = $customerService;
     }
 
-    public function handle(PayPalAuthorizationCommand $command): PaypalAuthorizationResultInterface
+    public function handle(PayPalAuthorizationCommand $command): void
     {
         $customer = $this->customerService->findCustomerById($command->getCustomerId());
 
         $payment = $this->service->Authorization($customer, $command->getAmount());
 
         $this->result->setPayment($payment);
-        return $this->result;
+        //return $this->result;
     }
 }

@@ -4,8 +4,8 @@
 namespace Application\Commands\Handler\Payments;
 
 use Application\Commands\Command\Payments\PaypalExecuteCommand;
-use Application\Commands\Results\Payments\PaypalExecuteResultInterface;
-use Application\Services\Customers\CustomerServiceInterface;
+use Application\Commands\Results\Payments\PaypalExecuteResult;
+use Application\Services\Customer\CustomerServiceInterface;
 use Application\Services\Orders\OrderServiceInterface;
 use Application\Services\Payments\PaypalServiceInterface;
 use Domain\Entities\Payment;
@@ -13,7 +13,7 @@ use Infrastructure\CommandBus\Handler\HandlerInterface;
 
 class PaypalExecuteHandler implements HandlerInterface
 {
-    private PaypalExecuteResultInterface $result;
+    private PaypalExecuteResult $result;
 
     private PaypalServiceInterface $paypalService;
 
@@ -24,7 +24,7 @@ class PaypalExecuteHandler implements HandlerInterface
     public function __construct(
         PaypalServiceInterface $paypalService,
         OrderServiceInterface $orderService,
-        PaypalExecuteResultInterface $result,
+        PaypalExecuteResult $result,
         CustomerServiceInterface $customerService
     )
     {
@@ -34,7 +34,7 @@ class PaypalExecuteHandler implements HandlerInterface
         $this->customerService = $customerService;
     }
 
-    public function handle(PaypalExecuteCommand $command): PaypalExecuteResultInterface
+    public function handle(PaypalExecuteCommand $command): void
     {
         $payment = new Payment();
         $payment->setPayerId($command->getPayerId());
@@ -49,6 +49,6 @@ class PaypalExecuteHandler implements HandlerInterface
         $this->orderService->persist($order);
 
         $this->result->setOrder($order);
-        return $this->result;
+        //return $this->result;
     }
 }

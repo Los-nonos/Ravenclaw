@@ -3,10 +3,9 @@
 
 namespace Application\Services\Notifiable;
 
-use Application\Jobs\EmailJob;
+use Application\Jobs\NotificationJob as EmailJob;
 use Domain\Interfaces\Services\Notifications\MailableInterface;
 use Domain\Interfaces\Services\Notifications\NotifiableInterface;
-use Illuminate\Support\Facades\Mail;
 
 class NotifiableService implements NotifiableServiceInterface
 {

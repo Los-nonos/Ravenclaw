@@ -4,30 +4,36 @@
 namespace Presentation\Http\Adapters\Payments;
 
 
-use Application\Commands\Payments\MercadoPagoExecuteCommand;
+use App\Exceptions\InvalidBodyException;
+use Application\Commands\Command\Payments\MercadoPagoExecuteCommand;
 use Illuminate\Http\Request;
-use Presentation\Http\Validators\Payments\MercadoPagoExecuteValidatorInterface;
+use Presentation\Http\Validators\Schemas\Payments\MercadoPagoExecuteSchema;
+use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
 
 class MercadoPagoExecuteAdapter
 {
-    private MercadoPagoExecuteValidatorInterface $validator;
+    private ValidatorServiceInterface $validator;
 
-    private array $rules = [
+    private MercadoPagoExecuteSchema $pagoExecuteSchema;
 
-    ];
-
-    private array $messages = [
-
-    ];
-
-    public function __construct(MercadoPagoExecuteValidatorInterface $validator)
+    public function __construct(ValidatorServiceInterface $validator, MercadoPagoExecuteSchema $pagoExecuteSchema)
     {
         $this->validator = $validator;
+        $this->pagoExecuteSchema = $pagoExecuteSchema;
     }
 
+    /**
+     * @param Request $request
+     * @return MercadoPagoExecuteCommand
+     * @throws InvalidBodyException
+     */
     public function from(Request $request)
     {
-        $this->validator->Validate($request->all(), $this->rules, $this->messages);
+        $this->validator->make($request->all(), $this->pagoExecuteSchema->getRules());
+
+        if(!$this->validator->isValid()) {
+            throw new InvalidBodyException($this->validator->getErrors());
+        }
 
         return new MercadoPagoExecuteCommand(
 

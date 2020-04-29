@@ -6,7 +6,7 @@ namespace Domain\ValueObjects;
 
 use Domain\Interfaces\Services\Notifications\NotifiableInterface;
 
-class Email implements NotifiableInterface
+class Notifiable implements NotifiableInterface
 {
     private string $emailFrom;
     private string $name;

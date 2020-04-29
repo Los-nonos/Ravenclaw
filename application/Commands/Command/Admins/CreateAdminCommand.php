@@ -4,7 +4,9 @@
 namespace Application\Commands\Command\Admins;
 
 
-use Domain\CommandBus\CommandInterface;
+
+
+use Infrastructure\CommandBus\Command\CommandInterface;
 
 class CreateAdminCommand implements CommandInterface
 {

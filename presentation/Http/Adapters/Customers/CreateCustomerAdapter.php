@@ -3,46 +3,36 @@
 
 namespace Presentation\Http\Adapters\Customers;
 
+use App\Exceptions\InvalidBodyException;
 use Illuminate\Http\Request;
-use Presentation\Http\Validators\Customers\CreateCustomerValidatorInterface;
 use Application\Commands\Command\Customers\CreateCustomerCommand;
+use Presentation\Http\Validators\Schemas\Customer\CreateCustomerSchema;
+use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
 
 class CreateCustomerAdapter
 {
-    private CreateCustomerValidatorInterface $validator;
+    private ValidatorServiceInterface $validator;
 
-    private $messages = [
-        'name.required' => 'The name is required',
-        'name.alpha' => 'The name cannot contain numbers or symbols',
-        'surname.required' => 'The surname is required',
-        'surname.alpha' => 'The surname cannot contain numbers or symbols',
-        'email.required' => 'The email is required',
-        'email.email' => 'The email is not correct',
-        'username.required' => 'The username is required',
-        'username.alpha' => 'The username cannot contain numbers or symbols',
-        'password.required' => 'The password is required',
-        'password.min' => 'The password is too short',
-        'password.max' => 'The password is too long'
-    ];
+    private CreateCustomerSchema $createCustomerSchema;
 
-    private $rules = [
-        'name' => 'bail|required|alpha',
-        'surname' => 'bail|required|alpha',
-        'username' => 'bail|required',
-        'email' => 'bail|required|email',
-        'password' => 'bail|required|min:4|max:16',
-        'domain' => 'bail|required',
-        'organizationName' => 'bail|required',
-    ];
-
-    public function __construct(CreateCustomerValidatorInterface $validator)
+    public function __construct(ValidatorServiceInterface $validator, CreateCustomerSchema $createCustomerSchema)
     {
         $this->validator = $validator;
+        $this->createCustomerSchema = $createCustomerSchema;
     }
 
+    /**
+     * @param Request $request
+     * @return CreateCustomerCommand
+     * @throws InvalidBodyException
+     */
     public function from(Request $request): CreateCustomerCommand
     {
-        $this->validator->validate($request->all(), $this->rules, $this->messages);
+        $this->validator->make($request->all(), $this->createCustomerSchema->getRules());
+
+        if(!$this->validator->isValid()) {
+            throw new InvalidBodyException($this->validator->getErrors());
+        }
 
         return new CreateCustomerCommand(
             $request->get('name'),

@@ -4,35 +4,36 @@
 namespace Presentation\Http\Adapters\Admins;
 
 
-use Application\Commands\Admins\CreateAdminCommand;
+use App\Exceptions\InvalidBodyException;
+use Application\Commands\Command\Admins\CreateAdminCommand;
 use Illuminate\Http\Request;
-use Presentation\Http\Validators\Admins\CreateAdminValidatorInterface;
+use Presentation\Http\Validators\Schemas\Admin\CreateAdminSchema;
+use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
 
 class CreateAdminAdapter
 {
-    private CreateAdminValidatorInterface $validator;
+    private ValidatorServiceInterface $validator;
 
-    private array $rules = [
-        'name' => 'bail|required|alpha',
-        'surname' => 'bail|required|alpha',
-        'username' => 'bail|required',
-        'email' => 'bail|required|email',
-        'password' => 'bail|required|min:8|max:15',
-        'role' => 'bail|required|alpha'
-    ];
+    private CreateAdminSchema $createAdminSchema;
 
-    private array $messages = [
-
-    ];
-
-    public function __construct(CreateAdminValidatorInterface $validator)
+    public function __construct(ValidatorServiceInterface $validator, CreateAdminSchema $createAdminSchema)
     {
         $this->validator = $validator;
+        $this->createAdminSchema = $createAdminSchema;
     }
 
+    /**
+     * @param Request $request
+     * @return CreateAdminCommand
+     * @throws InvalidBodyException
+     */
     public function from(Request $request)
     {
-        $this->validator->Validate($request->all(), $this->rules, $this->messages);
+        $this->validator->make($request->all(), $this->createAdminSchema->getRules());
+
+        if(!$this->validator->isValid()) {
+            throw new InvalidBodyException($this->validator->getErrors());
+        }
 
         return new CreateAdminCommand(
             $request->get('name'),

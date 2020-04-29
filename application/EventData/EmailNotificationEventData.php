@@ -9,15 +9,15 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendGridNotificationEventData extends Mailable implements MailableInterface
+class EmailNotificationEventData extends Mailable implements MailableInterface
 {
     use Queueable, SerializesModels;
 
     private NotifiableInterface $emailData;
 
-    public function fromNotifiable(NotifiableInterface $notificable): Mailable
+    public function fromNotifiable(NotifiableInterface $notifiable): Mailable
     {
-        $this->emailData = $notificable;
+        $this->emailData = $notifiable;
         return $this;
     }
 

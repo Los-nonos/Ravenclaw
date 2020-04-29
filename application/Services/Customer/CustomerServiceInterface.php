@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Application\Services\Customers;
+namespace Application\Services\Customer;
 
 
-use Application\Commands\Customers\IndexCustomerCommand;
-use Application\Results\Customers\IndexCustomerResultInterface;
+use Application\Queries\Query\Customers\IndexCustomerQuery;
+use Application\Queries\Results\Customers\IndexCustomerResult;
 use Domain\Entities\Customer;
 
 interface CustomerServiceInterface
 {
-    public function indexCustomers(IndexCustomerCommand $command): IndexCustomerResultInterface;
+    public function indexCustomers(IndexCustomerQuery $command): IndexCustomerResult;
     public function findCustomerById($id): Customer;
 }

@@ -4,22 +4,22 @@
 namespace Application\Commands\Handler\Users;
 
 use Application\Commands\Command\Users\UpdateUserCommand;
-use Application\Commands\Results\Users\UpdateUserResultInterface;
+use Application\Commands\Results\Users\UpdateUserResult;
 use Application\Services\Users\UserServiceInterface;
 use Infrastructure\CommandBus\Handler\HandlerInterface;
 
 class UpdateUserHandler implements HandlerInterface
 {
     private UserServiceInterface $userService;
-    private UpdateUserResultInterface $result;
+    private UpdateUserResult $result;
 
-    public function __construct(UserServiceInterface $userService, UpdateUserResultInterface $result)
+    public function __construct(UserServiceInterface $userService, UpdateUserResult $result)
     {
         $this->userService = $userService;
         $this->result = $result;
     }
 
-    public function handle(UpdateUserCommand $command): UpdateUserResultInterface
+    public function handle(UpdateUserCommand $command): void
     {
         $user = $this->userService->FindUserById($command->getId());
 
@@ -32,6 +32,6 @@ class UpdateUserHandler implements HandlerInterface
 
         $this->result->setUser($user);
 
-        return $this->result;
+        //return $this->result;
     }
 }

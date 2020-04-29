@@ -4,35 +4,37 @@
 namespace Presentation\Http\Adapters\Payments;
 
 
+use App\Exceptions\InvalidBodyException;
 use Application\Commands\Command\Payments\PayPalAuthorizationCommand;
 use Illuminate\Http\Request;
-use Presentation\Http\Validators\Payments\PaypalAuthorizationValidatorInterface;
+use Presentation\Http\Validators\Schemas\Payments\PaypalAuthorizationSchema;
+use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
+
 
 class PaypalAuthorizationAdapter
 {
-    private PaypalAuthorizationValidatorInterface $validator;
+    private ValidatorServiceInterface $validator;
 
-    public function __construct(PaypalAuthorizationValidatorInterface $validator)
+    public function __construct(ValidatorServiceInterface $validator, PaypalAuthorizationSchema $paypalAuthorizationSchema)
     {
         $this->validator = $validator;
+        $this->paypalAuthorizationSchema = $paypalAuthorizationSchema;
     }
 
-    private array $rules = [
-        'customer_id' => 'bail|required|min:0|integer',
-        'amount' => 'bail|required|min:0'
-    ];
-
-    private array $messages = [
-
-    ];
+    private PaypalAuthorizationSchema $paypalAuthorizationSchema;
 
     /**
      * @param Request $request
      * @return PayPalAuthorizationCommand
+     * @throws InvalidBodyException
      */
     public function from(Request $request)
     {
-        $this->validator->Validate($request->all(), $this->rules, $this->messages);
+        $this->validator->make($request->all(), $this->paypalAuthorizationSchema->getRules());
+
+        if(!$this->validator->isValid()) {
+            throw new InvalidBodyException($this->validator->getErrors());
+        }
 
         return new PaypalAuthorizationCommand(
             $request->get('customer_id'),

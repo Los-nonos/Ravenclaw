@@ -3,44 +3,36 @@
 
 namespace Presentation\Http\Adapters\Users;
 
+use App\Exceptions\InvalidBodyException;
 use Illuminate\Http\Request;
 use Application\Commands\Command\Users\UpdateUserCommand;
-use Presentation\Http\Validators\Users\UpdateUserValidatorInterface;
+use Presentation\Http\Validators\Schemas\Users\UpdateUserSchema;
+use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
 
 class UpdateUserAdapter
 {
-    private UpdateUserValidatorInterface $validator;
+    private ValidatorServiceInterface $validator;
 
-    private array $rules = [
-        'id' => 'bail|required|min:0|integer',
-        'name' => 'bail|required|alpha',
-        'surname' => 'bail|required|alpha',
-        'username' => 'bail|required',
-        'email' => 'bail|required|email',
-    ];
+    private UpdateUserSchema $updateUserSchema;
 
-    private array $messages = [
-        'id.integer' => 'The id must be an integer',
-        'id.min' => 'The id should more than 0',
-        'id.required' => 'The id is required',
-        'name.required' => 'The name is required',
-        'name.alpha' => 'The name cannot contain numbers or symbols',
-        'surname.required' => 'The surname is required',
-        'surname.alpha' => 'The surname cannot contain numbers or symbols',
-        'email.required' => 'The email is required',
-        'email.email' => 'The email is not correct',
-        'username.required' => 'The username is required',
-        'username.alpha' => 'The username cannot contain numbers or symbols',
-    ];
-
-    public function __construct(UpdateUserValidatorInterface $validator)
+    public function __construct(ValidatorServiceInterface $validator, UpdateUserSchema $updateUserSchema)
     {
         $this->validator = $validator;
+        $this->updateUserSchema = $updateUserSchema;
     }
 
+    /**
+     * @param Request $request
+     * @return UpdateUserCommand
+     * @throws InvalidBodyException
+     */
     public function from(Request $request)
     {
-        $this->validator->validate($request->all(), $this->rules, $this->messages);
+        $this->validator->make($request->all(), $this->updateUserSchema->getRules());
+
+        if(!$this->validator->isValid()) {
+            throw new InvalidBodyException($this->validator->getErrors());
+        }
 
         return new UpdateUserCommand(
             $request->get('id'),

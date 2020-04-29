@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Application\Services;
+namespace Application\Services\Payments;
 
 
 use Application\Exceptions\FailedPaymentException;

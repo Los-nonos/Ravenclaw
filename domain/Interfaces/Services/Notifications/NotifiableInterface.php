@@ -14,5 +14,4 @@ interface NotifiableInterface
     public function setSubject(string $subject): void;
     public function setEmailFrom(string $email): void;
     public function setNameFrom(string $name): void;
-    public function fromNotifiable(NotifiableInterface $data): Mailable;
 }

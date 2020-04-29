@@ -1,25 +1,25 @@
 <?php
 
 
-namespace Application\Services\Customers;
+namespace Application\Services\Customer;
 
-use Application\Commands\Customers\IndexCustomerCommand;
-use Application\Results\Customers\IndexCustomerResultInterface;
+use Application\Queries\Query\Customers\IndexCustomerQuery;
+use Application\Queries\Results\Customers\IndexCustomerResult;
 use Domain\Entities\Customer;
 use Domain\Interfaces\Repositories\CustomerRepositoryInterface;
 
 class CustomerService implements CustomerServiceInterface
 {
     private CustomerRepositoryInterface $repository;
-    private IndexCustomerResultInterface $result;
+    private IndexCustomerResult $result;
 
-    public function __construct(CustomerRepositoryInterface $repository, IndexCustomerResultInterface $result)
+    public function __construct(CustomerRepositoryInterface $repository, IndexCustomerResult $result)
     {
         $this->repository = $repository;
         $this->result = $result;
     }
 
-    public function indexCustomers(IndexCustomerCommand $command): IndexCustomerResultInterface
+    public function indexCustomers(IndexCustomerQuery $command): IndexCustomerResult
     {
         $page = $command->getPage();
 

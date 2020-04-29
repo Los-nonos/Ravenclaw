@@ -3,7 +3,7 @@
 namespace Infrastructure\Providers;
 
 use Illuminate\Foundation\Application;
-use Application\EventData\SendGridNotificationEventData;
+use Application\EventData\EmailNotificationEventData;
 use Application\Services\Customers\CustomerService;
 use Application\Services\Customers\CustomerServiceInterface;
 use Application\Services\Notifiable\NotifiableService;
@@ -109,7 +109,7 @@ class AppServiceProvider extends ServiceProvider
          */
         $this->app->bind(NotifiableServiceInterface::class, NotifiableService::class);
         $this->app->bind(NotifiableInterface::class, Email::class);
-        $this->app->bind(MailableInterface::class, SendGridNotificationEventData::class);
+        $this->app->bind(MailableInterface::class, EmailNotificationEventData::class);
     }
 
     /**

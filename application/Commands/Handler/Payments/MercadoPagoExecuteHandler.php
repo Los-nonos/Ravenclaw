@@ -15,12 +15,12 @@ class MercadoPagoExecuteHandler implements HandlerInterface
 
     private OrderServiceInterface $orderService;
 
-    private MercadoPagoResultInterface $result;
+    private MercadoPagoResult $result;
 
     public function __construct(
         MercadoPagoServiceInterface $mercadoPagoService,
         OrderServiceInterface $orderService,
-        MercadoPagoResultInterface $result
+        MercadoPagoResult $result
     )
     {
         $this->mercadoPagoService = $mercadoPagoService;
@@ -28,7 +28,7 @@ class MercadoPagoExecuteHandler implements HandlerInterface
         $this->result = $result;
     }
 
-    public function handle(MercadoPagoExecuteCommand $command)
+    public function handle(MercadoPagoExecuteCommand $command): void
     {
         $this->mercadoPagoService->CreateClient($command->getAccessToken());
 
@@ -43,6 +43,6 @@ class MercadoPagoExecuteHandler implements HandlerInterface
         $this->orderService->Persist($order);
 
         $this->result->setOrder($order);
-        return $this->result;
+        //return $this->result;
     }
 }

@@ -4,7 +4,7 @@
 namespace Application\Services\Users;
 
 
-use Application\Commands\Users\CreateUserCommand;
+use Application\Commands\Command\Users\CreateUserCommand;
 use Domain\Entities\User;
 
 interface UserServiceInterface

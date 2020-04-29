@@ -5,8 +5,8 @@ namespace Application\Commands\Handler\Customers;
 
 use Application\Commands\Command\Customers\CreateCustomerCommand;
 use Application\Commands\Command\Users\CreateUserCommand;
+use Application\Commands\Results\Customers\CreateCustomerResult;
 use Application\Exceptions\SettingRoleUserNotPermittedException;
-use Application\Commands\Results\Customers\CreateCustomerResultInterface;
 use Application\Services\Notifiable\NotifiableService;
 use Application\Services\Users\UserServiceInterface;
 use Domain\Entities\Customer;
@@ -17,14 +17,14 @@ class CreateCustomerHandler implements HandlerInterface
 {
     private UserServiceInterface $userService;
     private CustomerRepositoryInterface $customerRepository;
-    private CreateCustomerResultInterface $result;
+    private CreateCustomerResult $result;
     private NotifiableService $notifiableService;
 
     public function __construct(
         UserServiceInterface $userService,
         CustomerRepositoryInterface $customerRepository,
         NotifiableService $notifiableService,
-        CreateCustomerResultInterface $result)
+        CreateCustomerResult $result)
     {
         $this->userService = $userService;
         $this->customerRepository = $customerRepository;
@@ -34,10 +34,9 @@ class CreateCustomerHandler implements HandlerInterface
 
     /**
      * @param CreateCustomerCommand $command
-     * @return CreateCustomerResultInterface
      * @throws SettingRoleUserNotPermittedException
      */
-    public function handle(CreateCustomerCommand $command): CreateCustomerResultInterface
+    public function handle(CreateCustomerCommand $command): void
     {
         $customer = new Customer($command->getDomain(), $command->getOrganizationName());
         $userCommand = $this->createUserCommandFromCustomerCommand($command);
@@ -57,7 +56,7 @@ class CreateCustomerHandler implements HandlerInterface
 
         $this->notifiableService->SendEmail($data);
 
-        return $this->result;
+        //return $this->result;
     }
 
     private function createUserCommandFromCustomerCommand(CreateCustomerCommand $command): CreateUserCommand
