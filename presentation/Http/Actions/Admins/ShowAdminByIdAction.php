@@ -41,7 +41,7 @@ class ShowAdminByIdAction
         if(!$result instanceof ShowAdminByIdResult) {
             throw new InvalidResultException("you treating to return once result invalid");
         }
-        
+
         return new JsonResponse($this->presenter->fromResult($result)->getData());
     }
 }
