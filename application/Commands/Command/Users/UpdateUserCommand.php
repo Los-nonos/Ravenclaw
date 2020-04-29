@@ -8,11 +8,11 @@ use Infrastructure\CommandBus\Command\CommandInterface;
 
 class UpdateUserCommand implements CommandInterface
 {
-    private $id;
-    private $name;
-    private $surname;
-    private $email;
-    private $username;
+    private int $id;
+    private string $name;
+    private string $surname;
+    private string $email;
+    private string $username;
 
     public function __construct($id, $name, $surname, $username, $email)
     {
