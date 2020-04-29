@@ -3,6 +3,7 @@
 
 namespace Application\Services\Customer;
 
+use Application\Exceptions\EntityNotFoundException;
 use Application\Queries\Query\Customers\IndexCustomerQuery;
 use Application\Queries\Results\Customers\IndexCustomerResult;
 use Domain\Entities\Customer;
@@ -68,8 +69,20 @@ class CustomerService implements CustomerServiceInterface
         return $this->result;
     }
 
-    public function findCustomerById($id): Customer
+    /**
+     * @param $id
+     * @return Customer
+     * @throws EntityNotFoundException
+     */
+    public function findCustomerByIdOrFail($id): Customer
     {
-        // TODO: Implement findCustomerById() method.
+        $customer = $this->repository->getById($id);
+
+        if(!isset($customer))
+        {
+            throw new EntityNotFoundException("Customer with id: $id not found");
+        }
+
+        return $customer;
     }
 }

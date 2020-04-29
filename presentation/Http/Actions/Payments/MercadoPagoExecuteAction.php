@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Presentation\Http\Adapters\Payments\MercadoPagoExecuteAdapter;
 use Presentation\Http\Enums\HttpCodes;
+use Presentation\Http\Presenters\Payments\MercadoPagoExecutePresenter;
 
 class MercadoPagoExecuteAction
 {

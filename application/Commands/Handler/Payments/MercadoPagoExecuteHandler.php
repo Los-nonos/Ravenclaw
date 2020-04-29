@@ -5,6 +5,7 @@ namespace Application\Commands\Handler\Payments;
 
 
 use Application\Commands\Command\Payments\MercadoPagoExecuteCommand;
+use Application\Commands\Results\Payments\MercadoPagoExecuteResult;
 use Application\Services\Orders\OrderServiceInterface;
 use Application\Services\Payments\MercadoPagoServiceInterface;
 use Infrastructure\CommandBus\Handler\HandlerInterface;
@@ -15,12 +16,12 @@ class MercadoPagoExecuteHandler implements HandlerInterface
 
     private OrderServiceInterface $orderService;
 
-    private MercadoPagoResult $result;
+    private MercadoPagoExecuteResult $result;
 
     public function __construct(
         MercadoPagoServiceInterface $mercadoPagoService,
         OrderServiceInterface $orderService,
-        MercadoPagoResult $result
+        MercadoPagoExecuteResult $result
     )
     {
         $this->mercadoPagoService = $mercadoPagoService;

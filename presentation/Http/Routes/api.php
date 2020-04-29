@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Presentation\Http\Actions\Customers\ShowCustomerByIdAction;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::post('/customers', 'Customers\CreateCustomerAction@execute')->name('creat
 Route::put('/users', 'Users\UpdateUserAction@execute')->name('updateUser');
 
 Route::get('/customers', 'Customers\IndexCustomerAction@execute')->name('indexCustomers');
+
+Route::get('/customers/:id', ShowCustomerByIdAction::class)->name('showCustomerById');
 
 Route::post('/admins', 'Admins\CreateAdminAction@execute')->name('createAdmin');
 

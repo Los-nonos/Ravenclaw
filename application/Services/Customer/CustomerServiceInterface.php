@@ -11,5 +11,5 @@ use Domain\Entities\Customer;
 interface CustomerServiceInterface
 {
     public function indexCustomers(IndexCustomerQuery $command): IndexCustomerResult;
-    public function findCustomerById($id): Customer;
+    public function findCustomerByIdOrFail($id): Customer;
 }
