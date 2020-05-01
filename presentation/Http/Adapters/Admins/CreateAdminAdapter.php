@@ -16,7 +16,10 @@ class CreateAdminAdapter
 
     private CreateAdminSchema $createAdminSchema;
 
-    public function __construct(ValidatorServiceInterface $validator, CreateAdminSchema $createAdminSchema)
+    public function __construct(
+        ValidatorServiceInterface $validator,
+        CreateAdminSchema $createAdminSchema
+    )
     {
         $this->validator = $validator;
         $this->createAdminSchema = $createAdminSchema;

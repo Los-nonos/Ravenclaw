@@ -33,4 +33,10 @@ class AdminService implements AdminServiceInterface
 
         return $admin;
     }
+
+    public function persistAndFlush(Admin $admin): void
+    {
+        $this->adminRepository->Persist($admin);
+        $this->adminRepository->Update();
+    }
 }

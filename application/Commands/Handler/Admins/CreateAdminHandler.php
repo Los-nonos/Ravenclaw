@@ -7,34 +7,34 @@ namespace Application\Commands\Handler\Admins;
 use Application\Commands\Command\Admins\CreateAdminCommand;
 use Application\Commands\Command\Users\CreateUserCommand;
 use Application\Exceptions\SettingRoleUserNotPermittedException;
+use Application\Services\Admins\AdminServiceInterface;
 use Application\Services\Users\UserServiceInterface;
 use Domain\Entities\Admin;
-use Domain\Interfaces\Repositories\AdminRepositoryInterface;
 use Infrastructure\CommandBus\Handler\HandlerInterface;
 
 class CreateAdminHandler implements HandlerInterface
 {
     private UserServiceInterface $userService;
-    private AdminRepositoryInterface $repository;
+    private AdminServiceInterface $adminService;
 
-    public function __construct(UserServiceInterface $userService, AdminRepositoryInterface $repository)
+    public function __construct(UserServiceInterface $userService, AdminServiceInterface $adminService)
     {
         $this->userService = $userService;
-        $this->repository = $repository;
+        $this->adminService = $adminService;
     }
 
+    /**
+     * @param CreateAdminCommand $command
+     * @throws SettingRoleUserNotPermittedException
+     */
     public function handle(CreateAdminCommand $command): void
     {
         $user = $this->userService->CreateUserByCommand($this->createUserCommand($command));
 
         $admin = new Admin($command->getRole());
 
-        try {
-            $user->setAdmin($admin);
-            $this->repository->Persist($admin);
-        } catch (SettingRoleUserNotPermittedException $e) {
-
-        }
+        $user->setAdmin($admin);
+        $this->adminService->persistAndFlush($admin);
 
         $this->userService->Persist($user);
     }

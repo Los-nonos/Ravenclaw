@@ -5,6 +5,7 @@ namespace Presentation\Http\Actions\Admins;
 
 
 use App\Exceptions\InvalidBodyException;
+use Application\Queries\Handler\Admins\ShowAdminByIdHandler;
 use Application\Queries\Results\Admins\ShowAdminByIdResult;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,9 +22,16 @@ class ShowAdminByIdAction
 
     private ShowAdminByIdPresenter $presenter;
 
-    public function __construct()
+    public function __construct(
+        ShowAdminByIdAdapter $adapter,
+        QueryBusInterface $queryBus,
+        ShowAdminByIdHandler $handler,
+        ShowAdminByIdPresenter $presenter
+    )
     {
-
+        $this->adapter = $adapter;
+        $this->queryBus = $queryBus;
+        $this->presenter = $presenter;
     }
 
     /**

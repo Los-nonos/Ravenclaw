@@ -34,8 +34,8 @@ class CreateAdminAction
     {
         $command = $this->adapter->from($request);
 
-        $result = $this->commandBus->handle($command);
+        $this->commandBus->handle($command);
 
-        return new JsonResponse($this->presenter->fromResult($result)->getData(), HttpCodes::CREATED);
+        return new JsonResponse(['message' => 'Admin created successfully'], HttpCodes::CREATED);
     }
 }
