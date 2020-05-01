@@ -4,13 +4,11 @@
 namespace Presentation\Http\Presenters\Payments;
 
 
-use Application\Commands\Results\Payments\MercadoPagoExecuteResult;
-
 class MercadoPagoExecutePresenter
 {
-    private MercadoPagoExecuteResult $result;
+    private $result;
 
-    public function fromResult(MercadoPagoExecuteResult $result): MercadoPagoExecutePresenter
+    public function fromResult($result): MercadoPagoExecutePresenter
     {
         $this->result = $result;
         return $this;
@@ -18,7 +16,7 @@ class MercadoPagoExecutePresenter
 
     public function getData(): array {
         return [
-
+            'result' => $this->result
         ];
     }
 }

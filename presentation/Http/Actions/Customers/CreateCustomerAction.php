@@ -3,6 +3,7 @@
 
 namespace Presentation\Http\Actions\Customers;
 
+use App\Exceptions\InvalidBodyException;
 use Infrastructure\CommandBus\CommandBusInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -28,8 +29,9 @@ class CreateCustomerAction
     /**
      * @param Request $request
      * @return JsonResponse
+     * @throws InvalidBodyException
      */
-    public function execute(Request $request)
+    public function __invoke(Request $request)
     {
         $command = $this->adapter->from($request);
 

@@ -6,7 +6,6 @@ namespace Application\Commands\Handler\Admins;
 
 use Application\Commands\Command\Admins\CreateAdminCommand;
 use Application\Commands\Command\Users\CreateUserCommand;
-use Application\Commands\Results\Admins\CreateAdminResult;
 use Application\Exceptions\SettingRoleUserNotPermittedException;
 use Application\Services\Users\UserServiceInterface;
 use Domain\Entities\Admin;
@@ -16,13 +15,11 @@ use Infrastructure\CommandBus\Handler\HandlerInterface;
 class CreateAdminHandler implements HandlerInterface
 {
     private UserServiceInterface $userService;
-    private CreateAdminResult $result;
     private AdminRepositoryInterface $repository;
 
-    public function __construct(UserServiceInterface $userService, AdminRepositoryInterface $repository, CreateAdminResult $result)
+    public function __construct(UserServiceInterface $userService, AdminRepositoryInterface $repository)
     {
         $this->userService = $userService;
-        $this->result = $result;
         $this->repository = $repository;
     }
 
@@ -40,10 +37,6 @@ class CreateAdminHandler implements HandlerInterface
         }
 
         $this->userService->Persist($user);
-
-        $this->result->setUser($user);
-
-        //return $this->result;
     }
 
     private function createUserCommand(CreateAdminCommand $command): CreateUserCommand

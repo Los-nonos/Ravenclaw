@@ -3,6 +3,7 @@
 
 namespace Presentation\Http\Actions\Users;
 
+use App\Exceptions\InvalidBodyException;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Infrastructure\CommandBus\CommandBusInterface;
@@ -23,7 +24,12 @@ class UpdateUserAction
         $this->presenter = $presenter;
     }
 
-    public function execute(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws InvalidBodyException
+     */
+    public function __invoke(Request $request)
     {
         $command = $this->adapter->from($request);
 

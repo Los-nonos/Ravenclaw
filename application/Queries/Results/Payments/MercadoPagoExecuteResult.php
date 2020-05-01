@@ -1,12 +1,13 @@
 <?php
 
 
-namespace Application\Commands\Results\Payments;
+namespace Application\Queries\Results\Payments;
 
 
 use Domain\Entities\Order;
+use Infrastructure\QueryBus\Result\ResultInterface;
 
-class MercadoPagoExecuteResult
+class MercadoPagoExecuteResult implements ResultInterface
 {
     private Order $order;
 

@@ -1,14 +1,12 @@
 <?php
 
 
-namespace Application\Commands\Handler\Payments;
+namespace Application\Queries\Handler\Payments;
 
-
-use Application\Commands\Command\Payments\PayPalAuthorizationCommand;
-use Application\Commands\Results\Payments\PaypalAuthorizationResult;
+use Application\Queries\Results\Payments\PaypalAuthorizationResult;
 use Application\Services\Customer\CustomerServiceInterface;
 use Application\Services\Payments\PaypalServiceInterface;
-use Infrastructure\CommandBus\Handler\HandlerInterface;
+use Infrastructure\QueryBus\Handler\HandlerInterface;
 
 class PayPalAuthorizationHandler implements HandlerInterface
 {
@@ -22,9 +20,9 @@ class PayPalAuthorizationHandler implements HandlerInterface
         $this->customerService = $customerService;
     }
 
-    public function handle(PayPalAuthorizationCommand $command): void
+    public function handle($command): void
     {
-        $customer = $this->customerService->findCustomerById($command->getCustomerId());
+        $customer = $this->customerService->findCustomerByIdOrFail($command->getCustomerId());
 
         $payment = $this->service->Authorization($customer, $command->getAmount());
 

@@ -12,4 +12,5 @@ interface CustomerServiceInterface
 {
     public function indexCustomers(IndexCustomerQuery $command): IndexCustomerResult;
     public function findCustomerByIdOrFail($id): Customer;
+    public function destroyOrFail($getId);
 }

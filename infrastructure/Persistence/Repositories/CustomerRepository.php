@@ -62,4 +62,18 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
     {
         return $this->findBy($values, null, $size, $page);
     }
+
+    /**
+     * @param Customer $customer
+     * @throws ORMException
+     */
+    public function destroy(Customer $customer): void
+    {
+        $this->getEntityManager()->remove($customer);
+        $this->flush();
+    }
+
+    public function flush(): void {
+        $this->getEntityManager()->flush();
+    }
 }

@@ -4,19 +4,16 @@
 namespace Application\Commands\Handler\Users;
 
 use Application\Commands\Command\Users\UpdateUserCommand;
-use Application\Commands\Results\Users\UpdateUserResult;
 use Application\Services\Users\UserServiceInterface;
 use Infrastructure\CommandBus\Handler\HandlerInterface;
 
 class UpdateUserHandler implements HandlerInterface
 {
     private UserServiceInterface $userService;
-    private UpdateUserResult $result;
 
-    public function __construct(UserServiceInterface $userService, UpdateUserResult $result)
+    public function __construct(UserServiceInterface $userService)
     {
         $this->userService = $userService;
-        $this->result = $result;
     }
 
     public function handle(UpdateUserCommand $command): void
@@ -29,9 +26,5 @@ class UpdateUserHandler implements HandlerInterface
         $user->setEmail($command->getEmail());
 
         $this->userService->Persist($user);
-
-        $this->result->setUser($user);
-
-        //return $this->result;
     }
 }

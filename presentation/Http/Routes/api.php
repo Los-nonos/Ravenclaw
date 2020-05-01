@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Presentation\Http\Actions\Customers\ShowCustomerByIdAction;
+use Presentation\Http\Actions;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,20 +19,34 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/customers', 'Customers\CreateCustomerAction@execute')->name('createCustomer');
+Route::group(['prefix' => 'auth'], function() {
+    Route::post('/login', Actions\Auth\LoginAction::class)->name('login');
+});
 
-Route::put('/users', 'Users\UpdateUserAction@execute')->name('updateUser');
+Route::group(['prefix' => 'users'], function() {
+    Route::put('/:id', Actions\Users\UpdateUserAction::class)->name('updateUser');
+});
 
-Route::get('/customers', 'Customers\IndexCustomerAction@execute')->name('indexCustomers');
+Route::group(['prefix' => 'admins'], function() {
+    Route::post('/', Actions\Admins\CreateAdminAction::class)->name('createAdmin');
 
-Route::get('/customers/:id', ShowCustomerByIdAction::class)->name('showCustomerById');
+    Route::get('/:id', Actions\Admins\ShowAdminByIdAction::class)->name('findAdmin');
+});
 
-Route::post('/admins', 'Admins\CreateAdminAction@execute')->name('createAdmin');
+Route::group(['prefix' => 'customers'], function() {
+    Route::get('/:id',  Actions\Customers\ShowCustomerByIdAction::class)->name('showCustomerById');
+
+    Route::get('/', Actions\Customers\IndexCustomerAction::class)->name('indexCustomers');
+
+    Route::post('/', Actions\Customers\CreateCustomerAction::class)->name('createCustomer');
+
+    Route::delete('/:id', Actions\Customers\DestroyCustomerByIdAction::class)->name('destroyCustomer');
+});
 
 Route::group(['prefix' => 'payments'], function () {
-    Route::post('/paypal/authorization', 'Payments\PaypalAuthorizationAction@execute')->name('paypalAuthorization');
+    Route::post('/paypal/authorization', Actions\Payments\PaypalAuthorizationAction::class)->name('paypalAuthorization');
 
-    Route::post('/paypal/pay', 'Payments\PaypalExecuteAction@execute')->name('paypalPay');
+    Route::post('/paypal/pay', Actions\Payments\PaypalExecuteAction::class)->name('paypalPay');
 
-    Route::post('/mercadopago/pay', 'Payments\MercadoPagoExecuteAction@execute')->name('mercadoPagoPay');
+    Route::post('/mercadopago/pay', Actions\Payments\MercadoPagoExecuteAction::class)->name('mercadoPagoPay');
 });

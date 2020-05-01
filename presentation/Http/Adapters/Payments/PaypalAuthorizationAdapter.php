@@ -5,11 +5,10 @@ namespace Presentation\Http\Adapters\Payments;
 
 
 use App\Exceptions\InvalidBodyException;
-use Application\Commands\Command\Payments\PayPalAuthorizationCommand;
+use Application\Queries\Query\Payments\PayPalAuthorizationQuery;
 use Illuminate\Http\Request;
 use Presentation\Http\Validators\Schemas\Payments\PaypalAuthorizationSchema;
 use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
-
 
 class PaypalAuthorizationAdapter
 {
@@ -25,7 +24,7 @@ class PaypalAuthorizationAdapter
 
     /**
      * @param Request $request
-     * @return PayPalAuthorizationCommand
+     * @return PayPalAuthorizationQuery
      * @throws InvalidBodyException
      */
     public function from(Request $request)
@@ -36,7 +35,7 @@ class PaypalAuthorizationAdapter
             throw new InvalidBodyException($this->validator->getErrors());
         }
 
-        return new PaypalAuthorizationCommand(
+        return new PayPalAuthorizationQuery(
             $request->get('customer_id'),
             $request->get('amount')
         );

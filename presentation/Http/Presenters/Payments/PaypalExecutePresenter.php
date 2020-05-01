@@ -4,13 +4,11 @@
 namespace Presentation\Http\Presenters\Payments;
 
 
-use Application\Commands\Results\Payments\PaypalExecuteResultInterface;
-
 class PaypalExecutePresenter
 {
-    private PaypalExecuteResultInterface $result;
+    private $result;
 
-    public function fromResult(PaypalExecuteResultInterface $result): PaypalExecutePresenter
+    public function fromResult($result): PaypalExecutePresenter
     {
         $this->result = $result;
         return $this;
@@ -19,7 +17,7 @@ class PaypalExecutePresenter
     public function getData(): array
     {
         return [
-
+            'result' => $this->result,
         ];
     }
 }

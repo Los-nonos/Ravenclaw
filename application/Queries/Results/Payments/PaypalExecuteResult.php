@@ -1,12 +1,13 @@
 <?php
 
 
-namespace Application\Commands\Results\Payments;
+namespace Application\Queries\Results\Payments;
 
 
 use Domain\Entities\Order;
+use Infrastructure\QueryBus\Result\ResultInterface;
 
-class PaypalExecuteResult implements PaypalExecuteResultInterface
+class PaypalExecuteResult implements ResultInterface
 {
     private Order $order;
 

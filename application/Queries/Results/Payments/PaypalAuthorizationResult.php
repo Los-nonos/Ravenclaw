@@ -1,12 +1,13 @@
 <?php
 
 
-namespace Application\Commands\Results\Payments;
+namespace Application\Queries\Results\Payments;
 
 
 use Domain\Entities\Payment;
+use Infrastructure\QueryBus\Result\ResultInterface;
 
-class PaypalAuthorizationResult implements PaypalAuthorizationResultInterface
+class PaypalAuthorizationResult implements ResultInterface
 {
     private Payment $payment;
 

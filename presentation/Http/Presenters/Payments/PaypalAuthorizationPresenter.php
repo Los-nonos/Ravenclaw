@@ -4,13 +4,11 @@
 namespace Presentation\Http\Presenters\Payments;
 
 
-use Application\Commands\Results\Payments\PaypalAuthorizationResultInterface;
-
 class PaypalAuthorizationPresenter
 {
-    private PaypalAuthorizationResultInterface $result;
+    private $result;
 
-    public function fromResult(PaypalAuthorizationResultInterface $result): PaypalAuthorizationPresenter
+    public function fromResult($result): PaypalAuthorizationPresenter
     {
         $this->result = $result;
         return $this;
@@ -18,6 +16,8 @@ class PaypalAuthorizationPresenter
 
     public function getData(): array
     {
-        // TODO: Implement getData() method.
+        return [
+            'result' => $this->result
+        ];
     }
 }

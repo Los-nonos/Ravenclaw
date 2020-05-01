@@ -4,6 +4,7 @@
 namespace Presentation\Http\Actions\Admins;
 
 
+use App\Exceptions\InvalidBodyException;
 use Infrastructure\CommandBus\CommandBusInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -24,7 +25,12 @@ class CreateAdminAction
         $this->presenter = $presenter;
     }
 
-    public function execute(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws InvalidBodyException
+     */
+    public function __invoke(Request $request)
     {
         $command = $this->adapter->from($request);
 

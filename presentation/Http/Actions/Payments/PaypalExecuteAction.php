@@ -3,9 +3,10 @@
 
 namespace Presentation\Http\Actions\Payments;
 
-use Infrastructure\CommandBus\CommandBusInterface;
+use App\Exceptions\InvalidBodyException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Infrastructure\QueryBus\QueryBusInterface;
 use Presentation\Http\Adapters\Payments\PaypalExecuteAdapter;
 use Presentation\Http\Enums\HttpCodes;
 use Presentation\Http\Presenters\Payments\PaypalExecutePresenter;
@@ -14,22 +15,30 @@ class PaypalExecuteAction
 {
     private PaypalExecuteAdapter $adapter;
 
-    private CommandBusInterface $commandBus;
+    private QueryBusInterface $queryBus;
 
     private PaypalExecutePresenter $presenter;
 
-    public function __construct(PaypalExecuteAdapter $adapter, CommandBusInterface $commandBus, PaypalExecutePresenter $presenter)
+    public function __construct(
+        PaypalExecuteAdapter $adapter,
+        QueryBusInterface $queryBus,
+        PaypalExecutePresenter $presenter)
     {
         $this->adapter = $adapter;
-        $this->commandBus = $commandBus;
+        $this->queryBus = $queryBus;
         $this->presenter = $presenter;
     }
 
-    public function execute(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws InvalidBodyException
+     */
+    public function __invoke(Request $request)
     {
         $command = $this->adapter->from($request);
 
-        $result = $this->commandBus->handle($command);
+        $result = $this->queryBus->handle($command);
 
         return new JsonResponse($this->presenter->fromResult($result)->getData(), HttpCodes::OK);
     }

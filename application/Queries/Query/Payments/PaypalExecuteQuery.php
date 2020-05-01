@@ -1,18 +1,17 @@
 <?php
 
 
-namespace Application\Commands\Command\Payments;
+namespace Application\Queries\Query\Payments;
 
 
-use Infrastructure\CommandBus\Command\CommandInterface;
+use Infrastructure\QueryBus\Query\QueryInterface;
 
-class PaypalExecuteCommand implements CommandInterface
+class PaypalExecuteQuery implements QueryInterface
 {
     private string $paymentId;
     private string $payerId;
     private int $customer_id;
     private string $access_token;
-
 
     public function __construct(string $paymentId, string $payerId, int $customer_id, string $access_token)
     {

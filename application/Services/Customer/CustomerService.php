@@ -8,6 +8,7 @@ use Application\Queries\Query\Customers\IndexCustomerQuery;
 use Application\Queries\Results\Customers\IndexCustomerResult;
 use Domain\Entities\Customer;
 use Domain\Interfaces\Repositories\CustomerRepositoryInterface;
+use Exception;
 
 class CustomerService implements CustomerServiceInterface
 {
@@ -84,5 +85,16 @@ class CustomerService implements CustomerServiceInterface
         }
 
         return $customer;
+    }
+
+    /**
+     * @param $id
+     * @throws EntityNotFoundException
+     * @throws Exception
+     */
+    public function destroyOrFail($id)
+    {
+        $customer = $this->findCustomerByIdOrFail($id);
+        $this->repository->destroy($customer);
     }
 }

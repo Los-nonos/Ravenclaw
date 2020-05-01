@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Application\Commands\Handler\Payments;
+namespace Application\Queries\Handler\Payments;
 
 
-use Application\Commands\Command\Payments\MercadoPagoExecuteCommand;
-use Application\Commands\Results\Payments\MercadoPagoExecuteResult;
+use Application\Queries\Results\Payments\MercadoPagoExecuteResult;
 use Application\Services\Orders\OrderServiceInterface;
 use Application\Services\Payments\MercadoPagoServiceInterface;
 use Infrastructure\CommandBus\Handler\HandlerInterface;
+use Infrastructure\QueryBus\Result\ResultInterface;
 
 class MercadoPagoExecuteHandler implements HandlerInterface
 {
@@ -29,7 +29,7 @@ class MercadoPagoExecuteHandler implements HandlerInterface
         $this->result = $result;
     }
 
-    public function handle(MercadoPagoExecuteCommand $command): void
+    public function handle($command): ResultInterface
     {
         $this->mercadoPagoService->CreateClient($command->getAccessToken());
 
@@ -44,6 +44,6 @@ class MercadoPagoExecuteHandler implements HandlerInterface
         $this->orderService->Persist($order);
 
         $this->result->setOrder($order);
-        //return $this->result;
+        return $this->result;
     }
 }

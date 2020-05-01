@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Application\Commands\Command\Payments;
+namespace Application\Queries\Query\Payments;
 
 
-use Infrastructure\CommandBus\Command\CommandInterface;
+use Infrastructure\QueryBus\Query\QueryInterface;
 
-class PayPalAuthorizationCommand implements CommandInterface
+class PayPalAuthorizationQuery implements QueryInterface
 {
     private int $customerId;
     private int $amount;

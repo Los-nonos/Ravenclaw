@@ -5,7 +5,7 @@ namespace Presentation\Http\Adapters\Payments;
 
 
 use App\Exceptions\InvalidBodyException;
-use Application\Commands\Command\Payments\MercadoPagoExecuteCommand;
+use Application\Queries\Query\Payments\MercadoPagoExecuteQuery;
 use Illuminate\Http\Request;
 use Presentation\Http\Validators\Schemas\Payments\MercadoPagoExecuteSchema;
 use Presentation\Http\Validators\Utils\ValidatorServiceInterface;
@@ -24,7 +24,7 @@ class MercadoPagoExecuteAdapter
 
     /**
      * @param Request $request
-     * @return MercadoPagoExecuteCommand
+     * @return MercadoPagoExecuteQuery
      * @throws InvalidBodyException
      */
     public function from(Request $request)
@@ -35,8 +35,12 @@ class MercadoPagoExecuteAdapter
             throw new InvalidBodyException($this->validator->getErrors());
         }
 
-        return new MercadoPagoExecuteCommand(
-
+        return new MercadoPagoExecuteQuery(
+            $request->input('access_token'),
+            $request->input('amount'),
+            $request->input('email_payer'),
+            $request->input('cart_token'),
+            $request->input('payment_method')
         );
     }
 }
