@@ -12,7 +12,7 @@ jobs:
       - run: sudo docker-php-ext-install zip
 
       # Download and cache dependencies
-
+      - run: cp .env.example .env
       # composer cache
       - restore_cache:
           keys:
