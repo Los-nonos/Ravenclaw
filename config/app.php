@@ -161,20 +161,20 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
         /*
          * Package Service Providers...
          */
-
+        //LaravelDoctrine\ORM\DoctrineServiceProvider::class,
         /*
          * Application Service Providers...
          */
-        Presentation\Providers\AppServiceProvider::class,
-        Presentation\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        Presentation\Providers\EventServiceProvider::class,
-        Presentation\Providers\RouteServiceProvider::class,
-
+        Infrastructure\Providers\AppServiceProvider::class,
+        Infrastructure\Providers\AuthServiceProvider::class,
+        Infrastructure\Providers\EventServiceProvider::class,
+        Infrastructure\Providers\RouteServiceProvider::class,
+        Infrastructure\Providers\DoctrineRepositoriesServiceProvider::class,
+        Infrastructure\Providers\CommandBusServiceProvider::class,
+        Infrastructure\Providers\QueryBusServiceProvider::class
     ],
 
     /*
@@ -210,6 +210,7 @@ return [
         'Http' => Illuminate\Support\Facades\Http::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
+        'doctrine.logger' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password' => Illuminate\Support\Facades\Password::class,
@@ -226,7 +227,18 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
     ],
+    /*
+        |--------------------------------------------------------------------------
+        | CommandBus
+        |--------------------------------------------------------------------------
+        |
+        | This array contains the namespaces where commands and handlers are located
+        |
+        */
 
+    'command_bus' => [
+        'commands_namespace' => 'Application\\Command',
+        'handlers_namespace' => 'Application\\Handlers',
+    ],
 ];

@@ -1,0 +1,38 @@
+<?php
+declare(strict_types=1);
+
+namespace Presentation\Http\Presenters{{grouping}};
+
+use Application\Queries\Result{{grouping}}\{{action}}Result;
+use Infrastructure\Presenters\PresenterInterface;
+
+final class {{action}}Presenter implements PresenterInterface
+{
+    private {{action}}Result $result;
+
+    /**
+     * Hydrate from an application result
+     */
+    public function fromResult({{action}}Result $result): self
+    {
+        $this->result = $result;
+
+        return $this;
+    }
+
+    /**
+     * Return a JSON representation of current object
+     */
+    public function toJson(): string
+    {
+        return json_encode($this->getData());
+    }
+
+    /**
+     * Get data to present
+     */
+    public function getData(): array
+    {
+        return [];
+    }
+}

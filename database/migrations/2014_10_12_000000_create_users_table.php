@@ -13,14 +13,37 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Schema::create('admins', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('role');
+            $table->timestamps();
+        });
+
+        Schema::create('customers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('organization_name')->nullable();
+            $table->string('domain')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->increments('id');
+            $table->string('name')->nullable();
+            $table->string('surname')->nullable();
+            $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('username')->nullable();
+            $table->string('password')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->unsignedBigInteger('customer_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('admin_id')->references('id')->on('admins');
+            $table->foreign('customer_id')->references('id')->on('customers');
         });
     }
 
@@ -32,5 +55,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('admin');
+        Schema::dropIfExists('customers');
     }
 }
