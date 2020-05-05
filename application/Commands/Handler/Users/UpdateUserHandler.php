@@ -18,13 +18,13 @@ class UpdateUserHandler implements HandlerInterface
 
     public function handle(UpdateUserCommand $command): void
     {
-        $user = $this->userService->FindUserById($command->getId());
+        $user = $this->userService->findUserByIdOrFail($command->getId());
 
         $user->setName($command->getName());
         $user->setSurname($command->getSurname());
         $user->setUsername($command->getUsername());
         $user->setEmail($command->getEmail());
 
-        $this->userService->Persist($user);
+        $this->userService->persist($user);
     }
 }

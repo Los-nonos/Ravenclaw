@@ -9,7 +9,8 @@ use Domain\Entities\User;
 
 interface UserServiceInterface
 {
-    public function CreateUserByCommand(CreateUserCommand $command): User;
-    public function Persist(User $user): void;
-    public function FindUserById(int $id): ?User;
+    public function createUserByCommand(CreateUserCommand $command): User;
+    public function persist(User $user): void;
+    public function findUserByIdOrFail(int $id): ?User;
+    public function findUserByUsernameOrFail(string $username): User;
 }

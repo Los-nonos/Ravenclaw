@@ -38,14 +38,14 @@ class CreateCustomerHandler implements HandlerInterface
     {
         $customer = new Customer($command->getDomain(), $command->getOrganizationName());
         $userCommand = $this->createUserCommandFromCustomerCommand($command);
-        $user = $this->userService->CreateUserByCommand($userCommand);
+        $user = $this->userService->createUserByCommand($userCommand);
 
         $this->customerRepository->save($customer);
 
 
         $user->setCustomer($customer);
 
-        $this->userService->Persist($user);
+        $this->userService->persist($user);
 
         $data = $this->notifiableService->GetNotifiableData();
 

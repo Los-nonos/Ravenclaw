@@ -29,14 +29,14 @@ class CreateAdminHandler implements HandlerInterface
      */
     public function handle(CreateAdminCommand $command): void
     {
-        $user = $this->userService->CreateUserByCommand($this->createUserCommand($command));
+        $user = $this->userService->createUserByCommand($this->createUserCommand($command));
 
         $admin = new Admin($command->getRole());
 
         $user->setAdmin($admin);
         $this->adminService->persistAndFlush($admin);
 
-        $this->userService->Persist($user);
+        $this->userService->persist($user);
     }
 
     private function createUserCommand(CreateAdminCommand $command): CreateUserCommand
