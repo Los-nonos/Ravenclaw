@@ -25,11 +25,14 @@ class RenewTokenAction
         RenewTokenPresenter $presenter
     )
     {
-
+        $this->adapter = $adapter;
+        $this->queryBus = $queryBus;
+        $this->presenter = $presenter;
     }
 
     /**
      * @param Request $request
+     * @return JsonResponse
      * @throws InvalidBodyException
      */
     public function __invoke(Request $request)

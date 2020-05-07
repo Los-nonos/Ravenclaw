@@ -26,18 +26,18 @@ class AdminRepository extends EntityRepository implements AdminRepositoryInterfa
      * @param Admin $admin
      * @throws ORMException
      */
-    public function Persist(Admin $admin): void
+    public function persist(Admin $admin): void
     {
         $this->getEntityManager()->persist($admin);
         $this->getEntityManager()->flush();
     }
 
-    public function Update(): void
+    public function update(): void
     {
         // TODO: Implement Update() method.
     }
 
-    public function FindById($id): Admin
+    public function findById($id): Admin
     {
         // TODO: Implement FindById() method.
     }

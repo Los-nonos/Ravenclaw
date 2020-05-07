@@ -8,7 +8,7 @@ use Domain\Entities\Admin;
 
 interface AdminRepositoryInterface
 {
-    public function Persist(Admin $admin): void;
-    public function Update(): void;
-    public function FindById($id): Admin;
+    public function persist(Admin $admin): void;
+    public function update(): void;
+    public function findById($id): Admin;
 }

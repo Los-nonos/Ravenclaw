@@ -24,7 +24,7 @@ class AdminService implements AdminServiceInterface
      */
     public function findAdminByIdOrFail(int $id): Admin
     {
-        $admin = $this->adminRepository->FindById($id);
+        $admin = $this->adminRepository->findById($id);
 
         if(!isset($admin))
         {
@@ -36,7 +36,7 @@ class AdminService implements AdminServiceInterface
 
     public function persistAndFlush(Admin $admin): void
     {
-        $this->adminRepository->Persist($admin);
-        $this->adminRepository->Update();
+        $this->adminRepository->persist($admin);
+        $this->adminRepository->update();
     }
 }

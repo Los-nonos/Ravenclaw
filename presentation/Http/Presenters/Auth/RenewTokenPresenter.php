@@ -4,9 +4,11 @@
 namespace Presentation\Http\Presenters\Auth;
 
 
+use Application\Queries\Results\Auth\RenewTokenResult;
+
 class RenewTokenPresenter
 {
-    private $result;
+    private RenewTokenResult $result;
 
     public function fromResult($result): RenewTokenPresenter
     {

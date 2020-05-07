@@ -4,7 +4,9 @@
 namespace Application\Queries\Query;
 
 
-class RenewTokenQuery
+use Infrastructure\QueryBus\Query\QueryInterface;
+
+class RenewTokenQuery implements QueryInterface
 {
     private string $token;
 

@@ -10,7 +10,9 @@ interface TokenRepositoryInterface
 {
     public function persist(Token $token): void;
 
-    public function findByToken(string $token);
-
     public function exist(string $token);
+
+    public function findOneByHash(string $tokenHash);
+
+    public function update();
 }
