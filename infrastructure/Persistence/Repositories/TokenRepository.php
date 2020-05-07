@@ -25,4 +25,9 @@ class TokenRepository extends EntityRepository implements TokenRepositoryInterfa
     {
 
     }
+
+    public function findByToken(string $token)
+    {
+        // TODO: Implement findByToken() method.
+    }
 }

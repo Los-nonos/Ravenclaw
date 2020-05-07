@@ -21,4 +21,9 @@ class TokenService implements TokenServiceInterface
     public function persist(Token $token): void {
         $this->tokenRepository->persist($token);
     }
+
+    public function exist(string $token)
+    {
+        return $this->tokenRepository->exist($token);
+    }
 }
