@@ -5,22 +5,48 @@ namespace Domain\Entities;
 
 
 use DateTime;
+use Doctrine\ORM\Mapping as ORM;
+
 
 class Order
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
     private int $id;
 
+    /**
+     * @var float
+     * @ORM\Column(name="amount")
+     */
     private float $amount;
 
+    /**
+     * @var DateTime
+     * @ORM\Column(name="createdAt")
+     */
     private DateTime $date;
 
+    /**
+     * @var bool
+     * @ORM\Column(name="charged")
+     */
     private bool $charged;
 
-    public function __construct(float $amount, DateTime $date, bool $charged)
+    /**
+     * @var int
+     * @ORM\Column(name="customer_id")
+     */
+    private int $customerId;
+
+    public function __construct(float $amount, DateTime $date, bool $charged, int $customerId)
     {
         $this->amount = $amount;
         $this->charged = $charged;
         $this->date = $date;
+        $this->customerId = $customerId;
     }
 
     /**
@@ -77,5 +103,13 @@ class Order
     public function setCharged(bool $charged): void
     {
         $this->charged = $charged;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCustomerId(): int
+    {
+        return $this->customerId;
     }
 }

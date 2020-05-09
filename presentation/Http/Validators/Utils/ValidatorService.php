@@ -23,12 +23,12 @@ class ValidatorService implements ValidatorServiceInterface
 
     public function isValid()
     {
-        return !$this->validated->fails();
+        return $this->validated->fails();
     }
 
     public function getErrors()
     {
-        return $this->validated->errors()->messages();
+        return $this->validated->errors()->all();
     }
 
     public function getValidator()

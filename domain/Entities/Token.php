@@ -3,7 +3,7 @@
 
 namespace Domain\Entities;
 
-
+use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
 class Token
@@ -13,20 +13,23 @@ class Token
 
     /**
      * @var User
-     *
+     * @ORM\Column(name="user_id")
      */
     private User $user;
 
     /**
      * @var string
+     * @ORM\Column(name="hash")
      */
     private string $hash;
     /**
      * @var DateTime
+     * @ORM\Column(name="created_at")
      */
     private DateTime $createdAtDate;
     /**
      * @var DateTime
+     * @ORM\Column(name="updated_at")
      */
     private DateTime $updatedAtDate;
 

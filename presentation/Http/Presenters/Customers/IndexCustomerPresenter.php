@@ -4,9 +4,11 @@
 namespace Presentation\Http\Presenters\Customers;
 
 
+use Application\Queries\Results\Customers\IndexCustomerResult;
+
 class IndexCustomerPresenter
 {
-    private $result;
+    private IndexCustomerResult $result;
 
     public function fromResult($result): IndexCustomerPresenter
     {

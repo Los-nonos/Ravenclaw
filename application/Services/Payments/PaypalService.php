@@ -48,12 +48,15 @@ class PaypalService implements PayPalServiceInterface
 
         $response = $this->client->execute($paymentExecute);
 
-        if($response->statusCode == 200)
-        {
-            return new Order();
-            //create new order and return
+        if($response->statusCode == 200) {
+            return new Order(
+                $response->result['amount'],
+                $response->result['date'],
+                true,
+                $payment->getCustomerId()
+            );
         }
-        else{
+        else {
             throw new FailedPaymentException();
         }
     }
@@ -106,7 +109,7 @@ class PaypalService implements PayPalServiceInterface
         return new Payment($redirectLinks[0]->href, $amount, $customer->getId(), 'paypal');
     }
 
-    public function CreateClient(string $clientId, string $access_token): void
+    public function createClient(string $clientId, string $access_token): void
     {
         $enviroment = new SandboxEnvironment($clientId, $access_token);
 

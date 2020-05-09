@@ -5,6 +5,7 @@ namespace Application\Queries\Handler\Payments;
 
 
 use Application\Queries\Results\Payments\MercadoPagoExecuteResult;
+use Application\Services\Customer\CustomerServiceInterface;
 use Application\Services\Orders\OrderServiceInterface;
 use Application\Services\Payments\MercadoPagoServiceInterface;
 use Infrastructure\CommandBus\Handler\HandlerInterface;
@@ -18,30 +19,38 @@ class MercadoPagoExecuteHandler implements HandlerInterface
 
     private MercadoPagoExecuteResult $result;
 
+    private CustomerServiceInterface $customerService;
+
     public function __construct(
         MercadoPagoServiceInterface $mercadoPagoService,
         OrderServiceInterface $orderService,
-        MercadoPagoExecuteResult $result
+        MercadoPagoExecuteResult $result,
+        CustomerServiceInterface $customerService
     )
     {
         $this->mercadoPagoService = $mercadoPagoService;
         $this->orderService = $orderService;
         $this->result = $result;
+        $this->customerService = $customerService;
     }
 
     public function handle($command): ResultInterface
     {
-        $this->mercadoPagoService->CreateClient($command->getAccessToken());
+        $this->mercadoPagoService->createClient($command->getAccessToken());
 
-        $payment = $this->mercadoPagoService->GeneratePayment(
+        $customer = $this->customerService->findCustomerByIdOrFail($command->getCustomerId());
+
+        $payment = $this->mercadoPagoService->generatePayment(
                                                 $command->getCartToken(),
-                                                $command->getAmount());
+                                                $command->getAmount(),
+                                                $customer->getId());
+
         $payment->setPayerId($command->getEmailPayer());
         $payment->setPaymentId($command->getPaymentMethod());
 
-        $order = $this->mercadoPagoService->Execute($payment);
+        $order = $this->mercadoPagoService->execute($payment);
 
-        $this->orderService->Persist($order);
+        $this->orderService->persist($order);
 
         $this->result->setOrder($order);
         return $this->result;

@@ -28,7 +28,7 @@ class InferableLocator implements HandlerLocator
     public function getHandlerForCommand($commandName)
     {
         $handler = preg_replace(
-            ['/bCommand/b'],
+            ['/Command/'],
             ['Handler'],
             $commandName
         );

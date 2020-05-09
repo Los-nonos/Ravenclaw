@@ -3,7 +3,7 @@
 
 namespace Infrastructure\CommandBus\Handler\Locator;
 
-use App\Application;
+use Illuminate\Foundation\Application;
 
 class HandlerInstanceResolver implements HandlerInstanceResolverInterface
 {

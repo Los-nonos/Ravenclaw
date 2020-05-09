@@ -4,7 +4,7 @@
 namespace Infrastructure\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Application;
+use Illuminate\Foundation\Application;
 use Infrastructure\CommandBus\CommandBus;
 use Infrastructure\CommandBus\CommandBusInterface;
 use Infrastructure\CommandBus\CommandNameExtractor\CommandNameExtractor;

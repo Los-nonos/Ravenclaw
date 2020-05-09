@@ -8,7 +8,7 @@ use Domain\Entities\Order;
 
 class OrderService implements OrderServiceInterface
 {
-    public function Persist(Order $order): void
+    public function persist(Order $order): void
     {
         // TODO: Implement persist() method.
     }

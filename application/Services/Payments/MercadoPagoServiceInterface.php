@@ -9,7 +9,7 @@ use Domain\Entities\Payment;
 
 interface MercadoPagoServiceInterface
 {
-    public function Execute(Payment $payment): Order;
-    public function GeneratePayment(string $access_token, int $amount): Payment;
-    public function CreateClient(string $getAccessToken): void;
+    public function execute(Payment $payment): Order;
+    public function generatePayment(string $access_token, int $amount, int $customerId): Payment;
+    public function createClient(string $getAccessToken): void;
 }

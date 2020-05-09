@@ -14,13 +14,16 @@ class MercadoPagoExecuteQuery implements QueryInterface
     private string $email_payer;
     private string $card_token;
     private string $payment_method;
+    private int $customerId;
+
 
     public function __construct(
         string $access_token,
         int $amount,
         string $email_payer,
         string $card_token,
-        string $payment_method
+        string $payment_method,
+        int $customerId
     )
     {
         $this->access_token = $access_token;
@@ -28,6 +31,7 @@ class MercadoPagoExecuteQuery implements QueryInterface
         $this->email_payer = $email_payer;
         $this->card_token = $card_token;
         $this->payment_method = $payment_method;
+        $this->customerId = $customerId;
     }
 
     public function getAccessToken(): string
@@ -53,5 +57,10 @@ class MercadoPagoExecuteQuery implements QueryInterface
     public function getPaymentMethod(): string
     {
         return $this->payment_method;
+    }
+
+    public function getCustomerId(): int
+    {
+        return $this->customerId;
     }
 }

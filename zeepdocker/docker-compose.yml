@@ -15,12 +15,6 @@ services:
       MYSQL_PASSWORD: test
       USER: 1000
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-
   beanstalkd:
     image: schickling/beanstalkd
     hostname: beanstalkd

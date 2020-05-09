@@ -8,8 +8,24 @@ use  Presentation\Http\Enums\HttpCodes;
 
 class InvalidBodyException extends BasePresentationException
 {
-    public function __construct(string $responseMessage)
+    private array $messages;
+
+    /**
+     * InvalidBodyException constructor.
+     * @param $responseMessage
+     */
+    public function __construct($responseMessage = ""|[])
     {
+        if(is_array($responseMessage))
+        {
+            $this->messages = $responseMessage;
+            $responseMessage = implode($responseMessage);
+        }
         parent::__construct($responseMessage, HttpCodes::UNPROCESSABLE_ENTITY);
+    }
+
+    public function getMessages(): array
+    {
+        return $this->messages;
     }
 }

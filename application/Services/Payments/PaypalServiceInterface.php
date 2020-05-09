@@ -14,5 +14,5 @@ interface PaypalServiceInterface
 
     public function authorization(Customer $customer, int $amount): Payment;
 
-    public function CreateClient(string $clientId, string $access_token): void;
+    public function createClient(string $clientId, string $access_token): void;
 }

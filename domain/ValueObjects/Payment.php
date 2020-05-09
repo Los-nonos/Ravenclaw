@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Domain\Entities;
+namespace Domain\ValueObjects;
 
 
 class Payment
 {
-    private $authorization;
+    private string $authorization;
 
     private int $amount;
 
@@ -26,7 +26,7 @@ class Payment
         $this->type = $type;
     }
 
-    public function getAuthorization()
+    public function getAuthorization(): string
     {
         return $this->authorization;
     }

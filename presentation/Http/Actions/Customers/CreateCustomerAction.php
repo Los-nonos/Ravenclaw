@@ -35,10 +35,10 @@ class CreateCustomerAction
     {
         $command = $this->adapter->from($request);
 
-        $result = $this->commandBus->handle($command);
+        $this->commandBus->handle($command);
 
         return new JsonResponse(
-            $this->presenter->fromResult($result)->getData(),
+            $this->presenter->getData(),
             HttpCodes::CREATED
         );
     }

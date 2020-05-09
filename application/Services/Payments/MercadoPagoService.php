@@ -21,7 +21,7 @@ class MercadoPagoService implements MercadoPagoServiceInterface
      * @throws FailedPaymentException
      * @throws Exception
      */
-    public function Execute(Payment $payment): Order
+    public function execute(Payment $payment): Order
     {
         $mercadoPayment = new MercadoPayment();
         $mercadoPayment->__set('transaction_amount', $payment->getAmount());
@@ -36,19 +36,23 @@ class MercadoPagoService implements MercadoPagoServiceInterface
 
         if($mercadoPayment->__get('status')->status === "approved")
         {
-            return new Order();
+            return new Order(
+                $mercadoPayment->__get('amount'),
+                $mercadoPayment->__get('date'),
+                true,
+                $payment->getCustomerId());
         }
         else {
             throw new FailedPaymentException('error try payment execute' . json_encode($mercadoPayment->__get('status')));
         }
     }
 
-    public function GeneratePayment(string $access_token, int $amount): Payment
+    public function generatePayment(string $access_token, int $amount, int $customerId): Payment
     {
-        return new Payment($access_token, $amount, 0, 'mercadopago');
+        return new Payment($access_token, $amount, $customerId, 'mercadopago');
     }
 
-    public function CreateClient(string $accessToken): void
+    public function createClient(string $accessToken): void
     {
         $this->client::setAccessToken($accessToken);
     }
