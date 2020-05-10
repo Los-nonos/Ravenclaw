@@ -6,6 +6,7 @@ namespace Application\Services\Notifiable;
 use Application\Jobs\NotificationJob as EmailJob;
 use Domain\Interfaces\Services\Notifications\MailableInterface;
 use Domain\Interfaces\Services\Notifications\NotifiableInterface;
+use Illuminate\Support\Facades\Mail;
 
 class NotifiableService implements NotifiableServiceInterface
 {
@@ -25,7 +26,10 @@ class NotifiableService implements NotifiableServiceInterface
 
     public function SendEmail(NotifiableInterface $data): void
     {
-        EmailJob::dispatch($this->mailable->fromNotifiable($data))->onQueue('emails');
+        $mailable = $this->mailable->fromNotifiable($data);
+
+        Mail::to($mailable->to)->send($mailable);
+        //EmailJob::dispatch($this->mailable->fromNotifiable($data))->onQueue('emails');
     }
 
     public function SendNotification(NotifiableInterface $notifiable): void

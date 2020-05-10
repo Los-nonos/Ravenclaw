@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id')->index();
             $table->string('organization_name')->nullable();
             $table->string('domain')->nullable();
+            $table->string('paypal_client_id')->nullable();
             $table->timestamps();
         });
 

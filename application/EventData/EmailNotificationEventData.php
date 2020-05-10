@@ -24,7 +24,7 @@ class EmailNotificationEventData extends Mailable implements MailableInterface
     public function build()
     {
         return $this->view('email.test')
-            ->from($this->emailData->getEmailFrom(),$this->emailData->getNameFrom())
+            ->from($this->emailData->getEmailFrom(), $this->emailData->getNameFrom())
             ->subject($this->emailData->getSubject());
     }
 }

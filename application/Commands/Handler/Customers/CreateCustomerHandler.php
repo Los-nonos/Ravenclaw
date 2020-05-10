@@ -6,7 +6,7 @@ namespace Application\Commands\Handler\Customers;
 use Application\Commands\Command\Customers\CreateCustomerCommand;
 use Application\Commands\Command\Users\CreateUserCommand;
 use Application\Exceptions\SettingRoleUserNotPermittedException;
-use Application\Services\Notifiable\NotifiableService;
+use Application\Services\Notifiable\NotifiableServiceInterface;
 use Application\Services\Users\UserServiceInterface;
 use Domain\Entities\Customer;
 use Domain\Interfaces\Repositories\CustomerRepositoryInterface;
@@ -17,12 +17,12 @@ class CreateCustomerHandler implements HandlerInterface
 {
     private UserServiceInterface $userService;
     private CustomerRepositoryInterface $customerRepository;
-    private NotifiableService $notifiableService;
+    private NotifiableServiceInterface $notifiableService;
 
     public function __construct(
         UserServiceInterface $userService,
         CustomerRepositoryInterface $customerRepository,
-        NotifiableService $notifiableService)
+        NotifiableServiceInterface $notifiableService)
     {
         $this->userService = $userService;
         $this->customerRepository = $customerRepository;

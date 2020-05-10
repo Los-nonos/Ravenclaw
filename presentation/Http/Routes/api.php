@@ -34,7 +34,7 @@ Route::group(['prefix' => 'admins'], function() {
 });
 
 Route::group(['prefix' => 'customers'], function() {
-    Route::get('/:id',  Actions\Customers\ShowCustomerByIdAction::class)->name('showCustomerById');
+    Route::get('/one',  Actions\Customers\ShowCustomerByIdAction::class)->name('showCustomerById');
 
     Route::get('/', Actions\Customers\IndexCustomerAction::class)->name('indexCustomers');
 

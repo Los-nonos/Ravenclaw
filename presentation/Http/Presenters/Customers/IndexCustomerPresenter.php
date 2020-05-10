@@ -19,9 +19,17 @@ class IndexCustomerPresenter
     public function getData(): array
     {
         $customers = $this->result->getCustomers();
+
+        $customersClears = [];
+
+        foreach ($customers as $customer)
+        {
+            $customersClears[] = $customer->__serialize();
+        }
+
         return [
-            'customers' => serialize($customers),
-            'message' => 'customers has been found successfully',
+            'customers' => $customersClears,
+            'message' => 'Customers has been found successfully',
         ];
     }
 }

@@ -87,6 +87,7 @@ class AppServiceProvider extends ServiceProvider
          * Mailing
          */
         $this->app->bind(NotifiableServiceInterface::class, NotifiableService::class);
+        $this->app->bind(NotifiableInterface::class, Notifiable::class);
         $this->app->bind(MailableInterface::class, EmailNotificationEventData::class);
     }
 

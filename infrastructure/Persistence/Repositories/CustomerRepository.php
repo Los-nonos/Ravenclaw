@@ -50,7 +50,7 @@ class CustomerRepository extends EntityRepository implements CustomerRepositoryI
     {
         $customer = $this->findOneBy(['id' => $id]);
 
-        if(!$customer)
+        if(!$customer || !($customer instanceof Customer))
         {
             throw new EntityNotFoundException("customer with id $id not found");
         }
