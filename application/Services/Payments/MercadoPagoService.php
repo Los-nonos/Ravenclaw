@@ -6,7 +6,7 @@ namespace Application\Services\Payments;
 
 use Application\Exceptions\FailedPaymentException;
 use Domain\Entities\Order;
-use Domain\Entities\Payment;
+use Domain\ValueObjects\Payment;
 use Exception;
 use MercadoPago\Payment as MercadoPayment;
 use MercadoPago\SDK;
