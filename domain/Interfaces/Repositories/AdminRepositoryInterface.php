@@ -10,5 +10,10 @@ interface AdminRepositoryInterface
 {
     public function persist(Admin $admin): void;
     public function update(): void;
-    public function findById($id): Admin;
+
+    /**
+     * @param $id
+     * @return Admin
+     */
+    public function findById($id);
 }

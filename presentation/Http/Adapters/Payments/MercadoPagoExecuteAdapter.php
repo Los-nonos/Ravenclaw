@@ -31,7 +31,7 @@ class MercadoPagoExecuteAdapter
     {
         $this->validator->make($request->all(), $this->pagoExecuteSchema->getRules());
 
-        if(!$this->validator->isValid()) {
+        if($this->validator->isFail()) {
             throw new InvalidBodyException($this->validator->getErrors());
         }
 
@@ -40,7 +40,8 @@ class MercadoPagoExecuteAdapter
             $request->input('amount'),
             $request->input('email_payer'),
             $request->input('cart_token'),
-            $request->input('payment_method')
+            $request->input('payment_method'),
+            $request->input('customer_id')
         );
     }
 }

@@ -5,7 +5,7 @@ namespace Application\Services\HashService;
 
 use Illuminate\Hashing\HashManager as HashManagerLaravel;
 
-final class HashService
+final class HashService implements HashServiceInterface
 {
     private HashManagerLaravel $hashManager;
 

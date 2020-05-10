@@ -62,7 +62,10 @@ class User
     private ?Customer $customer;
     /**
      * @var Admin|null
-     * @ORM\Column(name="admin_id")
+     * @ORM\OneToOne(targetEntity="Admin")
+     * @ORM\JoinTable(name="user_x_admin",
+     *     joinColumns={@ORM\JoinColumn(name="admin_id", referencedColumnName="id", onDelete="CASCADE", onUpdate="CASCADE")},
+     * )
      */
     private ?Admin $admin;
 
@@ -182,6 +185,7 @@ class User
         }
 
         $this->customer = $customer;
+        $this->admin = null;
     }
 
     public function isCustomer(): bool
@@ -206,6 +210,7 @@ class User
         }
 
         $this->admin = $admin;
+        $this->customer = null;
     }
 
     public function isAdmin(): bool
@@ -216,5 +221,17 @@ class User
     public function getAdmin(): ?Admin
     {
         return $this->admin;
+    }
+
+    public function __serialize()
+    {
+        return [
+          'id' => $this->id,
+          'name' => $this->name,
+          'surname' => $this->surname,
+          'email' => $this->email,
+          'username' => $this->username,
+          'is_active' => $this->isActive,
+        ];
     }
 }

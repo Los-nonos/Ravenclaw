@@ -14,7 +14,7 @@ return [
 
             'commands' => [
                 /*User*/
-                'CreateCustomer' => [
+                'CreateCustomerHandler' => [
                     'command' => 'Application\Commands\Customers\CreateCustomerCommand',
                     'handler' => 'Application\Handlers\Customers\CreateCustomerHandler'
                 ],

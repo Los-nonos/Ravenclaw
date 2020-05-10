@@ -30,7 +30,7 @@ Route::group(['prefix' => 'users'], function() {
 Route::group(['prefix' => 'admins'], function() {
     Route::post('/', Actions\Admins\CreateAdminAction::class)->name('createAdmin');
 
-    Route::get('/:id', Actions\Admins\ShowAdminByIdAction::class)->name('findAdmin');
+    Route::get('/', Actions\Admins\ShowAdminByIdAction::class)->name('findAdmin');
 });
 
 Route::group(['prefix' => 'customers'], function() {

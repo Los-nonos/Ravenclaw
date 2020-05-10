@@ -47,14 +47,14 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
 
     /**
      * @param int $userId
-     * @return object
-     * @throws Exception
+     * @return User|null
+     * @throws EntityNotFoundException
      */
     public function getById(int $userId): ?User
     {
         $user = $this->find($userId);
 
-        if(!$user){
+        if(!$user || !($user instanceof User)){
             throw new EntityNotFoundException('User not found');
         }
 
@@ -70,7 +70,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     {
         $user = $this->findOneBy(['email' => $email]);
 
-        if(!$user){
+        if(!$user || !($user instanceof User)){
             throw new EntityNotFoundException('User not found');
         }
 
@@ -120,7 +120,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     {
         $user = $this->findOneBy(['username'=> $username]);
 
-        if(!$user)
+        if(!$user || !($user instanceof User))
         {
             throw new EntityNotFoundException("User with username $username not found");
         }

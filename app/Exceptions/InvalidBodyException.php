@@ -19,7 +19,7 @@ class InvalidBodyException extends BasePresentationException
         if(is_array($responseMessage))
         {
             $this->messages = $responseMessage;
-            $responseMessage = implode($responseMessage);
+            $responseMessage = json_encode($responseMessage);
         }
         parent::__construct($responseMessage, HttpCodes::UNPROCESSABLE_ENTITY);
     }

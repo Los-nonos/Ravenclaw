@@ -13,21 +13,22 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('admins', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id')->index();
             $table->string('role');
             $table->timestamps();
         });
 
         Schema::create('customers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id')->index();
             $table->string('organization_name')->nullable();
             $table->string('domain')->nullable();
             $table->timestamps();
         });
 
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('surname')->nullable();
             $table->string('email')->nullable();
@@ -35,16 +36,14 @@ class CreateUsersTable extends Migration
             $table->string('username')->nullable();
             $table->string('password')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->unsignedBigInteger('admin_id')->nullable();
-            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->unsignedBigInteger('admin_id')->unsigned()->index()->nullable();
+            $table->unsignedBigInteger('customer_id')->unsigned()->index()->nullable();
             $table->rememberToken();
             $table->timestamps();
-        });
-
-        Schema::table('users', function (Blueprint $table) {
             $table->foreign('admin_id')->references('id')->on('admins');
             $table->foreign('customer_id')->references('id')->on('customers');
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

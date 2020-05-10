@@ -31,7 +31,7 @@ class PaypalAuthorizationAdapter
     {
         $this->validator->make($request->all(), $this->paypalAuthorizationSchema->getRules());
 
-        if(!$this->validator->isValid()) {
+        if($this->validator->isFail()) {
             throw new InvalidBodyException($this->validator->getErrors());
         }
 

@@ -21,7 +21,7 @@ class ValidatorService implements ValidatorServiceInterface
         $this->validated = $this->validatorFactory->make($options, $rules);
     }
 
-    public function isValid()
+    public function isFail()
     {
         return $this->validated->fails();
     }

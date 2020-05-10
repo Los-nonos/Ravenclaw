@@ -34,7 +34,7 @@ class ShowCustomerByIdAdapter
     {
         $this->validatorService->make($request->all(), $this->showCustomerSchema->getRules());
 
-        if(!$this->validatorService->isValid())
+        if($this->validatorService->isFail())
         {
             throw new InvalidBodyException($this->validatorService->getErrors());
         }

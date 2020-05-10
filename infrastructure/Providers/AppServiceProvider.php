@@ -2,6 +2,8 @@
 
 namespace Infrastructure\Providers;
 
+use Application\Services\Admins\AdminService;
+use Application\Services\Admins\AdminServiceInterface;
 use Application\Services\HashService\HashService;
 use Application\Services\HashService\HashServiceInterface;
 use Illuminate\Foundation\Application;
@@ -65,6 +67,8 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(CustomerServiceInterface::class, CustomerService::class);
 
+        $this->app->bind(AdminServiceInterface::class, AdminService::class);
+
         /**
          * Repositories
          */
@@ -83,7 +87,6 @@ class AppServiceProvider extends ServiceProvider
          * Mailing
          */
         $this->app->bind(NotifiableServiceInterface::class, NotifiableService::class);
-        $this->app->bind(NotifiableInterface::class, Email::class);
         $this->app->bind(MailableInterface::class, EmailNotificationEventData::class);
     }
 

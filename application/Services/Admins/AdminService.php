@@ -24,14 +24,7 @@ class AdminService implements AdminServiceInterface
      */
     public function findAdminByIdOrFail(int $id): Admin
     {
-        $admin = $this->adminRepository->findById($id);
-
-        if(!isset($admin))
-        {
-            throw new EntityNotFoundException("Admin with id: $id does not exist");
-        }
-
-        return $admin;
+        return $this->adminRepository->findById($id);
     }
 
     public function persistAndFlush(Admin $admin): void

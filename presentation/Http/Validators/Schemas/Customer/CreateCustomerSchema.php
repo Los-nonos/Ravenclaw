@@ -14,7 +14,7 @@ class CreateCustomerSchema
             'email' => 'bail|required|email',
             'password' => 'bail|required|min:4|max:16',
             'domain' => 'bail|required',
-            'organizationName' => 'bail|required',
+            'organization_name' => 'bail|required',
         ];
     }
 }

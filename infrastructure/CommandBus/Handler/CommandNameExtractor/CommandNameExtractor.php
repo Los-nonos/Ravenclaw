@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Infrastructure\CommandBus\CommandNameExtractor;
+namespace Infrastructure\CommandBus\Handler\CommandNameExtractor;
 
 use Illuminate\Support\Str;
 use InvalidArgumentException;

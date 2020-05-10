@@ -4,6 +4,7 @@
 namespace Infrastructure\Persistence\Repositories;
 
 
+use Application\Exceptions\EntityNotFoundException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -37,8 +38,20 @@ class AdminRepository extends EntityRepository implements AdminRepositoryInterfa
         // TODO: Implement Update() method.
     }
 
-    public function findById($id): Admin
+    /**
+     * @param $id
+     * @return Admin
+     * @throws EntityNotFoundException
+     */
+    public function findById($id): object
     {
-        // TODO: Implement FindById() method.
+        $admin = $this->findOneBy(['id' => $id]);
+
+        if(!isset($admin) || !($admin instanceof Admin))
+        {
+            throw new EntityNotFoundException("Admin with id: $id does not exist");
+        }
+
+        return $admin;
     }
 }

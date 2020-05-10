@@ -27,13 +27,14 @@ class LoginAdapter
 
     /**
      * @param Request $request
+     * @return LoginQuery
      * @throws InvalidBodyException
      */
     public function from(Request $request)
     {
         $this->validatorService->make($request->all(), $this->loginSchema->getRules());
 
-        if(!$this->validatorService->isValid()) {
+        if($this->validatorService->isFail()) {
             throw new InvalidBodyException($this->validatorService->getErrors());
         }
 

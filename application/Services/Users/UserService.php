@@ -9,7 +9,6 @@ use Application\Exceptions\EntityNotFoundException;
 use Application\Services\HashService\HashServiceInterface;
 use Domain\Entities\User;
 use Domain\Interfaces\Repositories\UserRepositoryInterface;
-use Illuminate\Support\Facades\Hash;
 
 class UserService implements UserServiceInterface
 {

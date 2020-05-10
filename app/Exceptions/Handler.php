@@ -57,7 +57,7 @@ class Handler extends ExceptionHandler
         if($exception instanceof BasePresentationException)
         {
             return new JsonResponse(
-                $exception->getMessage(),
+                json_decode($exception->getMessage()),
                 $exception->getStatusCode()
             );
         }

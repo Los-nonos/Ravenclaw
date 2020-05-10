@@ -30,7 +30,7 @@ class CreateCustomerAdapter
     {
         $this->validator->make($request->all(), $this->createCustomerSchema->getRules());
 
-        if(!$this->validator->isValid()) {
+        if($this->validator->isFail()) {
             throw new InvalidBodyException($this->validator->getErrors());
         }
 
@@ -41,7 +41,7 @@ class CreateCustomerAdapter
             $request->get('email'),
             $request->get('password'),
             $request->get('domain'),
-            $request->get('organizationName')
+            $request->get('organization_name')
         );
     }
 }

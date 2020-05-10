@@ -34,7 +34,7 @@ class DestroyCustomerByIdAdapter
     {
         $this->validatorService->make($request->all(), $this->schema->getRules());
 
-        if(!$this->validatorService->isValid())
+        if($this->validatorService->isFail())
         {
             throw new InvalidBodyException($this->validatorService->getErrors());
         }

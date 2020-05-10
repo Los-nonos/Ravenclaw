@@ -17,8 +17,9 @@ class ShowAdminByIdPresenter
     }
 
     public function getData(): array {
+        $admin = $this->result->getAdmin();
         return [
-            'admin' => $this->result->getAdmin(),
+            'admin' => $admin->__serialize(),
             'message' => 'Show admin has been successfully'
         ];
     }

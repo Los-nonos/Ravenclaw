@@ -8,7 +8,7 @@ interface ValidatorServiceInterface
 {
     public function make(array $options, array $rules);
 
-    public function isValid();
+    public function isFail();
 
     public function getErrors();
 }
