@@ -43,7 +43,7 @@ class LoginAction
         $result = $this->queryBus->handle($query);
 
         return new JsonResponse(
-            $this->presenter->fromResult($result)->getData(),
+            $this->presenter->fromResult($result)->toJWT(),
             HttpCodes::OK
         );
     }

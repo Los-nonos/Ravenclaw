@@ -7,7 +7,7 @@ use Application\Queries\Results\Payments\PaypalExecuteResult;
 use Application\Services\Customer\CustomerServiceInterface;
 use Application\Services\Orders\OrderServiceInterface;
 use Application\Services\Payments\PaypalServiceInterface;
-use Domain\Entities\Payment;
+use Domain\ValueObjects\Payment;
 use Infrastructure\CommandBus\Handler\HandlerInterface;
 use Infrastructure\QueryBus\Result\ResultInterface;
 

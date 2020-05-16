@@ -8,8 +8,10 @@ class PaypalExecuteSchema
 {
     public function getRules(): array {
         return [
-            'paymentId' => 'bail|required|alpha',
-            'payerId' => 'bail|required|alpha'
+            'payment_id' => 'bail|required',
+            'payer_id' => 'bail|required',
+            'customer_id' => 'bail|required|integer|min:0',
+            'access_token' => 'bail|required'
         ];
     }
 }

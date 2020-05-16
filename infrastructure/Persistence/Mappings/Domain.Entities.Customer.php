@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Domain\Entities\User;
 use Persistence\CurrentTimestampBuilder;
 
-$builder = new ClassMetadataBuilder(new ClassMetadataInfo('customer'));
+$builder = new ClassMetadataBuilder($metadata);
 $builder->setTable('customers');
 $builder->createField('id', Type::INTEGER)
     ->makePrimaryKey()

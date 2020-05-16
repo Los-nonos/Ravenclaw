@@ -8,7 +8,7 @@ use Domain\Entities\Customer;
 use Persistence\CurrentTimestampBuilder;
 
 
-$builder = new ClassMetadataBuilder(new ClassMetadataInfo('user'));
+$builder = new ClassMetadataBuilder($metadata);
 $builder->setTable('users');
 $builder->createField('id', Type::INTEGER)
     ->makePrimaryKey()
@@ -27,10 +27,10 @@ $builder->addField('password', Type::STRING);
 
 $builder->addField('isActive', Type::BOOLEAN);
 
-$builder->createOneToOne('customer_id', Customer::class)
+$builder->createOneToOne('customer', Customer::class)
     ->cascadePersist()
     ->build();
 
-$builder->createOneToOne('admin_id', Admin::class)
+$builder->createOneToOne('admin', Admin::class)
     ->cascadePersist()
     ->build();

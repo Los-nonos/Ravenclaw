@@ -61,6 +61,14 @@ class Handler extends ExceptionHandler
                 $exception->getStatusCode()
             );
         }
+        else if($exception instanceof ApplicationException)
+        {
+            return new JsonResponse(
+                ['message' => $exception->getMessage()],
+                $exception->getCode()
+            );
+        }
+
         return parent::render($request, $exception);
     }
 }

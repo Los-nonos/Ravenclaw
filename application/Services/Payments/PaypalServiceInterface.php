@@ -6,7 +6,7 @@ namespace Application\Services\Payments;
 
 use Domain\Entities\Customer;
 use Domain\Entities\Order;
-use Domain\Entities\Payment;
+use Domain\ValueObjects\Payment;
 
 interface PaypalServiceInterface
 {
@@ -14,5 +14,5 @@ interface PaypalServiceInterface
 
     public function authorization(Customer $customer, int $amount): Payment;
 
-    public function createClient(string $clientId, string $access_token): void;
+    public function createClient(?string $clientId, ?string $access_token): void;
 }

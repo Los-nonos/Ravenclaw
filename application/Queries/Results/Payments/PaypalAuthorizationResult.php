@@ -4,7 +4,7 @@
 namespace Application\Queries\Results\Payments;
 
 
-use Domain\Entities\Payment;
+use Domain\ValueObjects\Payment;
 use Infrastructure\QueryBus\Result\ResultInterface;
 
 class PaypalAuthorizationResult implements ResultInterface

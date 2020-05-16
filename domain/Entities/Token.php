@@ -6,16 +6,29 @@ namespace Domain\Entities;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
+/**
+ * Class Token
+ * @package Domain\Entities
+ * @ORM\Entity
+ * @ORM\Table(name="tokens")
+ */
 class Token
 {
     const LENGTH = 32;
     const EXPIRATION_TIME = '-30minutes';
 
     /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private int $id;
+
+    /**
      * @var User
      * @ORM\Column(name="user_id")
      */
-    private User $user;
+    private $user;
 
     /**
      * @var string
@@ -24,14 +37,14 @@ class Token
     private string $hash;
     /**
      * @var DateTime
-     * @ORM\Column(name="created_at")
+     * @ORM\Column(name="created_at", type="datetime")
      */
-    private DateTime $createdAtDate;
+    private $createdAt;
     /**
      * @var DateTime
-     * @ORM\Column(name="updated_at")
+     * @ORM\Column(name="updated_at", type="datetime")
      */
-    private DateTime $updatedAtDate;
+    private $updatedAt;
 
     public function __construct()
     {
@@ -47,28 +60,28 @@ class Token
         return $this->user;
     }
 
-    public function setHash($handle): string
+    public function setHash(string $hash): void
     {
-        return $this->hash;
+        $this->hash = $hash;
     }
 
     public function setCreatedAt(DateTime $param)
     {
-        $this->createdAtDate = $param;
+        $this->createdAt = $param;
     }
 
     public function getCreatedAt(): DateTime {
-        return $this->createdAtDate;
+        return $this->createdAt;
     }
 
     public function setUpdatedAt(DateTime $param)
     {
-        $this->updatedAtDate = $param;
+        $this->updatedAt = $param/*->format('Y-m-d')*/;
     }
 
     public function getUpdatedAt(): DateTime
     {
-        return $this->updatedAtDate;
+        return $this->updatedAt;
     }
 
     public function isExpired(): bool

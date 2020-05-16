@@ -59,7 +59,8 @@ class User
      * @var Customer|null
      * @ORM\Column(name="customer_id")
      */
-    private ?Customer $customer;
+    private $customer;
+
     /**
      * @var Admin|null
      * @ORM\OneToOne(targetEntity="Admin")
@@ -67,7 +68,7 @@ class User
      *     joinColumns={@ORM\JoinColumn(name="admin_id", referencedColumnName="id", onDelete="CASCADE", onUpdate="CASCADE")},
      * )
      */
-    private ?Admin $admin;
+    private $admin;
 
     /**
      * Activity constructor.
@@ -202,7 +203,7 @@ class User
      * @param Admin $admin
      * @throws SettingRoleUserNotPermittedException
      */
-    public function setAdmin(Admin $admin): void
+    public function setAdmin($admin): void
     {
         if($this->isCustomer())
         {
@@ -233,5 +234,10 @@ class User
           'username' => $this->username,
           'is_active' => $this->isActive,
         ];
+    }
+
+    public function __toString()
+    {
+        return "$this->id";
     }
 }

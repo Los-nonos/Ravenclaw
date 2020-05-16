@@ -36,8 +36,9 @@ class PaypalAuthorizationAdapter
         }
 
         return new PayPalAuthorizationQuery(
-            $request->get('customer_id'),
-            $request->get('amount')
+            $request->input('customer_id'),
+            $request->input('amount'),
+            $request->input('access_token'),
         );
     }
 }

@@ -14,16 +14,18 @@ use Doctrine\ORM\Mapping as ORM;
 class Admin
 {
     /**
+     * @var int
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private int $id;
+    private $id;
 
     /**
+     * @var string|null
      * @ORM\Column(name="role")
      */
-    private string $role;
+    private $role;
 
     public function __construct($function)
     {
@@ -53,10 +55,10 @@ class Admin
         return $this->role;
     }
 
-    public function __toString()
-    {
-        return "$this->id";
-    }
+//    public function __toString()
+//    {
+//        return "$this->id";
+//    }
 
     public function __serialize():array
     {

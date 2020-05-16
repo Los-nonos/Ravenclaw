@@ -7,7 +7,7 @@ use Domain\Entities\User;
 use Persistence\CurrentTimestampBuilder;
 
 
-$builder = new ClassMetadataBuilder(new ClassMetadataInfo('admin'));
+$builder = new ClassMetadataBuilder($metadata);
 $builder->setTable('admins');
 $builder->createField('id', Type::INTEGER)
     ->makePrimaryKey()

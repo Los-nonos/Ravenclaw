@@ -32,10 +32,9 @@ class CreateAdminHandler implements HandlerInterface
         $user = $this->userService->createUserByCommand($this->createUserCommand($command));
 
         $admin = new Admin($command->getRole());
-
-        $user->setAdmin($admin);
         $this->adminService->persistAndFlush($admin);
 
+        $user->setAdmin($admin);
         $this->userService->persist($user);
     }
 

@@ -6,6 +6,16 @@ use Application\Services\Admins\AdminService;
 use Application\Services\Admins\AdminServiceInterface;
 use Application\Services\HashService\HashService;
 use Application\Services\HashService\HashServiceInterface;
+use Application\Services\Orders\OrderService;
+use Application\Services\Orders\OrderServiceInterface;
+use Application\Services\Payments\MercadoPagoService;
+use Application\Services\Payments\MercadoPagoServiceInterface;
+use Application\Services\Payments\PaypalService;
+use Application\Services\Payments\PaypalServiceInterface;
+use Application\Services\TokenLogin\TokenLoginService;
+use Application\Services\TokenLogin\TokenLoginServiceInterface;
+use Domain\Interfaces\Services\GetUserTypeServiceInterface;
+use Domain\Services\GetUserTypeService;
 use Illuminate\Foundation\Application;
 use Application\EventData\EmailNotificationEventData;
 use Application\Services\Customer\CustomerService;
@@ -68,6 +78,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CustomerServiceInterface::class, CustomerService::class);
 
         $this->app->bind(AdminServiceInterface::class, AdminService::class);
+
+        $this->app->bind(OrderServiceInterface::class, OrderService::class);
+
+        $this->app->bind(PaypalServiceInterface::class, PaypalService::class);
+
+        $this->app->bind(TokenLoginServiceInterface::class, TokenLoginService::class);
+
+        $this->app->bind(MercadoPagoServiceInterface::class, MercadoPagoService::class);
+
+        $this->app->bind(GetUserTypeServiceInterface::class, GetUserTypeService::class);
 
         /**
          * Repositories

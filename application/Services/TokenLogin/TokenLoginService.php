@@ -7,15 +7,16 @@ namespace Application\Services\TokenLogin;
 use Application\Services\Token\TokenServiceInterface;
 use Domain\Entities\Token;
 use Domain\Entities\User;
+use Domain\Interfaces\Repositories\TokenRepositoryInterface;
 
 class TokenLoginService implements TokenLoginServiceInterface
 {
     private GenerateRandomTokenService $createRandomTokenService;
-    private TokenServiceInterface $tokenRepository;
+    private TokenRepositoryInterface $tokenRepository;
 
     public function __construct(
         GenerateRandomTokenService $createRandomTokenService,
-        TokenServiceInterface $tokenRepository
+        TokenRepositoryInterface $tokenRepository
     )
     {
         $this->createRandomTokenService = $createRandomTokenService;
@@ -30,9 +31,9 @@ class TokenLoginService implements TokenLoginServiceInterface
 
         $token->setHash($this->createRandomTokenService->generate(Token::LENGTH));
 
-        $token->setCreatedAt(new \DateTime());
+        $token->setCreatedAt(new \DateTime("now"));
 
-        $token->setUpdatedAt(new \DateTime());
+        $token->setUpdatedAt(new \DateTime("now"));
 
         $this->tokenRepository->persist($token);
 

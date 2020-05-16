@@ -6,12 +6,12 @@ namespace Application\Services\Payments;
 
 use Application\Exceptions\FailedPaymentException;
 use Application\Exceptions\InvalidServicePaymentException;
+use Application\Exceptions\PaypalClientNotDefined;
 use Application\Services\Payments\PayPalServiceInterface;
 use Domain\Entities\Customer;
 use Domain\Entities\Order;
 
-use Domain\Entities\Payment;
-use Illuminate\Support\Facades\Config;
+use Domain\ValueObjects\Payment;
 use Paypal\Core\PaypalHttpClient;
 use Paypal\v1\Payments\PaymentCreateRequest;
 use Paypal\v1\Payments\PaymentExecuteRequest;
@@ -109,10 +109,19 @@ class PaypalService implements PayPalServiceInterface
         return new Payment($redirectLinks[0]->href, $amount, $customer->getId(), 'paypal');
     }
 
-    public function createClient(string $clientId, string $access_token): void
+    /**
+     * @param string $clientId
+     * @param string $access_token
+     * @throws PaypalClientNotDefined
+     */
+    public function createClient(?string $clientId, ?string $access_token): void
     {
-        $enviroment = new SandboxEnvironment($clientId, $access_token);
+        if(empty($clientId)) {
+            throw new PaypalClientNotDefined("Client id not defined");
+        }
 
-        $this->client = new PaypalHttpClient($enviroment);
+        $environment = new SandboxEnvironment($clientId, $access_token);
+
+        $this->client = new PaypalHttpClient($environment);
     }
 }

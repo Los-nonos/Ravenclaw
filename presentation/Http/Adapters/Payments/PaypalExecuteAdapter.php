@@ -36,8 +36,8 @@ class PaypalExecuteAdapter
         }
 
         return new PaypalExecuteQuery(
-            $request->get('paymentId'),
-            $request->get('payerId'),
+            $request->input('payment_id'),
+            $request->input('payer_id'),
             $request->input('customer_id'),
             $request->input('access_token')
         );
