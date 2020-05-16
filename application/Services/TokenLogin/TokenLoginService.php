@@ -39,4 +39,14 @@ class TokenLoginService implements TokenLoginServiceInterface
 
         return $token;
     }
+
+    public function findByHash(?string $hash): ?Token
+    {
+        return $this->tokenRepository->findOneByHash($hash);
+    }
+
+    public function exist(string $hash): bool
+    {
+        return $this->tokenRepository->exist($hash);
+    }
 }

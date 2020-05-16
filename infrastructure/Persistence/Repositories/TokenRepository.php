@@ -47,7 +47,7 @@ class TokenRepository extends EntityRepository implements TokenRepositoryInterfa
 
     /**
      * @param string $tokenHash
-     * @return Token|null
+     * @return Token|null|object
      */
     public function findOneByHash(string $tokenHash)
     {

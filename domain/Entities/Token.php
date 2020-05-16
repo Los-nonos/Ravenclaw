@@ -76,7 +76,7 @@ class Token
 
     public function setUpdatedAt(DateTime $param)
     {
-        $this->updatedAt = $param/*->format('Y-m-d')*/;
+        $this->updatedAt = $param;
     }
 
     public function getUpdatedAt(): DateTime
