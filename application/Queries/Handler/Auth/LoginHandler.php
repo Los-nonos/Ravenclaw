@@ -4,7 +4,9 @@
 namespace Application\Queries\Handler\Auth;
 
 
+use Application\Exceptions\PasswordNotMatch;
 use Application\Queries\Results\Auth\LoginHandlerResult;
+use Application\Services\HashService\HashServiceInterface;
 use Application\Services\TokenLogin\TokenLoginServiceInterface;
 use Application\Services\Users\UserServiceInterface;
 use Infrastructure\QueryBus\Handler\HandlerInterface;
@@ -19,23 +21,37 @@ class LoginHandler implements HandlerInterface
 
     private LoginHandlerResult $loginResult;
 
+    private HashServiceInterface $hashService;
+
     public function __construct(
         TokenLoginServiceInterface $tokenLoginService,
         UserServiceInterface $userService,
-        LoginHandlerResult $loginResult
+        LoginHandlerResult $loginResult,
+        HashServiceInterface $hashService
     )
     {
         $this->tokenLoginService = $tokenLoginService;
         $this->userService = $userService;
         $this->loginResult = $loginResult;
+        $this->hashService = $hashService;
     }
 
+    /**
+     * @param QueryInterface $query
+     * @return ResultInterface
+     * @throws PasswordNotMatch
+     */
     public function handle(QueryInterface $query): ResultInterface
     {
         $user = $this->userService->findUserByUsernameOrFail($query->getUsername());
 
-        $token = $this->tokenLoginService->createToken($user);
         // todo: add validation password, stupid
+
+        if(!$this->hashService->check($query->getPassword(), $user->getPassword()))
+        {
+            throw new PasswordNotMatch();
+        }
+        $token = $this->tokenLoginService->createToken($user);
 
         $this->loginResult->setToken($token);
         return $this->loginResult;
