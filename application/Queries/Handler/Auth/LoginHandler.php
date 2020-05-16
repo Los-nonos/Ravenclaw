@@ -35,6 +35,7 @@ class LoginHandler implements HandlerInterface
         $user = $this->userService->findUserByUsernameOrFail($query->getUsername());
 
         $token = $this->tokenLoginService->createToken($user);
+        // todo: add validation password, stupid
 
         $this->loginResult->setToken($token);
         return $this->loginResult;

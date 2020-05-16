@@ -90,15 +90,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(GetUserTypeServiceInterface::class, GetUserTypeService::class);
 
         /**
-         * Repositories
-         */
-        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
-
-        $this->app->bind(CustomerRepositoryInterface::class, CustomerRepository::class);
-
-        $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
-
-        /**
          * Validators
          */
         $this->app->bind(ValidatorServiceInterface::class, ValidatorService::class);
