@@ -52,12 +52,11 @@ class PaypalService implements PayPalServiceInterface
             return new Order(
                 $response->result['amount'],
                 $response->result['date'],
-                true,
-                $payment->getCustomerId()
+                true
             );
         }
         else {
-            throw new FailedPaymentException();
+            throw new FailedPaymentException(json_encode($response->result));
         }
     }
 

@@ -11,42 +11,35 @@ use Doctrine\ORM\Mapping as ORM;
 class Order
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var int
      */
-    private int $id;
+    private $id;
 
     /**
      * @var float
-     * @ORM\Column(name="amount")
      */
-    private float $amount;
+    private $amount;
 
     /**
      * @var DateTime
-     * @ORM\Column(name="createdAt")
      */
-    private DateTime $date;
+    private $date;
 
     /**
      * @var bool
-     * @ORM\Column(name="charged")
      */
-    private bool $charged;
+    private $charged;
 
     /**
-     * @var int
-     * @ORM\Column(name="customer_id")
+     * @var Customer
      */
-    private int $customerId;
+    private $customerId;
 
-    public function __construct(float $amount, DateTime $date, bool $charged, int $customerId)
+    public function __construct(float $amount, DateTime $date, bool $charged)
     {
         $this->amount = $amount;
         $this->charged = $charged;
         $this->date = $date;
-        $this->customerId = $customerId;
     }
 
     /**
@@ -106,10 +99,18 @@ class Order
     }
 
     /**
-     * @return int
+     * @return Customer
      */
-    public function getCustomerId(): int
+    public function getCustomerId(): Customer
     {
         return $this->customerId;
+    }
+
+    /**
+     * @param Customer $customer
+     */
+    public function setCustomer(Customer $customer)
+    {
+        $this->customerId = $customer;
     }
 }

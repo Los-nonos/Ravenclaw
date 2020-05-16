@@ -45,7 +45,7 @@ class PaypalExecuteHandler implements HandlerInterface
         $this->paypalService->createClient($customer->getClientTokenPaypal(), $command->getAccessToken());
 
         $order = $this->paypalService->execute($payment);
-
+        $order->setCustomer($customer);
         $this->orderService->persist($order);
 
         $this->result->setOrder($order);

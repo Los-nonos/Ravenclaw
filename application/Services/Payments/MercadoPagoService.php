@@ -39,8 +39,7 @@ class MercadoPagoService implements MercadoPagoServiceInterface
             return new Order(
                 $mercadoPayment->__get('amount'),
                 $mercadoPayment->__get('date'),
-                true,
-                $payment->getCustomerId());
+                true);
         }
         else {
             throw new FailedPaymentException('error try payment execute' . json_encode($mercadoPayment->__get('status')));

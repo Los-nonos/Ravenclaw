@@ -5,7 +5,7 @@ namespace Application\Services\Payments;
 
 use Domain\Entities\Customer;
 use Domain\Entities\Order;
-use Domain\Entities\Payment;
+use Domain\ValueObjects\Payment;
 
 interface MercadoPagoServiceInterface
 {

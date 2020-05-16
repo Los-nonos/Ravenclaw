@@ -49,7 +49,7 @@ class MercadoPagoExecuteHandler implements HandlerInterface
         $payment->setPaymentId($command->getPaymentMethod());
 
         $order = $this->mercadoPagoService->execute($payment);
-
+        $order->setCustomer($customer);
         $this->orderService->persist($order);
 
         $this->result->setOrder($order);
