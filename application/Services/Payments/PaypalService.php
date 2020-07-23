@@ -12,6 +12,7 @@ use Domain\Entities\Customer;
 use Domain\Entities\Order;
 
 use Domain\ValueObjects\Payment;
+use Money\Money;
 use Paypal\Core\PaypalHttpClient;
 use Paypal\v1\Payments\PaymentCreateRequest;
 use Paypal\v1\Payments\PaymentExecuteRequest;
@@ -62,11 +63,11 @@ class PaypalService implements PayPalServiceInterface
 
     /**
      * @param Customer $customer
-     * @param int $amount
+     * @param Money $amount
      * @return Payment
      * @throws FailedPaymentException
      */
-    public function Authorization(Customer $customer, int $amount): Payment
+    public function Authorization(Customer $customer, Money $amount): Payment
     {
         if($this->client == null)
         {
@@ -80,7 +81,7 @@ class PaypalService implements PayPalServiceInterface
             'transactions' => [
                 [
                     'amount' => [
-                        'total' => $amount,
+                        'total' => $amount->getAmount(),
                         'currency' => 'ARS'
                     ]
                 ]
@@ -105,7 +106,7 @@ class PaypalService implements PayPalServiceInterface
 
         $redirectLinks = array_values($redirectLinks);
 
-        return new Payment($redirectLinks[0]->href, $amount, $customer->getId(), 'paypal');
+        return new Payment($amount, $redirectLinks[0]->href, $customer->getId(), 'paypal');
     }
 
     /**

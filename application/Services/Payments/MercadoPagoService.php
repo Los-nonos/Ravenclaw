@@ -10,6 +10,7 @@ use Domain\ValueObjects\Payment;
 use Exception;
 use MercadoPago\Payment as MercadoPayment;
 use MercadoPago\SDK;
+use Money\Money;
 
 class MercadoPagoService implements MercadoPagoServiceInterface
 {
@@ -24,7 +25,7 @@ class MercadoPagoService implements MercadoPagoServiceInterface
     public function execute(Payment $payment): Order
     {
         $mercadoPayment = new MercadoPayment();
-        $mercadoPayment->__set('transaction_amount', $payment->getAmount());
+        $mercadoPayment->__set('transaction_amount', $payment->getAmount()->getAmount());
         $mercadoPayment->__set('token', $payment->getAuthorization());
         $mercadoPayment->__set('description', 'sale');
         $mercadoPayment->__set('payment_method_id', $payment->getPaymentId());
@@ -46,9 +47,9 @@ class MercadoPagoService implements MercadoPagoServiceInterface
         }
     }
 
-    public function generatePayment(string $access_token, int $amount, int $customerId): Payment
+    public function generatePayment(string $access_token, Money $amount, int $customerId): Payment
     {
-        return new Payment($access_token, $amount, $customerId, 'mercadopago');
+        return new Payment($amount, $access_token, $customerId, 'mercadopago');
     }
 
     public function createClient(string $accessToken): void

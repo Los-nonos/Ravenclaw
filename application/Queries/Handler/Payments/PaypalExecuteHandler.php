@@ -3,6 +3,7 @@
 
 namespace Application\Queries\Handler\Payments;
 
+use Application\Queries\Query\Payments\PaypalExecuteQuery;
 use Application\Queries\Results\Payments\PaypalExecuteResult;
 use Application\Services\Customer\CustomerServiceInterface;
 use Application\Services\Orders\OrderServiceInterface;
@@ -10,6 +11,8 @@ use Application\Services\Payments\PaypalServiceInterface;
 use Domain\ValueObjects\Payment;
 use Infrastructure\CommandBus\Handler\HandlerInterface;
 use Infrastructure\QueryBus\Result\ResultInterface;
+use Money\Currency;
+use Money\Money;
 
 class PaypalExecuteHandler implements HandlerInterface
 {
@@ -34,9 +37,13 @@ class PaypalExecuteHandler implements HandlerInterface
         $this->customerService = $customerService;
     }
 
+    /**
+     * @param PaypalExecuteQuery $command
+     * @return ResultInterface
+     */
     public function handle($command): ResultInterface
     {
-        $payment = new Payment();
+        $payment = new Payment(new Money(0, new Currency('ARS')));
         $payment->setPayerId($command->getPayerId());
         $payment->setPaymentId($command->getPaymentId());
 

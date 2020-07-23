@@ -6,11 +6,13 @@ namespace Application\Queries\Query\Payments;
 
 
 use Infrastructure\QueryBus\Query\QueryInterface;
+use Money\Currency;
+use Money\Money;
 
 class MercadoPagoExecuteQuery implements QueryInterface
 {
     private string $access_token;
-    private int $amount;
+    private Money $amount;
     private string $email_payer;
     private string $card_token;
     private string $payment_method;
@@ -27,7 +29,7 @@ class MercadoPagoExecuteQuery implements QueryInterface
     )
     {
         $this->access_token = $access_token;
-        $this->amount = $amount;
+        $this->amount = new Money($amount, new Currency('ARS'));
         $this->email_payer = $email_payer;
         $this->card_token = $card_token;
         $this->payment_method = $payment_method;
@@ -39,7 +41,7 @@ class MercadoPagoExecuteQuery implements QueryInterface
         return $this->access_token;
     }
 
-    public function getAmount(): int
+    public function getAmount(): Money
     {
         return $this->amount;
     }

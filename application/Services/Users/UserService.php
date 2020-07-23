@@ -77,4 +77,39 @@ class UserService implements UserServiceInterface
 
         return $user;
     }
+
+    public function createFromCommand(CreateUserCommand $userCommand)
+    {
+        // TODO: Implement createFromCommand() method.
+    }
+
+    public function findOneByIdOrFail(int $id): User
+    {
+        // TODO: Implement findOneByIdOrFail() method.
+    }
+
+    public function findOneByEmailOrFail(string $email): User
+    {
+        // TODO: Implement findOneByEmailOrFail() method.
+    }
+
+    public function existWithEmail(string $email): bool
+    {
+        // TODO: Implement existWithEmail() method.
+    }
+
+    public function update()
+    {
+        // TODO: Implement update() method.
+    }
+
+    public function findEmployees($page, $size): array
+    {
+        // TODO: Implement findEmployees() method.
+    }
+
+    public function findCustomers($page, $size, $name, $dni, $cuil)
+    {
+        // TODO: Implement findCustomers() method.
+    }
 }

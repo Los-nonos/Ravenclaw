@@ -5,17 +5,19 @@ namespace Application\Queries\Query\Payments;
 
 
 use Infrastructure\QueryBus\Query\QueryInterface;
+use Money\Currency;
+use Money\Money;
 
 class PayPalAuthorizationQuery implements QueryInterface
 {
     private int $customerId;
-    private int $amount;
+    private Money $amount;
     private string $access_token;
 
-    public function __construct(int $customerId, int $amount, string $access_token)
+    public function __construct(int $customerId, string $amount, string $access_token)
     {
         $this->customerId = $customerId;
-        $this->amount = $amount;
+        $this->amount = new Money($amount, new Currency('ARS'));
         $this->access_token = $access_token;
     }
 
@@ -24,7 +26,7 @@ class PayPalAuthorizationQuery implements QueryInterface
         return $this->customerId;
     }
 
-    public function getAmount(): int
+    public function getAmount(): Money
     {
         return $this->amount;
     }

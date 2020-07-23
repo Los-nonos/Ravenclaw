@@ -4,11 +4,13 @@
 namespace Domain\ValueObjects;
 
 
+use Money\Money;
+
 class Payment
 {
     private string $authorization;
 
-    private int $amount;
+    private Money $amount;
 
     private int $customer_id;
 
@@ -18,7 +20,7 @@ class Payment
 
     private string $payerId;
 
-    public function __construct($authorization = "", int $amount = 0, int $customer_id = 0, string $type = "")
+    public function __construct(Money $amount, $authorization = "", int $customer_id = 0, string $type = "")
     {
         $this->authorization = $authorization;
         $this->amount = $amount;
@@ -31,7 +33,7 @@ class Payment
         return $this->authorization;
     }
 
-    public function getAmount(): int
+    public function getAmount(): Money
     {
         return $this->amount;
     }

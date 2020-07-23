@@ -4,11 +4,12 @@
 namespace Application\Queries\Handler\Payments;
 
 
+use Application\Queries\Query\Payments\MercadoPagoExecuteQuery;
 use Application\Queries\Results\Payments\MercadoPagoExecuteResult;
 use Application\Services\Customer\CustomerServiceInterface;
 use Application\Services\Orders\OrderServiceInterface;
 use Application\Services\Payments\MercadoPagoServiceInterface;
-use Infrastructure\CommandBus\Handler\HandlerInterface;
+use Infrastructure\QueryBus\Handler\HandlerInterface;
 use Infrastructure\QueryBus\Result\ResultInterface;
 
 class MercadoPagoExecuteHandler implements HandlerInterface
@@ -34,6 +35,10 @@ class MercadoPagoExecuteHandler implements HandlerInterface
         $this->customerService = $customerService;
     }
 
+    /**
+     * @param MercadoPagoExecuteQuery $command
+     * @return ResultInterface
+     */
     public function handle($command): ResultInterface
     {
         $this->mercadoPagoService->createClient($command->getAccessToken());
