@@ -41,7 +41,7 @@ class RenewTokenHandler implements HandlerInterface
 
         $token->setHash($this->randomTokenService->generate(Token::LENGTH));
 
-        $this->tokenService->update();
+        $this->tokenService->persist($token);
 
         $this->result->setToken($token);
         return $this->result;
