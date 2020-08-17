@@ -150,7 +150,7 @@ class Afip {
      *
      * @throws Exception if an error occurs
      *
-     * @return TokenAuthorization Token Autorization for AFIP Web Service
+     * @return TokenAuthorization Token Authorization for AFIP Web Service
      **/
     public function GetServiceTA($service, $continue = TRUE)
     {
