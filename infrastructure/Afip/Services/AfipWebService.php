@@ -7,6 +7,7 @@ namespace Infrastructure\Afip\Services;
 use Exception;
 use Infrastructure\Afip\Afip;
 use SoapClient;
+use SoapFault;
 
 /**
  * Base class for AFIP web services
@@ -66,9 +67,10 @@ class AfipWebService
         $this->afip = $afip;
 
         if ($this->afip->options['production'] === TRUE) {
-            $this->WSDL = __DIR__.'/Afip_res/'.$this->WSDL;
+            $this->WSDL = base_path('/infrastructure/Afip/Resources').$this->WSDL;
         } else {
-            $this->WSDL = __DIR__.'/Afip_res/'.$this->WSDL_TEST;
+
+            $this->WSDL = base_path('/infrastructure/Afip/Resources').$this->WSDL_TEST;
             $this->URL 	= $this->URL_TEST;
         }
 
@@ -79,13 +81,15 @@ class AfipWebService
     /**
      * Sends request to AFIP servers
      *
-     * @since 1.0
-     *
-     * @param string 	$operation 	SOAP operation to do
-     * @param array 	$params 	Parameters to send
+     * @param string $operation SOAP operation to do
+     * @param array $params Parameters to send
      *
      * @return mixed Operation results
-     **/
+     * @throws SoapFault
+     * @throws Exception
+     * @since 1.0
+     *
+     */
     public function ExecuteRequest($operation, $params = array())
     {
         if (!isset($this->soap_client)) {

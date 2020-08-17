@@ -5,6 +5,8 @@ namespace Application\Services\Afip;
 
 
 use Infrastructure\Afip\Afip;
+use Infrastructure\Afip\Services\ElectronicBilling;
+use Infrastructure\Afip\Transformers\CreateVoucherTransformer;
 
 class AfipServices
 {
@@ -13,11 +15,20 @@ class AfipServices
      */
     private Afip $afip;
 
+    private CreateVoucherTransformer $createVoucherTransformer;
+
+    public function __construct(CreateVoucherTransformer $createVoucherTransformer)
+    {
+        $this->createVoucherTransformer = $createVoucherTransformer;
+    }
+
     public function initService(string $cuit) {
         $this->afip = new Afip(['CUIT' => $cuit]);
     }
 
     public function createVoucher(CreateVoucherCommand $data) {
-        $this->afip->ElectronicBilling->CreateVoucher($data->getData());
+        $electronicBilling = new ElectronicBilling($this->afip);
+
+        $electronicBilling->CreateVoucher($this->createVoucherTransformer->transform($data));
     }
 }

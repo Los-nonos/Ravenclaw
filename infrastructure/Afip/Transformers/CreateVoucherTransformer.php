@@ -6,8 +6,11 @@ namespace Infrastructure\Afip\Transformers;
 
 use Application\Exceptions\CurrencyNotSupport;
 use Application\Services\Afip\CreateVoucherCommand;
+use DateTimeImmutable;
 use Infrastructure\Afip\Exceptions\InvalidAfipConcept;
 use Infrastructure\Afip\Exceptions\InvalidAfipTypeVoucher;
+use Infrastructure\Afip\Exceptions\InvalidDateService;
+use Money\Money;
 
 class CreateVoucherTransformer
 {
@@ -23,14 +26,14 @@ class CreateVoucherTransformer
             'CbteHasta' 	=> 1, // Numero de comprobante o numero del ultimo comprobante en caso de ser mas de uno
             'CbteFch' 		=> intval(date('Ymd')), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
             'ImpTotal' 		=> ($command->getTotalMoney()->getAmount() / 100), // Importe total del comprobante
-            'ImpTotConc' 	=> 0, // Importe neto no gravado
-            'ImpNeto' 		=> 150, // Importe neto gravado
-            'ImpOpEx' 		=> 0, // Importe exento de IVA
-            'ImpIVA' 		=> 26.25, //Importe total de IVA
-            'ImpTrib' 		=> 7.8, //Importe total de tributos
-            'FchServDesde' 	=> NULL, // (Opcional) Fecha de inicio del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-            'FchServHasta' 	=> NULL, // (Opcional) Fecha de fin del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-            'FchVtoPago' 	=> NULL, // (Opcional) Fecha de vencimiento del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+            'ImpTotConc' 	=> ($command->getAmountNotTaxed()->getAmount() / 100), // Importe neto no gravado
+            'ImpNeto' 		=> ($command->getTaxNet()->getAmount() / 100), // Importe neto gravado
+            'ImpOpEx' 		=> $command->getTaxExempt() ? ($command->getTaxExempt()->getAmount() / 100) : 0, // Importe exento de IVA
+            'ImpIVA' 		=> ($command->getTotalIva()->getAmount() / 100), //Importe total de IVA
+            'ImpTrib' 		=> ($command->getTotalTributes()->getAmount() / 100), //Importe total de tributos
+            'FchServDesde' 	=> $this->parseServicesDate($command->getTypeVoucher(), $command->getInitDate()), // (Opcional) Fecha de inicio del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+            'FchServHasta' 	=> $this->parseServicesDate($command->getTypeVoucher(), $command->getEndDate()), // (Opcional) Fecha de fin del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+            'FchVtoPago' 	=> $this->parseServicesDate($command->getTypeVoucher(), $command->getExpirationDate()), // (Opcional) Fecha de vencimiento del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
             'MonId' 		=> $this->parseCurrency($command->getTotalMoney()), //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos)
             'MonCotiz' 		=> 1, // Cotización de la moneda usada (1 para pesos argentinos)
             'CbtesAsoc' 	=> array( // (Opcional) Comprobantes asociados
@@ -88,7 +91,7 @@ class CreateVoucherTransformer
         }
     }
 
-    private function parseCurrency(\Money\Money $getTotalMoney)
+    private function parseCurrency(Money $getTotalMoney)
     {
         if ($getTotalMoney->getCurrency()->getName() === 'ARS') {
             return 'PES';
@@ -109,6 +112,20 @@ class CreateVoucherTransformer
                 return 3;
             default:
                 throw new InvalidAfipConcept();
+        }
+    }
+
+    private function parseServicesDate(string $typeVoucher, DateTimeImmutable $getInitDate)
+    {
+        $concept = $this->parseConcept($typeVoucher);
+
+        if ($concept > 1) {
+            if (isset($getInitDate)) {
+                throw new InvalidDateService();
+            }
+            return $getInitDate->format('Ymd');
+        }else {
+            return null;
         }
     }
 }

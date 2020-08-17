@@ -3,6 +3,7 @@
 
 namespace Application\Services\Afip;
 
+use DateTimeImmutable;
 use Money\Money;
 
 class CreateVoucherCommand
@@ -14,12 +15,6 @@ class CreateVoucherCommand
     private string $buyerTypeDocument;
     private string $buyerDocumentNumber;
     private string $concept;
-
-    public function getData() {
-        return [
-
-        ];
-    }
 
     public function getTotalMoney(): Money
     {
@@ -54,5 +49,39 @@ class CreateVoucherCommand
     public function getConcept()
     {
         return $this->concept;
+    }
+
+    public function getTaxNet(): Money
+    {
+
+    }
+
+    public function getTaxExempt(): Money
+    {
+    }
+
+    public function getTotalIva(): Money
+    {
+
+    }
+
+    public function getTotalTributes(): Money
+    {
+    }
+
+    public function getInitDate(): DateTimeImmutable
+    {
+    }
+
+    public function getEndDate(): DateTimeImmutable
+    {
+    }
+
+    public function getExpirationDate(): DateTimeImmutable
+    {
+    }
+
+    public function getAmountNotTaxed(): Money
+    {
     }
 }
