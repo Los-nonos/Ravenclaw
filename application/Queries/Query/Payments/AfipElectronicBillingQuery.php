@@ -1,13 +1,16 @@
 <?php
 
 
-namespace Application\Services\Afip;
+namespace Application\Queries\Query\Payments;
+
 
 use DateTimeImmutable;
+use Infrastructure\QueryBus\Query\QueryInterface;
 use Money\Money;
 
-class CreateVoucherCommand
+class AfipElectronicBillingQuery implements QueryInterface
 {
+    private int $customerId;
     private Money $total;
     private int $voucherQuantity;
     private int $pointOfSale;
@@ -25,6 +28,7 @@ class CreateVoucherCommand
     private Money $amountNotTaxed;
 
     public function __construct(
+        int $customerId,
         Money $total,
         int $voucherQuantity,
         int $pointOfSale,
@@ -41,6 +45,7 @@ class CreateVoucherCommand
         DateTimeImmutable $endDate = null,
         DateTimeImmutable $expirationDate = null
     ) {
+        $this->customerId = $customerId;
         $this->total = $total;
         $this->voucherQuantity = $voucherQuantity;
         $this->pointOfSale = $pointOfSale;
@@ -131,5 +136,10 @@ class CreateVoucherCommand
     public function getAmountNotTaxed(): Money
     {
         return $this->amountNotTaxed;
+    }
+
+    public function getCustomerId()
+    {
+        return $this->customerId;
     }
 }

@@ -29,6 +29,6 @@ class AfipServices
     public function createVoucher(CreateVoucherCommand $data) {
         $electronicBilling = new ElectronicBilling($this->afip);
 
-        $electronicBilling->CreateVoucher($this->createVoucherTransformer->transform($data));
+        return $electronicBilling->CreateVoucher($this->createVoucherTransformer->transform($data));
     }
 }
