@@ -10,6 +10,7 @@ use DateTimeImmutable;
 use Infrastructure\Afip\Exceptions\InvalidAfipConcept;
 use Infrastructure\Afip\Exceptions\InvalidAfipTypeVoucher;
 use Infrastructure\Afip\Exceptions\InvalidDateService;
+use Infrastructure\Afip\Exceptions\InvalidTypeDocument;
 use Money\Money;
 
 class CreateVoucherTransformer
@@ -36,49 +37,54 @@ class CreateVoucherTransformer
             'FchVtoPago' 	=> $this->parseServicesDate($command->getTypeVoucher(), $command->getExpirationDate()), // (Opcional) Fecha de vencimiento del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
             'MonId' 		=> $this->parseCurrency($command->getTotalMoney()), //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos)
             'MonCotiz' 		=> 1, // Cotización de la moneda usada (1 para pesos argentinos)
-            'CbtesAsoc' 	=> array( // (Opcional) Comprobantes asociados
-                array(
-                    'Tipo' 		=> 6, // Tipo de comprobante (ver tipos disponibles)
-                    'PtoVta' 	=> 1, // Punto de venta
-                    'Nro' 		=> 1, // Numero de comprobante
-                    'Cuit' 		=> 20111111112 // (Opcional) Cuit del emisor del comprobante
-                )
-            ),
-            'Tributos' 		=> array( // (Opcional) Tributos asociados al comprobante
-                array(
-                    'Id' 		=>  99, // Id del tipo de tributo (ver tipos disponibles)
-                    'Desc' 		=> 'Ingresos Brutos', // (Opcional) Descripcion
-                    'BaseImp' 	=> 150, // Base imponible para el tributo
-                    'Alic' 		=> 5.2, // Alícuota
-                    'Importe' 	=> 7.8 // Importe del tributo
-                )
-            ),
-            'Iva' 			=> array( // (Opcional) Alícuotas asociadas al comprobante
-                array(
-                    'Id' 		=> 5, // Id del tipo de IVA (ver tipos disponibles)
-                    'BaseImp' 	=> 100, // Base imponible
-                    'Importe' 	=> 21 // Importe
-                )
-            ),
-            'Opcionales' 	=> array( // (Opcional) Campos auxiliares
-                array(
-                    'Id' 		=> 17, // Codigo de tipo de opcion (ver tipos disponibles)
-                    'Valor' 	=> 2 // Valor
-                )
-            ),
-            'Compradores' 	=> array( // (Opcional) Detalles de los clientes del comprobante
-                array(
-                    'DocTipo' 		=> 80, // Tipo de documento (ver tipos disponibles)
-                    'DocNro' 		=> 20111111112, // Numero de documento
-                    'Porcentaje' 	=> 100 // Porcentaje de titularidad del comprador
-                )
-            )
+//            'CbtesAsoc' 	=> array( // (Opcional) Comprobantes asociados
+//                array(
+//                    'Tipo' 		=> 6, // Tipo de comprobante (ver tipos disponibles)
+//                    'PtoVta' 	=> 1, // Punto de venta
+//                    'Nro' 		=> 1, // Numero de comprobante
+//                    'Cuit' 		=> 20111111112 // (Opcional) Cuit del emisor del comprobante
+//                )
+//            ),
+//            'Tributos' 		=> array( // (Opcional) Tributos asociados al comprobante
+//                array(
+//                    'Id' 		=>  99, // Id del tipo de tributo (ver tipos disponibles)
+//                    'Desc' 		=> 'Ingresos Brutos', // (Opcional) Descripcion
+//                    'BaseImp' 	=> 150, // Base imponible para el tributo
+//                    'Alic' 		=> 5.2, // Alícuota
+//                    'Importe' 	=> 7.8 // Importe del tributo
+//                )
+//            ),
+//            'Iva' 			=> array( // (Opcional) Alícuotas asociadas al comprobante
+//                array(
+//                    'Id' 		=> 5, // Id del tipo de IVA (ver tipos disponibles)
+//                    'BaseImp' 	=> 100, // Base imponible
+//                    'Importe' 	=> 21 // Importe
+//                )
+//            ),
+//            'Opcionales' 	=> array( // (Opcional) Campos auxiliares
+//                array(
+//                    'Id' 		=> 17, // Codigo de tipo de opcion (ver tipos disponibles)
+//                    'Valor' 	=> 2 // Valor
+//                )
+//            ),
+//            'Compradores' 	=> array( // (Opcional) Detalles de los clientes del comprobante
+//                array(
+//                    'DocTipo' 		=> 80, // Tipo de documento (ver tipos disponibles)
+//                    'DocNro' 		=> 20111111112, // Numero de documento
+//                    'Porcentaje' 	=> 100 // Porcentaje de titularidad del comprador
+//                )
+//            )
         ];
     }
 
     private function parseTypeDocument($getTypeDocument)
     {
-        return '';
+        switch ($getTypeDocument) {
+            case '':
+                return '';
+            default:
+                throw new InvalidTypeDocument();
+        }
     }
 
     private function parseTypeVoucher($getTypeVoucher)
@@ -95,8 +101,7 @@ class CreateVoucherTransformer
     {
         if ($getTotalMoney->getCurrency()->getName() === 'ARS') {
             return 'PES';
-        }
-        else {
+        } else {
             throw new CurrencyNotSupport();
         }
     }

@@ -36,7 +36,8 @@ class CreateCustomerHandler implements HandlerInterface
      */
     public function handle(CreateCustomerCommand $command): void
     {
-        $customer = new Customer($command->getDomain(), $command->getOrganizationName());
+        // TODO: add cuit in flow
+        $customer = new Customer('', $command->getDomain(), $command->getOrganizationName());
         $userCommand = $this->createUserCommandFromCustomerCommand($command);
         $user = $this->userService->createUserByCommand($userCommand);
 

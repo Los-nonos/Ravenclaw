@@ -5,6 +5,7 @@ namespace Application\Queries\Handler\Payments;
 
 
 use Application\Queries\Query\Payments\AfipElectronicBillingQuery;
+use Application\Queries\Results\Payments\AfipElectronicBillingResult;
 use Application\Services\Afip\AfipServices;
 use Application\Services\Afip\CreateVoucherCommand;
 use Application\Services\Customer\CustomerServiceInterface;
@@ -43,26 +44,28 @@ class AfipElectronicBillingHandler implements HandlerInterface
     {
         $user = $this->userService->findCustomerByIdOrFail($query->getCustomerId());
 
-         $voucher = new CreateVoucherCommand(
-             $query->getTotalMoney(),
-             $query->getVoucherQuantity(),
-             $query->getPointOfSale(),
-             $query->getTypeVoucher(),
-             $query->getBuyerTypeDocument(),
-             $query->getBuyerDocumentNumber(),
-             $query->getConcept(),
-             $query->getTaxNet(),
-             $query->getTaxExempt(),
-             $query->getTotalIva(),
-             $query->getTotalTributes(),
-             $query->getAmountNotTaxed(),
-             $query->getInitDate(),
-             $query->getEndDate(),
-             $query->getExpirationDate(),
-         );
+        $this->afipServices->initService($user->getCuit());
 
-         $data = $this->afipServices->createVoucher($voucher);
+        $voucher = new CreateVoucherCommand(
+            $query->getTotalMoney(),
+            $query->getVoucherQuantity(),
+            $query->getPointOfSale(),
+            $query->getTypeVoucher(),
+            $query->getBuyerTypeDocument(),
+            $query->getBuyerDocumentNumber(),
+            $query->getConcept(),
+            $query->getTaxNet(),
+            $query->getTaxExempt(),
+            $query->getTotalIva(),
+            $query->getTotalTributes(),
+            $query->getAmountNotTaxed(),
+            $query->getInitDate(),
+            $query->getEndDate(),
+            $query->getExpirationDate(),
+        );
 
-         //TODO: make any with data
+        $data = $this->afipServices->createVoucher($voucher);
+
+        return new AfipElectronicBillingResult($data);
     }
 }

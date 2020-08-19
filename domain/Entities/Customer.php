@@ -38,8 +38,11 @@ class Customer
      */
     private ?string $paypalClient;
 
-    public function __construct(?string $domain, ?string $organization_name)
+    private string $cuit;
+
+    public function __construct(string $cuit, ?string $domain, ?string $organization_name)
     {
+        $this->cuit = $cuit;
         $this->organization_name = $organization_name;
         $this->domain = $domain;
     }
@@ -89,5 +92,14 @@ class Customer
             'domain' => $this->domain,
             'organization_name' => $this->organization_name
         ];
+    }
+
+    public function getCuit()
+    {
+        return $this->cuit;
+    }
+
+    public function setCuit(string $cuit): void {
+        $this->cuit = $cuit;
     }
 }
