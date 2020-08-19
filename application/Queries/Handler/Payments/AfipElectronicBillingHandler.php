@@ -9,10 +9,6 @@ use Application\Queries\Results\Payments\AfipElectronicBillingResult;
 use Application\Services\Afip\AfipServices;
 use Application\Services\Afip\CreateVoucherCommand;
 use Application\Services\Customer\CustomerServiceInterface;
-use Application\Services\Users\UserServiceInterface;
-use DateTimeImmutable;
-use Infrastructure\Afip\Exceptions\InvalidAfipConcept;
-use Infrastructure\Afip\Exceptions\InvalidDateService;
 use Infrastructure\QueryBus\Handler\HandlerInterface;
 use Infrastructure\QueryBus\Result\ResultInterface;
 
