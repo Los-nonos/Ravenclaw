@@ -26,6 +26,23 @@ class AfipElectronicBillingAdapter
             throw new InvalidBodyException($this->validatorService->getErrors());
         }
 
-        return new AfipElectronicBillingQuery();
+        return new AfipElectronicBillingQuery(
+            $request->input('customer_id'),
+            $request->input('totalAmount'),
+            $request->input('voucherQuantity'),
+            $request->input('pointOfSale'),
+            $request->input('typeVoucher'),
+            $request->input('purchaserTypeDocument'),
+            $request->input('purchaserNumberDocument'),
+            $request->input('concept'),
+            $request->input('taxNet'),
+            $request->input('taxExempt'),
+            $request->input('totalIva'),
+            $request->input('totalTributes'),
+            $request->input('amountNotTaxed'),
+            $request->input('initDate'),
+            $request->input('endDate'),
+            $request->input('expirationDate'),
+        );
     }
 }

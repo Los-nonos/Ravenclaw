@@ -15,8 +15,8 @@ class AfipElectronicBillingQuery implements QueryInterface
     private int $voucherQuantity;
     private int $pointOfSale;
     private string $typeVoucher;
-    private string $buyerTypeDocument;
-    private string $buyerDocumentNumber;
+    private string $purchaserTypeDocument;
+    private string $purchaserNumberDocument;
     private string $concept;
     private Money $taxNet;
     private Money $taxExempt;
@@ -33,8 +33,8 @@ class AfipElectronicBillingQuery implements QueryInterface
         int $voucherQuantity,
         int $pointOfSale,
         string $typeVoucher,
-        string $buyerTypeDocument,
-        string $buyerDocumentNumber,
+        string $purchaserTypeDocument,
+        string $purchaserNumberDocument,
         string $concept,
         Money $taxNet,
         Money $taxExempt,
@@ -50,8 +50,8 @@ class AfipElectronicBillingQuery implements QueryInterface
         $this->voucherQuantity = $voucherQuantity;
         $this->pointOfSale = $pointOfSale;
         $this->typeVoucher = $typeVoucher;
-        $this->buyerTypeDocument = $buyerTypeDocument;
-        $this->buyerDocumentNumber = $buyerDocumentNumber;
+        $this->purchaserTypeDocument = $purchaserTypeDocument;
+        $this->purchaserNumberDocument = $purchaserNumberDocument;
         $this->concept = $concept;
         $this->taxNet = $taxNet;
         $this->taxExempt = $taxExempt;
@@ -83,14 +83,14 @@ class AfipElectronicBillingQuery implements QueryInterface
         return $this->typeVoucher;
     }
 
-    public function getBuyerTypeDocument()
+    public function getPurchaserTypeDocument()
     {
-        return $this->buyerTypeDocument;
+        return $this->purchaserTypeDocument;
     }
 
-    public function getBuyerDocumentNumber()
+    public function getPurchaserNumberDocument()
     {
-        return $this->buyerDocumentNumber;
+        return $this->purchaserNumberDocument;
     }
 
     public function getConcept()

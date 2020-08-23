@@ -21,8 +21,8 @@ class CreateVoucherTransformer
             'PtoVta' 		=> $command->getPointOfSale(), // Punto de venta
             'CbteTipo' 		=> $this->parseTypeVoucher($command->getTypeVoucher()), // Tipo de comprobante (ver tipos disponibles)
             'Concepto' 		=> $this->parseConcept($command->getConcept()), // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
-            'DocTipo' 		=> $this->parseTypeDocument($command->getBuyerTypeDocument()), // Tipo de documento del comprador (ver tipos disponibles)
-            'DocNro' 		=> $command->getBuyerDocumentNumber(), // Numero de documento del comprador
+            'DocTipo' 		=> $this->parseTypeDocument($command->getPurchaserTypeDocument()), // Tipo de documento del comprador (ver tipos disponibles)
+            'DocNro' 		=> $command->getPurchaserNumberDocument(), // Numero de documento del comprador
             'CbteDesde' 	=> 1, // Numero de comprobante o numero del primer comprobante en caso de ser mas de uno
             'CbteHasta' 	=> 1, // Numero de comprobante o numero del ultimo comprobante en caso de ser mas de uno
             'CbteFch' 		=> intval(date('Ymd')), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
