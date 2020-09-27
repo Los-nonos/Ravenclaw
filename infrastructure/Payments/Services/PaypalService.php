@@ -34,7 +34,7 @@ class PaypalService
             $this->createClient($payment->getAuthorization(), $payment->getAccessToken());
         }
 
-        if(!$payment->getType() == 'paypal')
+        if($payment->getGateway() !== 'paypal')
         {
             throw new InvalidServicePaymentException();
         }

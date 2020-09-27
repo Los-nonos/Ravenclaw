@@ -4,6 +4,7 @@
 namespace Application\Queries\Handler\Payments;
 
 
+use Application\Exceptions\FailedPaymentException;
 use Application\Queries\Query\Payments\MercadoPagoExecuteQuery;
 use Application\Queries\Results\Payments\MercadoPagoExecuteResult;
 use Application\Services\Customer\CustomerServiceInterface;
@@ -38,6 +39,7 @@ class MercadoPagoExecuteHandler implements HandlerInterface
     /**
      * @param MercadoPagoExecuteQuery $command
      * @return ResultInterface
+     * @throws FailedPaymentException
      */
     public function handle($command): ResultInterface
     {

@@ -37,7 +37,7 @@ class Payment
         return $this->authorization;
     }
 
-    public function getAmount(): Money
+    public function getTransactionAmount(): Money
     {
         return $this->amount;
     }
