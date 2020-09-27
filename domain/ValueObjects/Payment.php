@@ -14,18 +14,22 @@ class Payment
 
     private int $customer_id;
 
-    private string $type;
+    private string $gateway;
 
     private string $paymentId;
 
     private string $payerId;
 
-    public function __construct(Money $amount, $authorization = "", int $customer_id = 0, string $type = "")
+    private string $lastStatus;
+    private $responseData;
+    private $requestData;
+
+    public function __construct(Money $amount, $authorization = "", int $customer_id = 0, string $gateway = "")
     {
         $this->authorization = $authorization;
         $this->amount = $amount;
         $this->customer_id = $customer_id;
-        $this->type = $type;
+        $this->gateway = $gateway;
     }
 
     public function getAuthorization(): string
@@ -43,9 +47,9 @@ class Payment
         return $this->customer_id;
     }
 
-    public function getType(): string
+    public function getGateway(): string
     {
-        return $this->type;
+        return $this->gateway;
     }
 
     public function setPaymentId(string $paymentId): void
@@ -66,5 +70,28 @@ class Payment
     public function getPayerId(): string
     {
         return $this->payerId;
+    }
+
+    public function setLastStatus(string $status)
+    {
+        $this->lastStatus = $status;
+    }
+
+    public function setApprovedDate(string $date)
+    {
+        $this->approvedDate = $date;
+    }
+
+    public function setRequestData($data) {
+        $this->requestData = $data;
+    }
+
+    public function setResponseData($data) {
+        $this->responseData = $data;
+    }
+
+    public function getLastStatus()
+    {
+        return $this->lastStatus;
     }
 }

@@ -1,16 +1,14 @@
 <?php
 
 
-namespace Application\Services\Payments;
+namespace Infrastructure\Payments\Services;
 
 
 use Application\Exceptions\FailedPaymentException;
 use Application\Exceptions\InvalidServicePaymentException;
 use Application\Exceptions\PaypalClientNotDefined;
-use Application\Services\Payments\PayPalServiceInterface;
 use Domain\Entities\Customer;
-use Domain\Entities\Order;
-
+use Domain\Enums\State;
 use Domain\ValueObjects\Payment;
 use Money\Money;
 use Paypal\Core\PaypalHttpClient;
@@ -19,21 +17,21 @@ use Paypal\v1\Payments\PaymentExecuteRequest;
 use Paypal\Core\SandboxEnvironment;
 use Paypal\Core\ProductionEnvironment;
 
-class PaypalService implements PayPalServiceInterface
+class PaypalService
 {
     private PaypalHttpClient $client;
 
     /**
      * @param Payment $payment
+     * @return Payment
      * @throws InvalidServicePaymentException
-     * @throws FailedPaymentException
-     * @return Order
+     * @throws FailedPaymentException|PaypalClientNotDefined
      */
-    public function execute(Payment $payment): Order
+    public function execute(Payment $payment): Payment
     {
         if($this->client == null)
         {
-            throw new FailedPaymentException('¡client not generated!');
+            $this->createClient($payment->getAuthorization(), $payment->getAccessToken());
         }
 
         if(!$payment->getType() == 'paypal')
@@ -50,11 +48,11 @@ class PaypalService implements PayPalServiceInterface
         $response = $this->client->execute($paymentExecute);
 
         if($response->statusCode == 200) {
-            return new Order(
-                $response->result['amount'],
-                $response->result['date'],
-                true
-            );
+            $payment->setLastStatus(State::APPROVED);
+            $payment->setApprovedDate($response->result['date']);
+            $payment->setResponseData($response->result);
+
+            return $payment;
         }
         else {
             throw new FailedPaymentException(json_encode($response->result));
@@ -120,7 +118,11 @@ class PaypalService implements PayPalServiceInterface
             throw new PaypalClientNotDefined("Client id not defined");
         }
 
-        $environment = new SandboxEnvironment($clientId, $access_token);
+        if (env('APP_ENV') === 'production'){
+            $environment = new ProductionEnvironment($clientId, $access_token);
+        }else {
+            $environment = new SandboxEnvironment($clientId, $access_token);
+        }
 
         $this->client = new PaypalHttpClient($environment);
     }
