@@ -6,17 +6,17 @@ namespace Application\Queries\Handler\Payments;
 use Application\Queries\Query\Payments\PayPalAuthorizationQuery;
 use Application\Queries\Results\Payments\PaypalAuthorizationResult;
 use Application\Services\Customer\CustomerServiceInterface;
-use Application\Services\Payments\PaypalServiceInterface;
+use Infrastructure\Payments\Services\PaypalService;
 use Infrastructure\QueryBus\Handler\HandlerInterface;
 
 class PayPalAuthorizationHandler implements HandlerInterface
 {
-    private PaypalServiceInterface $service;
+    private PaypalService $service;
     private PaypalAuthorizationResult $result;
     private CustomerServiceInterface $customerService;
 
     public function __construct(
-        PaypalServiceInterface $paypalService,
+        PaypalService $paypalService,
         CustomerServiceInterface $customerService,
         PaypalAuthorizationResult $result
     )

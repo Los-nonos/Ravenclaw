@@ -7,9 +7,9 @@ use Application\Queries\Query\Payments\PaypalExecuteQuery;
 use Application\Queries\Results\Payments\PaypalExecuteResult;
 use Application\Services\Customer\CustomerServiceInterface;
 use Application\Services\Orders\OrderServiceInterface;
-use Application\Services\Payments\PaypalServiceInterface;
 use Domain\ValueObjects\Payment;
 use Infrastructure\CommandBus\Handler\HandlerInterface;
+use Infrastructure\Payments\Services\PaypalService;
 use Infrastructure\QueryBus\Result\ResultInterface;
 use Money\Currency;
 use Money\Money;
@@ -18,14 +18,14 @@ class PaypalExecuteHandler implements HandlerInterface
 {
     private PaypalExecuteResult $result;
 
-    private PaypalServiceInterface $paypalService;
+    private PaypalService $paypalService;
 
     private OrderServiceInterface $orderService;
 
     private CustomerServiceInterface $customerService;
 
     public function __construct(
-        PaypalServiceInterface $paypalService,
+        PaypalService $paypalService,
         OrderServiceInterface $orderService,
         PaypalExecuteResult $result,
         CustomerServiceInterface $customerService
@@ -47,15 +47,10 @@ class PaypalExecuteHandler implements HandlerInterface
         $payment->setPayerId($command->getPayerId());
         $payment->setPaymentId($command->getPaymentId());
 
-        $customer = $this->customerService->findCustomerByIdOrFail($command->getCustomerId());
+        $this->customerService->findCustomerByIdOrFail($command->getCustomerId());
 
-        $this->paypalService->createClient($customer->getClientTokenPaypal(), $command->getAccessToken());
+        $this->paypalService->execute($payment);
 
-        $order = $this->paypalService->execute($payment);
-        $order->setCustomer($customer);
-        $this->orderService->persist($order);
-
-        $this->result->setOrder($order);
         return $this->result;
     }
 }

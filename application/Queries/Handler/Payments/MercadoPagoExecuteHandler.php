@@ -8,13 +8,13 @@ use Application\Queries\Query\Payments\MercadoPagoExecuteQuery;
 use Application\Queries\Results\Payments\MercadoPagoExecuteResult;
 use Application\Services\Customer\CustomerServiceInterface;
 use Application\Services\Orders\OrderServiceInterface;
-use Application\Services\Payments\MercadoPagoServiceInterface;
+use Infrastructure\Payments\Services\MercadoPagoService;
 use Infrastructure\QueryBus\Handler\HandlerInterface;
 use Infrastructure\QueryBus\Result\ResultInterface;
 
 class MercadoPagoExecuteHandler implements HandlerInterface
 {
-    private MercadoPagoServiceInterface $mercadoPagoService;
+    private MercadoPagoService $mercadoPagoService;
 
     private OrderServiceInterface $orderService;
 
@@ -23,7 +23,7 @@ class MercadoPagoExecuteHandler implements HandlerInterface
     private CustomerServiceInterface $customerService;
 
     public function __construct(
-        MercadoPagoServiceInterface $mercadoPagoService,
+        MercadoPagoService $mercadoPagoService,
         OrderServiceInterface $orderService,
         MercadoPagoExecuteResult $result,
         CustomerServiceInterface $customerService
