@@ -4,22 +4,17 @@
 namespace Infrastructure\Payments;
 
 
-use Application\Services\Payments\PaypalService;
 use Domain\Enums\State;
-use Domain\ValueObjects\Payment;
+use Domain\Entities\Payment;
 use Exception;
 use Infrastructure\Payments\Interfaces\PaymentGateway;
+use Infrastructure\Payments\ValueObjects\PaymentParams;
 
 class PaypalGateway implements PaymentGateway
 {
-    /**
-     * @var PaypalService
-     */
-    private PaypalService $paypalService;
 
-    public function __construct(PaypalService $paypalService)
+    public function __construct()
     {
-        $this->paypalService = $paypalService;
     }
 
 
@@ -29,8 +24,17 @@ class PaypalGateway implements PaymentGateway
             throw new Exception("can not process this payment");
         }
 
-        $payment = $this->paypalService->execute($payment);
 
         return $payment;
     }
+
+  public function prepare(Payment $payment, PaymentParams $params): Payment
+  {
+    // TODO: Implement prepare() method.
+  }
+
+  public function currentState(Payment $payment): string
+  {
+    // TODO: Implement currentState() method.
+  }
 }

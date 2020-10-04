@@ -9,7 +9,7 @@ use Application\Exceptions\InvalidServicePaymentException;
 use Application\Exceptions\PaypalClientNotDefined;
 use Domain\Entities\Customer;
 use Domain\Enums\State;
-use Domain\ValueObjects\Payment;
+use Domain\Entities\Payment;
 use Money\Money;
 use Paypal\Core\PaypalHttpClient;
 use Paypal\v1\Payments\PaymentCreateRequest;
