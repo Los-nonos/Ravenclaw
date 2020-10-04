@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Application\Queries\Query;
+namespace Application\Queries\Query\Auth;
 
 
 use Infrastructure\QueryBus\Query\QueryInterface;

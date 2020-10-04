@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Application\Queries\Query\Payments;
+namespace Application\Commands\Command\Payments;
 
 
-use Infrastructure\QueryBus\Query\QueryInterface;
+use Infrastructure\CommandBus\Command\CommandInterface;
 
-class ProcessPaymentQuery implements QueryInterface
+class ProcessPaymentsCommand implements CommandInterface
 {
   private $amount;
   private $currency;
@@ -18,6 +18,18 @@ class ProcessPaymentQuery implements QueryInterface
   private $payerName;
   private $token;
   private $bin;
+
+  public function __construct(
+    string $token,
+    string $bin,
+    int $customerId,
+    string $gateway
+  ) {
+    $this->token = $token;
+    $this->bin = $bin;
+    $this->customerId = $customerId;
+    $this->gateway = $gateway;
+  }
 
   public function getAmount(): int
   {

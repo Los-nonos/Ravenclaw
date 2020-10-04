@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Application\Queries\Query\Payments;
+namespace Application\Commands\Command\Payments;
 
 
 use DateTimeImmutable;
-use Infrastructure\QueryBus\Query\QueryInterface;
+use Infrastructure\CommandBus\Command\CommandInterface;
 use Money\Money;
 
-class AfipElectronicBillingQuery implements QueryInterface
+class AfipElectronicBillingCommand implements CommandInterface
 {
     private int $customerId;
     private Money $total;

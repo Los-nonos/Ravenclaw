@@ -66,7 +66,7 @@ class DecidirGateway implements PaymentGateway, AuthorizableGateway
 
   public function process(Payment $payment): Payment
   {
-    logger('Attempting to process payment # ' . $payment->getId());
+    logger('Attempting to process payment #' . $payment->getId());
 
     $response = $this->decidir->process($payment->getRequestData(), $payment->getParams());
     logger('Received response', $response);

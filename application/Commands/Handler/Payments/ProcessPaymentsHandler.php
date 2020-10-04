@@ -1,12 +1,11 @@
 <?php
 
 
-namespace Application\Queries\Handler\Payments;
+namespace Application\Commands\Handler\Payments;
 
 
+use Application\Commands\Command\Payments\ProcessPaymentsCommand;
 use Application\Exceptions\InvalidPayment;
-use Application\Queries\Query\Payments\ProcessPaymentQuery;
-use Application\Queries\Results\Payments\ProcessPaymentResult;
 use Application\Services\Customer\CustomerServiceInterface;
 use Application\Services\Payer\PayerService;
 use Application\Services\Payments\PaymentService;
@@ -16,14 +15,12 @@ use Infrastructure\Payments\Exceptions\GatewayNotFound;
 use Infrastructure\Payments\Exceptions\PaymentRejectedException;
 use Infrastructure\Payments\Factories\PaymentGatewayFactory;
 use Infrastructure\Payments\ValueObjects\PaymentParams;
-use Infrastructure\QueryBus\Handler\HandlerInterface;
-use Infrastructure\QueryBus\Query\QueryInterface;
-use Infrastructure\QueryBus\Result\ResultInterface;
+use Infrastructure\CommandBus\Handler\HandlerInterface;
 use Money\Currency;
 use Money\Money;
 use Money\UnknownCurrencyException;
 
-class ProcessPaymentHandler implements HandlerInterface
+class ProcessPaymentsHandler implements HandlerInterface
 {
   const DEFAULT_GATEWAY = 'decidir';
   const KEY_TOKEN = 'token';
@@ -50,25 +47,24 @@ class ProcessPaymentHandler implements HandlerInterface
   }
 
   /**
-   * @param ProcessPaymentQuery $query
-   * @return ResultInterface
+   * @param ProcessPaymentsCommand $command
    * @throws InvalidPayment|GatewayNotFound|UnknownCurrencyException|PaymentRejectedException
    */
-  public function handle($query): ResultInterface
+  public function handle($command): void
   {
-    $amount = new Money($query->getAmount(), new Currency($query->getCurrency()));
+    $amount = new Money($command->getAmount(), new Currency($command->getCurrency()));
 
-    $customer = $this->customerService->findCustomerByIdOrFail($query->getCustomerId());
+    $customer = $this->customerService->findCustomerByIdOrFail($command->getCustomerId());
 
-    $payer = $this->payerService->findOrCreate($query->getPayerName(), $query->getPayerDni(), $query->getPayerEmail());
+    $payer = $this->payerService->findOrCreate($command->getPayerName(), $command->getPayerDni(), $command->getPayerEmail());
 
-    $payment = $this->paymentService->create($amount, $customer, $payer, $query->getGatewayId() ?? self::DEFAULT_GATEWAY);
+    $payment = $this->paymentService->create($amount, $customer, $payer, $command->getGatewayId() ?? self::DEFAULT_GATEWAY);
 
     $params = [
-      self::KEY_TOKEN => $query->getToken(),
-      self::KEY_CREDIT_BIN => $query->getBin(),
+      self::KEY_TOKEN => $command->getToken(),
+      self::KEY_CREDIT_BIN => $command->getBin(),
       self::KEY_INSTALLMENT => 10,
-      self::KEY_PAYMENT_METHOD_ID => $query->getPaymentMethod()
+      self::KEY_PAYMENT_METHOD_ID => $command->getPaymentMethod()
     ];
 
     $paymentParams = new PaymentParams($params);
@@ -94,7 +90,5 @@ class ProcessPaymentHandler implements HandlerInterface
 
       throw new PaymentRejectedException('Pago rechazado, por favor revise los datos ingresados o intente más tarde');
     }
-
-    return new ProcessPaymentResult($payment);
   }
 }
