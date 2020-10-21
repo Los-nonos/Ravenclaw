@@ -10,6 +10,7 @@ jobs:
 
       - run: sudo apt update && sudo apt install zlib1g-dev libsqlite3-dev
       - run: sudo docker-php-ext-install zip
+      - run: sudo apt-get install php-redis && sudo apt-get install php-soap
 
       # Download and cache dependencies
       - run: cp .env.example .env

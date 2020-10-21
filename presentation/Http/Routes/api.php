@@ -44,11 +44,10 @@ Route::middleware('role.auth:admin')->prefix('customers')->group(function() {
 });
 
 Route::middleware('role.auth:customer')->prefix('payments')->group(function () {
-    Route::post('/paypal/authorization', Actions\Payments\PaypalAuthorizationAction::class)->name('paypalAuthorization');
 
-    Route::post('/paypal/pay', Actions\Payments\PaypalExecuteAction::class)->name('paypalPay');
+  Route::post('/process', Actions\Payments\ProcessPaymentAction::class)->name('process-payments');
 
-    Route::post('/mercadopago/pay', Actions\Payments\MercadoPagoExecuteAction::class)->name('mercadoPagoPay');
+  Route::post('/authorize', Actions\Payments\AuthorizePaymentsAction::class)->name('authorize-payments');
 
-    Route::post('/afip/electronic-billing', Actions\Payments\AfipElectronicBillingAction::class)->name('afip-electronicBilling');
+  Route::post('/afip/electronic-billing', Actions\Payments\AfipElectronicBillingAction::class)->name('afip-electronicBilling');
 });
